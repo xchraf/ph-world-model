@@ -70,6 +70,63 @@ def aggregate(runs: list[dict[str, Any]], sources: list[Path]) -> dict[str, Any]
                             "freeAffineConformalSymplecticDefect"
                         ],
                     ),
+                    "effectiveMass": [
+                        _collect(
+                            runs,
+                            lambda run,
+                            r=readout,
+                            i=stage_index,
+                            d=decoder,
+                            j=index: run["readouts"][r][i]["decoders"][d][
+                                "decodedPortHamiltonianParameters"
+                            ]["effectiveMass"][j],
+                        )
+                        for index in range(2)
+                    ],
+                    "effectiveDrag": [
+                        _collect(
+                            runs,
+                            lambda run,
+                            r=readout,
+                            i=stage_index,
+                            d=decoder,
+                            j=index: run["readouts"][r][i]["decoders"][d][
+                                "decodedPortHamiltonianParameters"
+                            ]["effectiveDrag"][j],
+                        )
+                        for index in range(2)
+                    ],
+                    "regimes": {
+                        regime: {
+                            "samples": _collect(
+                                runs,
+                                lambda run,
+                                r=readout,
+                                i=stage_index,
+                                d=decoder,
+                                g=regime: run["readouts"][r][i]["decoders"][d][
+                                    "decodedEndpointDynamics"
+                                ][g]["samples"],
+                            ),
+                            "models": {
+                                model: _collect(
+                                    runs,
+                                    lambda run,
+                                    r=readout,
+                                    i=stage_index,
+                                    d=decoder,
+                                    g=regime,
+                                    m=model: run["readouts"][r][i]["decoders"][d][
+                                        "decodedEndpointDynamics"
+                                    ][g]["models"][m]["deltaNrmse"],
+                                )
+                                for model in ("portHamiltonian", "affine")
+                            },
+                        }
+                        for regime in first["readouts"][readout][stage_index][
+                            "decoders"
+                        ][decoder]["decodedEndpointDynamics"]
+                    },
                     "horizons": {
                         horizon: {
                             "models": {
@@ -188,7 +245,7 @@ def aggregate(runs: list[dict[str, Any]], sources: list[Path]) -> dict[str, Any]
         },
     }
     return {
-        "version": 1,
+        "version": 2,
         "runs": len(runs),
         "sources": [str(path) for path in sources],
         "checkpointStep": first["checkpointStep"],
@@ -237,6 +294,32 @@ def markdown_summary(result: dict[str, Any]) -> str:
             lines.append(
                 f"| {stage['stage']} | {_fmt(state['qR2'])} | {_fmt(state['pR2'])} "
                 f"| {_fmt(aligned['qR2'])} | {_fmt(aligned['pR2'])} |"
+            )
+        lines.append("")
+
+    lines.extend(
+        [
+            "## State-only geometric diagnostics",
+            "",
+            "The fitted masses and drags are effective parameters of the decoded coordinates, not direct simulator-parameter estimates.",
+            "",
+        ]
+    )
+    for readout, stages in result["readouts"].items():
+        lines.extend(
+            [
+                f"### {readout}",
+                "",
+                "| Stage | Conformal symplectic defect | Effective mass, player / puck | Effective drag, player / puck |",
+                "| --- | ---: | ---: | ---: |",
+            ]
+        )
+        for stage in stages:
+            decoder = stage["decoders"]["stateOnly"]
+            lines.append(
+                f"| {stage['stage']} | {_fmt(decoder['conformalSymplecticDefect'])} "
+                f"| {_fmt(decoder['effectiveMass'][0])} / {_fmt(decoder['effectiveMass'][1])} "
+                f"| {_fmt(decoder['effectiveDrag'][0])} / {_fmt(decoder['effectiveDrag'][1])} |"
             )
         lines.append("")
 
@@ -295,6 +378,33 @@ def markdown_summary(result: dict[str, Any]) -> str:
                 f"| {_fmt(horizon['pairingControl']['portHamiltonian'])} "
                 f"| {_fmt(horizon['reverseTimeControl']['portHamiltonian'])} "
                 f"| {_fmt(horizon['reverseTimeControl']['affine'])} |"
+            )
+        lines.append("")
+    lines.extend(
+        [
+            "## Event regimes at block 6",
+            "",
+            "One-frame delta NRMSE for the state-only decoder. Persistence equals 1.0; goal-entry estimates have few samples and are descriptive only.",
+            "",
+        ]
+    )
+    for readout in ("entity_pair", "spatial_mean", "fixed_bottom_right"):
+        lines.extend(
+            [
+                f"### {readout}",
+                "",
+                "| Regime | Test samples per run | pH | Affine |",
+                "| --- | ---: | ---: | ---: |",
+            ]
+        )
+        regimes = result["readouts"][readout][-1]["decoders"]["stateOnly"][
+            "regimes"
+        ]
+        for regime, values in regimes.items():
+            lines.append(
+                f"| {regime} | {_fmt(values['samples'], 1)} "
+                f"| {_fmt(values['models']['portHamiltonian'])} "
+                f"| {_fmt(values['models']['affine'])} |"
             )
         lines.append("")
     return "\n".join(lines) + "\n"

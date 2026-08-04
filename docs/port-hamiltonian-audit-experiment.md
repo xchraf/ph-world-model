@@ -119,3 +119,9 @@ hard-bottleneck experiment is required for that stronger claim.
 The smooth pH map is expected to fail at instantaneous impacts and resets. This
 is diagnostic evidence for a later hybrid pH transition, not evidence against
 the pH description of collision-free motion.
+
+## Completed Mesohelios run
+
+The five-seed results, aggregate tables, temporal controls, and scientific
+interpretation are recorded in
+[`results/mesohelios-port-hamiltonian-audit`](../results/mesohelios-port-hamiltonian-audit/README.md).
