@@ -21,6 +21,13 @@ export PYTHONPATH=/workspace
 D1_SEED="${D1_SEED:-121610731}"
 D1_OUTPUT="${D1_OUTPUT:-jacobian-port-bridge-seed-$D1_SEED}"
 D1_PH_CHECKPOINT="${D1_PH_CHECKPOINT:-/workspace/results/mesohelios-neural-port-hamiltonian/artifacts/neural-ph-seed-111610731/checkpoint.pt}"
+D1_LENS_FIT_SAMPLES="${D1_LENS_FIT_SAMPLES:-512}"
+D1_TEST_POLICY_SAMPLES="${D1_TEST_POLICY_SAMPLES:-256}"
+D1_TEST_CARDINAL_SAMPLES="${D1_TEST_CARDINAL_SAMPLES:-256}"
+D1_BATCH_SIZE="${D1_BATCH_SIZE:-32}"
+D1_STRENGTHS="${D1_STRENGTHS:-1,4,8}"
+D1_PRIMARY_STRENGTH="${D1_PRIMARY_STRENGTH:-8}"
+D1_RANDOM_DIRECTION_PAIRS="${D1_RANDOM_DIRECTION_PAIRS:-16}"
 
 mkdir -p "$PHWM_WORK_ROOT/outputs/$D1_OUTPUT"
 
@@ -31,12 +38,12 @@ mkdir -p "$PHWM_WORK_ROOT/outputs/$D1_OUTPUT"
     /work/outputs/main-recovery-12000/checkpoint.pt \
     "$D1_PH_CHECKPOINT" \
     "/work/outputs/$D1_OUTPUT/summary.json" \
-    --lens-fit-samples 512 \
-    --test-policy-samples 256 \
-    --test-cardinal-samples 256 \
-    --batch-size 32 \
-    --strengths 1,4,8 \
-    --primary-strength 8 \
-    --random-direction-pairs 16 \
+    --lens-fit-samples "$D1_LENS_FIT_SAMPLES" \
+    --test-policy-samples "$D1_TEST_POLICY_SAMPLES" \
+    --test-cardinal-samples "$D1_TEST_CARDINAL_SAMPLES" \
+    --batch-size "$D1_BATCH_SIZE" \
+    --strengths "$D1_STRENGTHS" \
+    --primary-strength "$D1_PRIMARY_STRENGTH" \
+    --random-direction-pairs "$D1_RANDOM_DIRECTION_PAIRS" \
     --seed "$D1_SEED" \
     --device cuda
