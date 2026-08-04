@@ -33,6 +33,7 @@ from .pixel_only_ph_experiment import (
     _learning_rate_multiplier,
     _move_suite,
     _parameter_change_payload,
+    _physical_probe,
     _pixel_cross_entropy,
     _rgb_frames_to_classes_cpu,
     _whitening_loss,
@@ -763,6 +764,10 @@ def run_end_to_end_ph_experiment(
     )
     evaluation_collection_seconds = time.perf_counter() - evaluation_collection_started
     evaluation_started = time.perf_counter()
+    physical_probes = {}
+    for name, branch in branches.items():
+        branch.eval().requires_grad_(False)
+        physical_probes[name] = _physical_probe(branch, audit)
     evaluation: dict[str, Any] = {}
     for suite_name, suite in evaluation_suites.items():
         evaluation[suite_name] = {
@@ -773,6 +778,7 @@ def run_end_to_end_ph_experiment(
                 class_weights,
                 config,  # type: ignore[arg-type]
                 full_audit=suite_name == "policy",
+                physical_probe_result=physical_probes[name],
             )
             for name, branch in branches.items()
         }

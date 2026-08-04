@@ -844,9 +844,14 @@ def _evaluate_branch(
     config: PixelOnlyPHConfig,
     *,
     full_audit: bool = True,
+    physical_probe_result: tuple[Any, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     branch.eval().requires_grad_(False)
-    physical_fit, probe_metrics = _physical_probe(branch, audit)
+    physical_fit, probe_metrics = (
+        _physical_probe(branch, audit)
+        if physical_probe_result is None
+        else physical_probe_result
+    )
     with torch.no_grad():
         encoded = branch.encode(_suite_model_inputs(suite))
         physical = canonical_state(suite["worldStates"])
