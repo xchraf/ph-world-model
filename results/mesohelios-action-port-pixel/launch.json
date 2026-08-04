@@ -1,0 +1,49 @@
+{
+  "experiment": "action_port_pixel_reinjection",
+  "protocolCommit": "647a090",
+  "baseCheckpoint": "/Work/Users/aelmessaoudi/world-model/outputs/main-recovery-12000/checkpoint.pt",
+  "calibrations": [
+    {
+      "jobId": 229303,
+      "trajectories": 256,
+      "dynamicsSteps": 100,
+      "rendererSteps": 100,
+      "slurmSeconds": 24,
+      "internalSeconds": 9.566972824046388
+    },
+    {
+      "jobId": 229307,
+      "trajectories": 256,
+      "dynamicsSteps": 100,
+      "rendererSteps": 2000,
+      "slurmSeconds": 30,
+      "internalSeconds": 14.863033951027319,
+      "rendererOracle": {
+        "playerIou": 0.4430364966392517,
+        "puckIou": 0.18282514810562134
+      }
+    },
+    {
+      "jobId": 229308,
+      "trajectories": 256,
+      "dynamicsSteps": 100,
+      "rendererSteps": 5000,
+      "slurmSeconds": 46,
+      "internalSeconds": 31.860844648210332,
+      "rendererOracle": {
+        "playerIou": 0.8934056162834167,
+        "puckIou": 0.8538103103637695
+      }
+    }
+  ],
+  "fullRuns": [
+    {"seed": 101510731, "jobId": 229312},
+    {"seed": 101520731, "jobId": 229311},
+    {"seed": 101530731, "jobId": 229313},
+    {"seed": 101540731, "jobId": 229314},
+    {"seed": 101550731, "jobId": 229315}
+  ],
+  "submissionTime": "2026-08-04T17:47:12+02:00",
+  "estimatedCompletionAfterSubmissionMinutes": [45, 60],
+  "schedulerConstraint": "QOSMaxGRESPerUser: one A100 job at a time"
+}
