@@ -518,7 +518,7 @@ def _physical_probe(
     audit: dict[str, torch.Tensor],
 ) -> tuple[Any, dict[str, Any]]:
     with torch.no_grad():
-        encoded = branch.encode(audit["features"])
+        encoded = branch.encode(_suite_model_inputs(audit))
     physical = canonical_state(audit["worldStates"])
     split = encoded.shape[0] // 2
     fit = _fit_ridge(
@@ -842,11 +842,13 @@ def _evaluate_branch(
     audit: dict[str, torch.Tensor],
     class_weights: torch.Tensor,
     config: PixelOnlyPHConfig,
+    *,
+    full_audit: bool = True,
 ) -> dict[str, Any]:
     branch.eval().requires_grad_(False)
     physical_fit, probe_metrics = _physical_probe(branch, audit)
     with torch.no_grad():
-        encoded = branch.encode(suite["features"])
+        encoded = branch.encode(_suite_model_inputs(suite))
         physical = canonical_state(suite["worldStates"])
         current_physical = _ridge_predict(
             physical_fit, encoded.reshape(-1, encoded.shape[-1])
@@ -908,11 +910,15 @@ def _evaluate_branch(
                 (zero_ce - correct_ce) / correct_ce.clamp_min(1e-12)
             ),
         }
-        counterfactual = _counterfactual_audit(
-            branch,
-            encoded[:, 0],
-            suite["worldStates"][:, 0],
-            physical_fit,
+        counterfactual = (
+            _counterfactual_audit(
+                branch,
+                encoded[:, 0],
+                suite["worldStates"][:, 0],
+                physical_fit,
+            )
+            if full_audit
+            else None
         )
         structure = (
             _structured_audit(
@@ -922,15 +928,19 @@ def _evaluate_branch(
                 physical[:, 0],
                 physical_fit,
             )
-            if isinstance(branch.core, NeuralPortHamiltonian)
+            if full_audit and isinstance(branch.core, NeuralPortHamiltonian)
             else None
         )
 
-    closed_loop = _closed_loop_control(
-        branch,
-        encoded[:, 0],
-        suite["worldStates"][:, 0],
-        config,
+    closed_loop = (
+        _closed_loop_control(
+            branch,
+            encoded[:, 0],
+            suite["worldStates"][:, 0],
+            config,
+        )
+        if full_audit
+        else None
     )
     return {
         "postHocPhysicalProbe": probe_metrics,
@@ -941,8 +951,14 @@ def _evaluate_branch(
         "currentFrameReconstruction": reconstruction_metrics,
         "rolloutByHorizon": horizons,
         "actionControls": action_controls,
-        "oneStepCounterfactualAction": counterfactual,
-        "closedLoopPixelTargetControl": closed_loop,
+        **(
+            {
+                "oneStepCounterfactualAction": counterfactual,
+                "closedLoopPixelTargetControl": closed_loop,
+            }
+            if full_audit
+            else {}
+        ),
         **({"structure": structure} if structure is not None else {}),
     }
 
@@ -1037,6 +1053,14 @@ def _decision(evaluation: dict[str, Any]) -> dict[str, Any]:
 
 def _move_suite(suite: dict[str, torch.Tensor], device: torch.device) -> dict[str, torch.Tensor]:
     return {name: value.to(device) for name, value in suite.items()}
+
+
+def _suite_model_inputs(suite: dict[str, torch.Tensor]) -> torch.Tensor:
+    """Return either cached readouts or raw pixel contexts for end-to-end models."""
+
+    if "pixelContexts" in suite:
+        return suite["pixelContexts"]
+    return suite["features"]
 
 
 def run_pixel_only_ph_experiment(
