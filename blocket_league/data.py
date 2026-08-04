@@ -84,6 +84,86 @@ def make_clip(
     }
 
 
+def make_excitation_clip(
+    seed: int,
+    *,
+    context_frames: int = 8,
+    future_frames: int = 8,
+    image_size: int = 64,
+    action_family: str = "cardinal",
+) -> dict[str, np.ndarray]:
+    """Generate persistently exciting controls independently of the game policy."""
+
+    if action_family not in {"cardinal", "diagonal", "reversal"}:
+        raise ValueError(f"unknown excitation family {action_family!r}")
+    rng = np.random.default_rng(seed)
+    env = BlocketLeagueEnv(seed=seed, config=WorldConfig(image_size=image_size))
+    state = env.state
+    state.score = int(rng.integers(0, 5))
+    state.reset_timer = 0
+    state.last_event = "coast"
+    state.player_position = rng.uniform((0.24, 0.25), (0.40, 0.75)).astype(np.float32)
+    state.puck_position = rng.uniform((0.62, 0.25), (0.78, 0.75)).astype(np.float32)
+    state.player_velocity = rng.uniform(-0.12, 0.12, size=2).astype(np.float32)
+    state.puck_velocity = rng.uniform(-0.10, 0.10, size=2).astype(np.float32)
+
+    frame_count = context_frames + future_frames
+    if action_family == "cardinal":
+        candidates = np.asarray((0, 1, 3, 5, 7), dtype=np.int64)
+        actions_plan: list[int] = []
+        while len(actions_plan) < frame_count - 1:
+            action = int(rng.choice(candidates))
+            actions_plan.extend([action] * int(rng.integers(1, 4)))
+        actions_plan = actions_plan[: frame_count - 1]
+    elif action_family == "diagonal":
+        candidates = np.asarray((0, 2, 4, 6, 8), dtype=np.int64)
+        actions_plan = []
+        while len(actions_plan) < frame_count - 1:
+            action = int(rng.choice(candidates))
+            actions_plan.extend([action] * int(rng.integers(1, 3)))
+        actions_plan = actions_plan[: frame_count - 1]
+    else:
+        opposite_pair = (3, 7) if bool(rng.integers(0, 2)) else (1, 5)
+        phase = int(rng.integers(0, 2))
+        actions_plan = [
+            opposite_pair[(index + phase) % 2]
+            for index in range(frame_count - 1)
+        ]
+
+    frames: list[np.ndarray] = [env.render()]
+    states: list[np.ndarray] = [state.vector()]
+    actions: list[int] = []
+    events: list[int] = []
+    event_ids = {
+        "coast": 0,
+        "thrust": 1,
+        "impact": 2,
+        "wall": 3,
+        "goal": 4,
+        "kickoff": 5,
+    }
+    for action in actions_plan:
+        env.step(action)
+        actions.append(action)
+        frames.append(env.render())
+        states.append(env.state.vector())
+        events.append(event_ids.get(env.state.last_event, 0))
+
+    frame_array = np.stack(frames)
+    state_array = np.stack(states)
+    return {
+        "frames": frame_array,
+        "context": frame_array[:context_frames],
+        "target": frame_array[context_frames:],
+        "actions": np.asarray(actions[context_frames - 1 :], dtype=np.int64),
+        "state": state_array[context_frames:],
+        "events": np.asarray(events[context_frames - 1 :], dtype=np.int64),
+        "all_state": state_array,
+        "all_events": np.asarray([0, *events], dtype=np.int64),
+        "all_actions": np.asarray([0, *actions], dtype=np.int64),
+    }
+
+
 def make_passive_clip(
     seed: int,
     *,

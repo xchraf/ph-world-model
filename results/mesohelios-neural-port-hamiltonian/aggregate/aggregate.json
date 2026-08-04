@@ -1,0 +1,962 @@
+{
+  "kind": "state_dependent_neural_port_hamiltonian_aggregate",
+  "version": 1,
+  "runs": 5,
+  "summarySources": [
+    "/work/outputs/neural-ph-seed-111610731/summary.json",
+    "/work/outputs/neural-ph-seed-111620731/summary.json",
+    "/work/outputs/neural-ph-seed-111630731/summary.json",
+    "/work/outputs/neural-ph-seed-111640731/summary.json",
+    "/work/outputs/neural-ph-seed-111650731/summary.json"
+  ],
+  "checkpointSources": [
+    "/work/outputs/neural-ph-seed-111610731/checkpoint.pt",
+    "/work/outputs/neural-ph-seed-111620731/checkpoint.pt",
+    "/work/outputs/neural-ph-seed-111630731/checkpoint.pt",
+    "/work/outputs/neural-ph-seed-111640731/checkpoint.pt",
+    "/work/outputs/neural-ph-seed-111650731/checkpoint.pt"
+  ],
+  "baseCheckpointStep": 12000,
+  "config": {
+    "fit_policy_trajectories": 3072,
+    "fit_cardinal_trajectories": 3072,
+    "test_policy_trajectories": 1024,
+    "test_diagonal_trajectories": 512,
+    "test_reversal_trajectories": 512,
+    "transitions_per_trajectory": 8,
+    "feature_batch_size": 64,
+    "block_count": 5,
+    "dynamics_steps": 4000,
+    "dynamics_batch_size": 128,
+    "learning_rate": 0.0002,
+    "weight_decay": 1e-05,
+    "warmup_steps": 300,
+    "min_learning_rate_ratio": 0.1,
+    "hidden_size": 64,
+    "hidden_layers": 2,
+    "integration_method": "midpoint",
+    "integration_substeps": 1,
+    "resistance_floor": 1e-05,
+    "state_loss_weight": 1.0,
+    "teacher_dynamics_weight": 1.0,
+    "rollout_loss_weight": 2.0,
+    "event_loss_weight": 0.2,
+    "free_port_weight": 0.2,
+    "energy_gradient_weight": 0.02,
+    "energy_probe_size": 64,
+    "ridge": 0.01,
+    "log_every": 50,
+    "seed": 111610731
+  },
+  "capacity": {
+    "controlHiddenSize": 146,
+    "core": {
+      "neuralPortHamiltonian": 24209,
+      "neuralOdeControl": 24244
+    },
+    "completeBranch": {
+      "neuralPortHamiltonian": 29803,
+      "neuralOdeControl": 29838
+    },
+    "relativeCoreGap": 0.0014457433186005205
+  },
+  "timing": {
+    "collectionSeconds": {
+      "mean": 111.53513685918878,
+      "std": 0.5227494849002284,
+      "minimum": 110.87847683997825,
+      "maximum": 112.25243097601924
+    },
+    "dynamicsSeconds": {
+      "mean": 354.42785086918155,
+      "std": 7.7203446048259705,
+      "minimum": 344.5441876819823,
+      "maximum": 361.0266858879477
+    },
+    "evaluationSeconds": {
+      "mean": 1.8095038352068513,
+      "std": 0.04411991829043053,
+      "minimum": 1.758011218975298,
+      "maximum": 1.8544403050327674
+    },
+    "totalSeconds": {
+      "mean": 467.7724915635772,
+      "std": 7.354359317411144,
+      "minimum": 458.1218187089544,
+      "maximum": 474.2994654219365
+    }
+  },
+  "parameterChangeNorm": {
+    "H": {
+      "mean": 2.6741261959075926,
+      "std": 0.19365298836669734,
+      "minimum": 2.413426637649536,
+      "maximum": 2.844633102416992
+    },
+    "J": {
+      "mean": 1.4521151542663575,
+      "std": 0.04106226713862692,
+      "minimum": 1.4045794010162354,
+      "maximum": 1.5101219415664673
+    },
+    "R": {
+      "mean": 2.31499981880188,
+      "std": 0.16649709202297122,
+      "minimum": 2.1500422954559326,
+      "maximum": 2.589456558227539
+    },
+    "B": {
+      "mean": 5.011517333984375,
+      "std": 0.07826109108577974,
+      "minimum": 4.914853096008301,
+      "maximum": 5.10215950012207
+    }
+  },
+  "suites": {
+    "policy": {
+      "rendererOracle": {
+        "accuracy": {
+          "mean": 0.910660982131958,
+          "std": 0.0004286184884139555,
+          "minimum": 0.9102520942687988,
+          "maximum": 0.9111971855163574
+        },
+        "playerIou": {
+          "mean": 0.9213950932025909,
+          "std": 0.0017293870559989789,
+          "minimum": 0.9185005351901054,
+          "maximum": 0.9230877794325352
+        },
+        "puckIou": {
+          "mean": 0.8033575922250747,
+          "std": 0.0030108060901224225,
+          "minimum": 0.8001030348241329,
+          "maximum": 0.8081900626420975
+        }
+      },
+      "branches": {
+        "neuralPortHamiltonian": {
+          "stateReadout": {
+            "qR2": {
+              "mean": 0.9468218803405761,
+              "std": 0.0011109887965385134,
+              "minimum": 0.9453307390213013,
+              "maximum": 0.9481676816940308
+            },
+            "pR2": {
+              "mean": 0.815496814250946,
+              "std": 0.003279504692791223,
+              "minimum": 0.8102729320526123,
+              "maximum": 0.8193317651748657
+            },
+            "modeR2": {
+              "mean": 0.3972846269607544,
+              "std": 0.030540740104076196,
+              "minimum": 0.3497365713119507,
+              "maximum": 0.43425452709198
+            }
+          },
+          "h8": {
+            "deltaNrmse": {
+              "mean": 0.7039724826812744,
+              "std": 0.035621203543060226,
+              "minimum": 0.6681568026542664,
+              "maximum": 0.7621127963066101
+            },
+            "qR2": {
+              "mean": 0.6642589449882508,
+              "std": 0.03428090866217867,
+              "minimum": 0.6100051403045654,
+              "maximum": 0.6924024224281311
+            },
+            "pR2": {
+              "mean": 0.1698448657989502,
+              "std": 0.09952184906257253,
+              "minimum": 0.017327308654785156,
+              "maximum": 0.29120123386383057
+            },
+            "pixels": {
+              "accuracy": {
+                "mean": 0.8770708560943603,
+                "std": 0.0011684431482513078,
+                "minimum": 0.8753125667572021,
+                "maximum": 0.8785908222198486
+              },
+              "playerIou": {
+                "mean": 0.10658201305195689,
+                "std": 0.016547531724218977,
+                "minimum": 0.07708893762901425,
+                "maximum": 0.11558762891218066
+              },
+              "puckIou": {
+                "mean": 0.06003492823801935,
+                "std": 0.005208161863130122,
+                "minimum": 0.05411974445451051,
+                "maximum": 0.0671783103607595
+              }
+            }
+          },
+          "negativeControls": {
+            "shuffledInitialStateH8": {
+              "mean": 0.8326383471488953,
+              "std": 0.019092200137896833,
+              "minimum": 0.8124310970306396,
+              "maximum": 0.8619890213012695
+            },
+            "shuffledActionsH8": {
+              "mean": 0.9659449100494385,
+              "std": 0.03473846452762148,
+              "minimum": 0.9183962941169739,
+              "maximum": 1.0084857940673828
+            },
+            "zeroActionsH8": {
+              "mean": 0.8100940585136414,
+              "std": 0.028336434319716875,
+              "minimum": 0.7781566381454468,
+              "maximum": 0.8549590110778809
+            }
+          },
+          "eventBalancedAccuracy": {
+            "mean": 0.6420001824075977,
+            "std": 0.011267624754618753,
+            "minimum": 0.6250943740208944,
+            "maximum": 0.656325596695145
+          }
+        },
+        "neuralOdeControl": {
+          "stateReadout": {
+            "qR2": {
+              "mean": 0.9498349547386169,
+              "std": 0.000525310783128469,
+              "minimum": 0.9492670297622681,
+              "maximum": 0.9503975510597229
+            },
+            "pR2": {
+              "mean": 0.8130491375923157,
+              "std": 0.0032181556260575477,
+              "minimum": 0.8092404007911682,
+              "maximum": 0.8179276585578918
+            },
+            "modeR2": {
+              "mean": 0.35582534074783323,
+              "std": 0.027637585650939094,
+              "minimum": 0.3082631826400757,
+              "maximum": 0.37959009408950806
+            }
+          },
+          "h8": {
+            "deltaNrmse": {
+              "mean": 0.5760396838188171,
+              "std": 0.012959285161946176,
+              "minimum": 0.5588122606277466,
+              "maximum": 0.5882726907730103
+            },
+            "qR2": {
+              "mean": 0.7736606597900391,
+              "std": 0.005337158498165777,
+              "minimum": 0.7662702798843384,
+              "maximum": 0.7794842720031738
+            },
+            "pR2": {
+              "mean": 0.44621342420578003,
+              "std": 0.020415627141217745,
+              "minimum": 0.4231588840484619,
+              "maximum": 0.472664475440979
+            },
+            "pixels": {
+              "accuracy": {
+                "mean": 0.879527997970581,
+                "std": 0.0008861317220689244,
+                "minimum": 0.8785817623138428,
+                "maximum": 0.8809247016906738
+              },
+              "playerIou": {
+                "mean": 0.1622497427277267,
+                "std": 0.007613756029812565,
+                "minimum": 0.15625703241676092,
+                "maximum": 0.1751825762912631
+              },
+              "puckIou": {
+                "mean": 0.09190043709240854,
+                "std": 0.00586368900272839,
+                "minimum": 0.08765387535095215,
+                "maximum": 0.1021413835696876
+              }
+            }
+          },
+          "negativeControls": {
+            "shuffledInitialStateH8": {
+              "mean": 0.7520090222358704,
+              "std": 0.0112692921358603,
+              "minimum": 0.7401865124702454,
+              "maximum": 0.7646775245666504
+            },
+            "shuffledActionsH8": {
+              "mean": 0.8561801671981811,
+              "std": 0.013276683519257444,
+              "minimum": 0.8361212611198425,
+              "maximum": 0.870840311050415
+            },
+            "zeroActionsH8": {
+              "mean": 0.6962118983268738,
+              "std": 0.009733913326646016,
+              "minimum": 0.6867009997367859,
+              "maximum": 0.7100485563278198
+            }
+          },
+          "eventBalancedAccuracy": {
+            "mean": 0.668832770610849,
+            "std": 0.015320098661712819,
+            "minimum": 0.6447512010733286,
+            "maximum": 0.6822578820089499
+          }
+        }
+      },
+      "pairedH8DeltaNrmsePhMinusControl": {
+        "mean": 0.1279327988624573,
+        "std": 0.047318450805762226,
+        "minimum": 0.07991307973861694,
+        "maximum": 0.20330053567886353
+      }
+    },
+    "diagonalOod": {
+      "rendererOracle": {
+        "accuracy": {
+          "mean": 0.906195068359375,
+          "std": 0.0005216693746544768,
+          "minimum": 0.9053688049316406,
+          "maximum": 0.9066572189331055
+        },
+        "playerIou": {
+          "mean": 0.9030966922640801,
+          "std": 0.0014173249162114157,
+          "minimum": 0.9017536267638206,
+          "maximum": 0.9054585844278336
+        },
+        "puckIou": {
+          "mean": 0.8072746649384499,
+          "std": 0.00397991513313601,
+          "minimum": 0.8011785373091698,
+          "maximum": 0.8106505200266838
+        }
+      },
+      "branches": {
+        "neuralPortHamiltonian": {
+          "stateReadout": {
+            "qR2": {
+              "mean": 0.9504917740821839,
+              "std": 0.0011708399457732287,
+              "minimum": 0.9491434693336487,
+              "maximum": 0.9517408609390259
+            },
+            "pR2": {
+              "mean": 0.8260520696640015,
+              "std": 0.0037671328871175663,
+              "minimum": 0.8216304183006287,
+              "maximum": 0.830295741558075
+            },
+            "modeR2": {
+              "mean": 0.6445804357528686,
+              "std": 0.012409601873104763,
+              "minimum": 0.6309213638305664,
+              "maximum": 0.6587069034576416
+            }
+          },
+          "h8": {
+            "deltaNrmse": {
+              "mean": 0.5871916055679322,
+              "std": 0.06725800451993966,
+              "minimum": 0.4932609796524048,
+              "maximum": 0.6427348256111145
+            },
+            "qR2": {
+              "mean": 0.8787450790405273,
+              "std": 0.013367091502062563,
+              "minimum": 0.8665225505828857,
+              "maximum": 0.8989666700363159
+            },
+            "pR2": {
+              "mean": 0.4997135281562805,
+              "std": 0.11088340273968242,
+              "minimum": 0.3918812870979309,
+              "maximum": 0.6483082175254822
+            },
+            "pixels": {
+              "accuracy": {
+                "mean": 0.8838516235351562,
+                "std": 0.0028355007725500317,
+                "minimum": 0.8800911903381348,
+                "maximum": 0.8876261711120605
+              },
+              "playerIou": {
+                "mean": 0.28813612908124925,
+                "std": 0.02815312313467094,
+                "minimum": 0.26240790635347366,
+                "maximum": 0.3225633539259434
+              },
+              "puckIou": {
+                "mean": 0.23383570536971093,
+                "std": 0.01772687135578756,
+                "minimum": 0.20963321439921856,
+                "maximum": 0.25251354835927486
+              }
+            }
+          },
+          "negativeControls": {
+            "shuffledInitialStateH8": {
+              "mean": 0.859021520614624,
+              "std": 0.05598115335105527,
+              "minimum": 0.7830443978309631,
+              "maximum": 0.9150175452232361
+            },
+            "shuffledActionsH8": {
+              "mean": 1.141422200202942,
+              "std": 0.052825379613870155,
+              "minimum": 1.061389684677124,
+              "maximum": 1.1888647079467773
+            },
+            "zeroActionsH8": {
+              "mean": 0.8780372500419616,
+              "std": 0.03576056473376421,
+              "minimum": 0.8373460173606873,
+              "maximum": 0.9147472977638245
+            }
+          },
+          "eventBalancedAccuracy": {
+            "mean": 0.3380126101896167,
+            "std": 0.0053863412748755635,
+            "minimum": 0.33324990669886273,
+            "maximum": 0.34599154194196063
+          }
+        },
+        "neuralOdeControl": {
+          "stateReadout": {
+            "qR2": {
+              "mean": 0.9517731428146362,
+              "std": 0.0014473472953643572,
+              "minimum": 0.9496769905090332,
+              "maximum": 0.952989935874939
+            },
+            "pR2": {
+              "mean": 0.8176650166511535,
+              "std": 0.002695291591541513,
+              "minimum": 0.8149797916412354,
+              "maximum": 0.8217717409133911
+            },
+            "modeR2": {
+              "mean": 0.6421911716461182,
+              "std": 0.012567295004119542,
+              "minimum": 0.628746747970581,
+              "maximum": 0.6566937565803528
+            }
+          },
+          "h8": {
+            "deltaNrmse": {
+              "mean": 0.4910578191280365,
+              "std": 0.02078320900387113,
+              "minimum": 0.4541693329811096,
+              "maximum": 0.503455638885498
+            },
+            "qR2": {
+              "mean": 0.9249252915382385,
+              "std": 0.0052453429559176454,
+              "minimum": 0.9192714691162109,
+              "maximum": 0.931622326374054
+            },
+            "pR2": {
+              "mean": 0.6518055677413941,
+              "std": 0.030029308567621326,
+              "minimum": 0.6177881360054016,
+              "maximum": 0.6997188925743103
+            },
+            "pixels": {
+              "accuracy": {
+                "mean": 0.8889566421508789,
+                "std": 0.0012372879303927317,
+                "minimum": 0.8873777389526367,
+                "maximum": 0.8901662826538086
+              },
+              "playerIou": {
+                "mean": 0.3627958960831165,
+                "std": 0.019141768153959703,
+                "minimum": 0.3337121978402138,
+                "maximum": 0.38210390135645866
+              },
+              "puckIou": {
+                "mean": 0.3371461607515812,
+                "std": 0.012584065414524087,
+                "minimum": 0.3254396356642246,
+                "maximum": 0.3584519252181053
+              }
+            }
+          },
+          "negativeControls": {
+            "shuffledInitialStateH8": {
+              "mean": 0.7397137999534606,
+              "std": 0.031675012000327345,
+              "minimum": 0.6854164004325867,
+              "maximum": 0.7643544673919678
+            },
+            "shuffledActionsH8": {
+              "mean": 1.0506921529769897,
+              "std": 0.032507961303194104,
+              "minimum": 0.997087836265564,
+              "maximum": 1.0792409181594849
+            },
+            "zeroActionsH8": {
+              "mean": 0.8057299613952636,
+              "std": 0.013099546084959014,
+              "minimum": 0.7904479503631592,
+              "maximum": 0.8218161463737488
+            }
+          },
+          "eventBalancedAccuracy": {
+            "mean": 0.3749369127055009,
+            "std": 0.049077287421629735,
+            "minimum": 0.34789719556768733,
+            "maximum": 0.4624263159930706
+          }
+        }
+      },
+      "pairedH8DeltaNrmsePhMinusControl": {
+        "mean": 0.09613378643989563,
+        "std": 0.052468870307345865,
+        "minimum": 0.038423627614974976,
+        "maximum": 0.13927918672561646
+      }
+    },
+    "reversalOod": {
+      "rendererOracle": {
+        "accuracy": {
+          "mean": 0.9091156959533692,
+          "std": 0.0003788037422316006,
+          "minimum": 0.9088835716247559,
+          "maximum": 0.909787654876709
+        },
+        "playerIou": {
+          "mean": 0.9263929784297943,
+          "std": 0.0013047691042417716,
+          "minimum": 0.9247023090720177,
+          "maximum": 0.9280094876885414
+        },
+        "puckIou": {
+          "mean": 0.8255548343062401,
+          "std": 0.003662697451138052,
+          "minimum": 0.822958193719387,
+          "maximum": 0.8320217281579971
+        }
+      },
+      "branches": {
+        "neuralPortHamiltonian": {
+          "stateReadout": {
+            "qR2": {
+              "mean": 0.9449046611785888,
+              "std": 0.0017325372315630675,
+              "minimum": 0.9431805610656738,
+              "maximum": 0.9473188519477844
+            },
+            "pR2": {
+              "mean": -0.30078911781311035,
+              "std": 0.034518305325416054,
+              "minimum": -0.34346580505371094,
+              "maximum": -0.26803767681121826
+            },
+            "modeR2": {
+              "mean": 0.6896816253662109,
+              "std": 0.015741495344498854,
+              "minimum": 0.6749274730682373,
+              "maximum": 0.7145938277244568
+            }
+          },
+          "h8": {
+            "deltaNrmse": {
+              "mean": 4.069594192504883,
+              "std": 0.769251542345388,
+              "minimum": 3.21494722366333,
+              "maximum": 4.945314884185791
+            },
+            "qR2": {
+              "mean": 0.8573252916336059,
+              "std": 0.029881366187632902,
+              "minimum": 0.8116189241409302,
+              "maximum": 0.8921298980712891
+            },
+            "pR2": {
+              "mean": -0.766337251663208,
+              "std": 0.6709110443683,
+              "minimum": -1.5137157440185547,
+              "maximum": -0.05750072002410889
+            },
+            "pixels": {
+              "accuracy": {
+                "mean": 0.8870754241943359,
+                "std": 0.003959316020766442,
+                "minimum": 0.8812999725341797,
+                "maximum": 0.8908381462097168
+              },
+              "playerIou": {
+                "mean": 0.342729102447629,
+                "std": 0.05985072268510302,
+                "minimum": 0.2557262647897005,
+                "maximum": 0.40491174533963203
+              },
+              "puckIou": {
+                "mean": 0.26681742556393145,
+                "std": 0.02731795896705175,
+                "minimum": 0.23322363011538982,
+                "maximum": 0.3026917651295662
+              }
+            }
+          },
+          "negativeControls": {
+            "shuffledInitialStateH8": {
+              "mean": 6.317603683471679,
+              "std": 0.6096065205647838,
+              "minimum": 5.57958984375,
+              "maximum": 6.915123462677002
+            },
+            "shuffledActionsH8": {
+              "mean": 4.650731754302979,
+              "std": 0.6172387314370037,
+              "minimum": 4.036087989807129,
+              "maximum": 5.3950676918029785
+            },
+            "zeroActionsH8": {
+              "mean": 4.506573629379273,
+              "std": 0.6503916026650227,
+              "minimum": 3.8606905937194824,
+              "maximum": 5.3130717277526855
+            }
+          },
+          "eventBalancedAccuracy": {
+            "mean": 1.0,
+            "std": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          }
+        },
+        "neuralOdeControl": {
+          "stateReadout": {
+            "qR2": {
+              "mean": 0.9468600988388062,
+              "std": 0.001473079803119208,
+              "minimum": 0.9456841945648193,
+              "maximum": 0.9492973685264587
+            },
+            "pR2": {
+              "mean": -0.4481493473052979,
+              "std": 0.07721455257315986,
+              "minimum": -0.5598154067993164,
+              "maximum": -0.3766016960144043
+            },
+            "modeR2": {
+              "mean": 0.6873250484466553,
+              "std": 0.015917826673187873,
+              "minimum": 0.6713323593139648,
+              "maximum": 0.7117841243743896
+            }
+          },
+          "h8": {
+            "deltaNrmse": {
+              "mean": 2.267875337600708,
+              "std": 0.07283668700125805,
+              "minimum": 2.177751064300537,
+              "maximum": 2.3473026752471924
+            },
+            "qR2": {
+              "mean": 0.923367190361023,
+              "std": 0.0019462330377606916,
+              "minimum": 0.9213177561759949,
+              "maximum": 0.9263874888420105
+            },
+            "pR2": {
+              "mean": 0.5023526906967163,
+              "std": 0.03325744031729557,
+              "minimum": 0.4655461311340332,
+              "maximum": 0.5463178157806396
+            },
+            "pixels": {
+              "accuracy": {
+                "mean": 0.8933974266052246,
+                "std": 0.0003247967123718552,
+                "minimum": 0.8929343223571777,
+                "maximum": 0.8936848640441895
+              },
+              "playerIou": {
+                "mean": 0.44577568098902703,
+                "std": 0.004380883891148064,
+                "minimum": 0.4411891773343086,
+                "maximum": 0.4523291550576687
+              },
+              "puckIou": {
+                "mean": 0.38521596863865853,
+                "std": 0.008304075197969569,
+                "minimum": 0.3731432892382145,
+                "maximum": 0.39565860480070114
+              }
+            }
+          },
+          "negativeControls": {
+            "shuffledInitialStateH8": {
+              "mean": 5.246366024017334,
+              "std": 0.07130061267927983,
+              "minimum": 5.166845321655273,
+              "maximum": 5.306381702423096
+            },
+            "shuffledActionsH8": {
+              "mean": 3.448762369155884,
+              "std": 0.12912738620452688,
+              "minimum": 3.3004472255706787,
+              "maximum": 3.5869860649108887
+            },
+            "zeroActionsH8": {
+              "mean": 3.686766576766968,
+              "std": 0.20862139127185075,
+              "minimum": 3.4422526359558105,
+              "maximum": 3.9208614826202393
+            }
+          },
+          "eventBalancedAccuracy": {
+            "mean": 1.0,
+            "std": 0.0,
+            "minimum": 1.0,
+            "maximum": 1.0
+          }
+        }
+      },
+      "pairedH8DeltaNrmsePhMinusControl": {
+        "mean": 1.8017188549041747,
+        "std": 0.7733694001321337,
+        "minimum": 0.9612400531768799,
+        "maximum": 2.5980122089385986
+      }
+    }
+  },
+  "structure": {
+    "powerBalance": {
+      "maxAbsDefect": {
+        "mean": 2.47955322265625e-06,
+        "std": 3.9895058943465975e-07,
+        "minimum": 1.9073486328125e-06,
+        "maximum": 2.86102294921875e-06
+      },
+      "rmsDefect": {
+        "mean": 6.89742955728434e-07,
+        "std": 1.1490840429786998e-07,
+        "minimum": 5.658221766680072e-07,
+        "maximum": 8.545888476874097e-07
+      },
+      "minimumDissipation": {
+        "mean": 0.4077444404363632,
+        "std": 0.36274954825153344,
+        "minimum": 0.043372198939323425,
+        "maximum": 1.018509864807129
+      }
+    },
+    "hamiltonian": {
+      "kineticEnergyAffineR2": {
+        "mean": 0.022667443752288817,
+        "std": 0.018237678316355272,
+        "minimum": 0.003300607204437256,
+        "maximum": 0.050253093242645264
+      },
+      "normalizedGradientRms": {
+        "mean": 1.0352728128433228,
+        "std": 0.035335975873341904,
+        "minimum": 0.9897148609161377,
+        "maximum": 1.0824010372161865
+      },
+      "gradientScaleToKinetic": {
+        "mean": 0.0003065920143853873,
+        "std": 0.001624871225208708,
+        "minimum": -0.0024356627836823463,
+        "maximum": 0.0016105747781693935
+      },
+      "kineticGradientCosine": {
+        "mean": 0.01427742252126336,
+        "std": 0.01258780897296411,
+        "minimum": -0.00479015102609992,
+        "maximum": 0.028980320319533348
+      },
+      "stateVariation": {
+        "mean": 0.9589518547058106,
+        "std": 0.04521359113351304,
+        "minimum": 0.881178081035614,
+        "maximum": 0.9965289831161499
+      }
+    },
+    "interconnection": {
+      "canonicalCosine": {
+        "mean": -0.04676476716995239,
+        "std": 0.08634059975869623,
+        "minimum": -0.13107657432556152,
+        "maximum": 0.06098848581314087
+      },
+      "stateVariation": {
+        "mean": 0.9562836289405823,
+        "std": 0.013791712298116997,
+        "minimum": 0.9411873817443848,
+        "maximum": 0.9683807492256165
+      },
+      "skewDefect": {
+        "mean": 0.0,
+        "std": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0
+      },
+      "jacobiRms": {
+        "mean": 0.045964008569717406,
+        "std": 0.010842087844038903,
+        "minimum": 0.03681672737002373,
+        "maximum": 0.061913587152957916
+      },
+      "jacobiMaxAbs": {
+        "mean": 0.26714886724948883,
+        "std": 0.09761297020246326,
+        "minimum": 0.14864780008792877,
+        "maximum": 0.3645842671394348
+      }
+    },
+    "resistance": {
+      "physicalDragCosine": {
+        "mean": 0.5972666501998901,
+        "std": 0.057190347303067664,
+        "minimum": 0.542112410068512,
+        "maximum": 0.6943533420562744
+      },
+      "stateVariation": {
+        "mean": 0.7283198714256287,
+        "std": 0.016071218850218432,
+        "minimum": 0.7109289765357971,
+        "maximum": 0.745655357837677
+      },
+      "minimumEigenvalue": {
+        "mean": -6.182836354007293e-10,
+        "std": 4.5571079415805106e-10,
+        "minimum": -1.1600239657738598e-09,
+        "maximum": -1.7383616768285037e-10
+      }
+    },
+    "port": {
+      "physicalIncidenceCosine": {
+        "mean": 0.9939848065376282,
+        "std": 0.0015965459704199599,
+        "minimum": 0.9918838143348694,
+        "maximum": 0.9959871172904968
+      },
+      "stateVariation": {
+        "mean": 0.16990311443805695,
+        "std": 0.02431698471999014,
+        "minimum": 0.14798934757709503,
+        "maximum": 0.2109697461128235
+      },
+      "positionRowFraction": {
+        "mean": 0.030336258187890052,
+        "std": 0.0014866093407475667,
+        "minimum": 0.028782915323972702,
+        "maximum": 0.03224232420325279
+      },
+      "puckMomentumFraction": {
+        "mean": 0.06945666521787644,
+        "std": 0.0075572601034664556,
+        "minimum": 0.05618215352296829,
+        "maximum": 0.07517268508672714
+      }
+    },
+    "zeroInputDiscreteEnergy": {
+      "increaseFraction": {
+        "mean": 0.0,
+        "std": 0.0,
+        "minimum": 0.0,
+        "maximum": 0.0
+      },
+      "meanNetChange": {
+        "mean": -6.471454429626465,
+        "std": 1.0851337545814548,
+        "minimum": -8.272550582885742,
+        "maximum": -5.342738151550293
+      },
+      "maximumStepIncrease": {
+        "mean": -0.0052931785583496095,
+        "std": 0.003382525871923599,
+        "minimum": -0.008404731750488281,
+        "maximum": -0.00032806396484375
+      }
+    }
+  },
+  "functionalAgreement": {
+    "pairs": 10,
+    "referenceStates": 256,
+    "hamiltonianAffineR2": {
+      "mean": 0.11820110082626342,
+      "std": 0.23095824586339703,
+      "minimum": 2.9802322387695312e-06,
+      "maximum": 0.7324406504631042
+    },
+    "alignedGradientCosine": {
+      "mean": 0.2529985511675477,
+      "std": 0.36107365523697044,
+      "minimum": -0.22580775618553162,
+      "maximum": 0.8660939931869507
+    },
+    "interconnectionCosine": {
+      "mean": -0.05430132672190666,
+      "std": 0.24969919753272385,
+      "minimum": -0.5073146820068359,
+      "maximum": 0.3327327370643616
+    },
+    "interconnectionRelativeRmse": {
+      "mean": 1.4398084163665772,
+      "std": 0.18312818403316122,
+      "minimum": 1.1169947385787964,
+      "maximum": 1.8078659772872925
+    },
+    "resistanceCosine": {
+      "mean": 0.5586358189582825,
+      "std": 0.07412001739722063,
+      "minimum": 0.4292764663696289,
+      "maximum": 0.6562679409980774
+    },
+    "resistanceRelativeRmse": {
+      "mean": 1.0203457057476044,
+      "std": 0.144542393336532,
+      "minimum": 0.7986265420913696,
+      "maximum": 1.3298344612121582
+    },
+    "portCosine": {
+      "mean": 0.9888498187065125,
+      "std": 0.001806787166081258,
+      "minimum": 0.9855714440345764,
+      "maximum": 0.9907636642456055
+    },
+    "portRelativeRmse": {
+      "mean": 0.1512934908270836,
+      "std": 0.01265895137511567,
+      "minimum": 0.13620895147323608,
+      "maximum": 0.17227354645729065
+    },
+    "vectorFieldCosine": {
+      "mean": 0.8956488072872162,
+      "std": 0.02007604291143342,
+      "minimum": 0.8674350380897522,
+      "maximum": 0.9291567206382751
+    },
+    "vectorFieldRelativeRmse": {
+      "mean": 0.46457127034664153,
+      "std": 0.05220117613434092,
+      "minimum": 0.37747251987457275,
+      "maximum": 0.5419297814369202
+    }
+  },
+  "decisions": {
+    "capacityMatched": true,
+    "predictiveParity": false,
+    "readoutGate": true,
+    "continuousPowerIdentity": true,
+    "skewSymmetry": true,
+    "positiveResistance": true,
+    "actionCausalSignal": true,
+    "functionalVectorFieldAgreement": false,
+    "separateFunctionAgreement": false
+  }
+}

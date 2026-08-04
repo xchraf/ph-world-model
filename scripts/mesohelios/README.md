@@ -26,3 +26,10 @@ affine, and MLP controls. Its output is written to
 checkpoint through block 5 and trains paired equal-capacity causal bottlenecks:
 a constrained hybrid pH branch and a sign-free control. Runtime and scientific
 criteria are preregistered in `docs/port-hamiltonian-bottleneck-experiment.md`.
+
+`neural-port-hamiltonian.sbatch` runs Experiment C. Its dimension-independent
+smooth core learns the complete state-dependent functions `H(x)`, `J(x)`,
+`R(x)`, and `B(x)` while enforcing skew interconnection and positive
+semidefinite resistance exactly. A capacity-matched Neural ODE, cardinal
+excitation, diagonal and reversal holdouts, and a shared frozen pixel renderer
+are evaluated in the same job. See `docs/neural-port-hamiltonian-experiment.md`.

@@ -1,0 +1,74 @@
+{
+  "kind": "state_dependent_neural_port_hamiltonian_launch",
+  "date": "2026-08-04",
+  "cluster": "mesohelios1.univ-fcomte.fr",
+  "partition": "gpu",
+  "gpu": "A100",
+  "sourceParentCommit": "01d299b",
+  "baseCheckpoint": "/Work/Users/aelmessaoudi/world-model/outputs/main-recovery-12000/checkpoint.pt",
+  "rendererCheckpoint": "/Home/Users/aelmessaoudi/world-model/results/mesohelios-action-port-pixel/artifacts/action-port-pixel-seed-101510731/checkpoint.pt",
+  "container": "/Work/Users/aelmessaoudi/world-model/containers/pytorch-2.6.0-cuda12.4.sif",
+  "pilots": [
+    {
+      "jobId": 229320,
+      "output": "neural-ph-pilot-111610731",
+      "fitTrajectories": 256,
+      "testTrajectories": 192,
+      "steps": 80,
+      "batchSize": 16
+    },
+    {
+      "jobId": 229321,
+      "output": "neural-ph-pilot-b128-111610731",
+      "fitTrajectories": 256,
+      "testTrajectories": 96,
+      "steps": 120,
+      "batchSize": 128
+    }
+  ],
+  "runs": [
+    {
+      "jobId": 229322,
+      "seed": 111610731,
+      "elapsed": "00:07:53",
+      "output": "neural-ph-seed-111610731"
+    },
+    {
+      "jobId": 229323,
+      "seed": 111620731,
+      "elapsed": "00:07:57",
+      "output": "neural-ph-seed-111620731"
+    },
+    {
+      "jobId": 229324,
+      "seed": 111630731,
+      "elapsed": "00:08:08",
+      "output": "neural-ph-seed-111630731"
+    },
+    {
+      "jobId": 229325,
+      "seed": 111640731,
+      "elapsed": "00:08:09",
+      "output": "neural-ph-seed-111640731"
+    },
+    {
+      "jobId": 229326,
+      "seed": 111650731,
+      "elapsed": "00:08:06",
+      "output": "neural-ph-seed-111650731"
+    }
+  ],
+  "defaultConfiguration": {
+    "fitPolicyTrajectories": 3072,
+    "fitCardinalTrajectories": 3072,
+    "testPolicyTrajectories": 1024,
+    "testDiagonalTrajectories": 512,
+    "testReversalTrajectories": 512,
+    "transitions": 8,
+    "steps": 4000,
+    "batchSize": 128,
+    "hiddenSize": 64,
+    "integration": "midpoint",
+    "integrationSubsteps": 1
+  }
+}

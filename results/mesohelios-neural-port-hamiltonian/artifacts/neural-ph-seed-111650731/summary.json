@@ -1,0 +1,778 @@
+{
+  "kind": "state_dependent_neural_port_hamiltonian",
+  "version": 1,
+  "baseCheckpointStep": 12000,
+  "frozenBackbone": true,
+  "frozenSharedRenderer": true,
+  "noPixelBypass": true,
+  "learnedFunctions": [
+    "H(x)",
+    "J(x)",
+    "R(x)",
+    "B(x)"
+  ],
+  "exactConstraints": [
+    "J(x)=-J(x)^T",
+    "R(x)=L(x)L(x)^T"
+  ],
+  "config": {
+    "fit_policy_trajectories": 3072,
+    "fit_cardinal_trajectories": 3072,
+    "test_policy_trajectories": 1024,
+    "test_diagonal_trajectories": 512,
+    "test_reversal_trajectories": 512,
+    "transitions_per_trajectory": 8,
+    "feature_batch_size": 64,
+    "block_count": 5,
+    "dynamics_steps": 4000,
+    "dynamics_batch_size": 128,
+    "learning_rate": 0.0002,
+    "weight_decay": 1e-05,
+    "warmup_steps": 300,
+    "min_learning_rate_ratio": 0.1,
+    "hidden_size": 64,
+    "hidden_layers": 2,
+    "integration_method": "midpoint",
+    "integration_substeps": 1,
+    "resistance_floor": 1e-05,
+    "state_loss_weight": 1.0,
+    "teacher_dynamics_weight": 1.0,
+    "rollout_loss_weight": 2.0,
+    "event_loss_weight": 0.2,
+    "free_port_weight": 0.2,
+    "energy_gradient_weight": 0.02,
+    "energy_probe_size": 64,
+    "ridge": 0.01,
+    "log_every": 50,
+    "seed": 111650731
+  },
+  "capacity": {
+    "controlHiddenSize": 146,
+    "core": {
+      "neuralPortHamiltonian": 24209,
+      "neuralOdeControl": 24244
+    },
+    "completeBranch": {
+      "neuralPortHamiltonian": 29803,
+      "neuralOdeControl": 29838
+    },
+    "relativeCoreGap": 0.0014457433186005205
+  },
+  "parameterChangeNorm": {
+    "H": 2.844633102416992,
+    "J": 1.4225527048110962,
+    "R": 2.331902503967285,
+    "B": 4.914853096008301
+  },
+  "timing": {
+    "collectionSeconds": 110.87847683997825,
+    "dynamicsSeconds": 358.5596658269642,
+    "evaluationSeconds": 1.7728527809958905,
+    "totalSeconds": 471.21099544793833
+  },
+  "data": {
+    "fitPolicyTrajectories": 3072,
+    "fitCardinalTrajectories": 3072,
+    "testSuites": {
+      "policy": 1024,
+      "diagonalOod": 512,
+      "reversalOod": 512
+    },
+    "fitRegimeCounts": {
+      "free": 43972,
+      "disc_impact": 976,
+      "wall": 2900,
+      "goal_entry": 174,
+      "goal_pause": 967,
+      "kickoff": 163
+    }
+  },
+  "evaluation": {
+    "policy": {
+      "rendererOracle": {
+        "accuracy": 0.9111971855163574,
+        "playerIou": 0.9230877794325352,
+        "puckIou": 0.8081900626420975
+      },
+      "neuralPortHamiltonian": {
+        "stateReadout": {
+          "r2": 0.8240103721618652,
+          "qR2": 0.9461697936058044,
+          "pR2": 0.8155227303504944,
+          "qRmse": 0.05010966211557388,
+          "pRmse": 0.3519238233566284,
+          "modeR2": 0.394711971282959
+        },
+        "rolloutByHorizon": {
+          "1": {
+            "deltaNrmse": 0.9416649341583252,
+            "qR2": 0.9443480372428894,
+            "pR2": 0.7622585892677307,
+            "pixels": {
+              "accuracy": 0.8891549110412598,
+              "playerIou": 0.3651992827653885,
+              "puckIou": 0.22492102533578873
+            }
+          },
+          "2": {
+            "deltaNrmse": 0.815260648727417,
+            "qR2": 0.9260855913162231,
+            "pR2": 0.6759601831436157,
+            "pixels": {
+              "accuracy": 0.8867988586425781,
+              "playerIou": 0.31932882592082024,
+              "puckIou": 0.19858261290937662
+            }
+          },
+          "4": {
+            "deltaNrmse": 0.7375892996788025,
+            "qR2": 0.8777433037757874,
+            "pR2": 0.49915510416030884,
+            "pixels": {
+              "accuracy": 0.8829452991485596,
+              "playerIou": 0.22508611716330051,
+              "puckIou": 0.14137007528916
+            }
+          },
+          "8": {
+            "deltaNrmse": 0.7081348299980164,
+            "qR2": 0.6905953288078308,
+            "pR2": 0.15073871612548828,
+            "pixels": {
+              "accuracy": 0.8785908222198486,
+              "playerIou": 0.11558762891218066,
+              "puckIou": 0.05587904609274119
+            }
+          }
+        },
+        "negativeControls": {
+          "shuffledInitialStateH8": 0.8309428691864014,
+          "shuffledActionsH8": 0.989543616771698,
+          "zeroActionsH8": 0.8142850995063782
+        },
+        "regimes": {
+          "free": {
+            "samples": 6661,
+            "deltaNrmse": 0.8848975896835327,
+            "meanJumpNorm": 0.03196548670530319
+          },
+          "disc_impact": {
+            "samples": 291,
+            "deltaNrmse": 0.9922860264778137,
+            "meanJumpNorm": 0.10066649317741394
+          },
+          "wall": {
+            "samples": 721,
+            "deltaNrmse": 0.9256920218467712,
+            "meanJumpNorm": 0.2163936346769333
+          },
+          "goal_entry": {
+            "samples": 60,
+            "deltaNrmse": 0.9735882878303528,
+            "meanJumpNorm": 0.4199449419975281
+          },
+          "goal_pause": {
+            "samples": 395,
+            "deltaNrmse": 0.989449679851532,
+            "meanJumpNorm": 0.3228473663330078
+          },
+          "kickoff": {
+            "samples": 64,
+            "deltaNrmse": 0.7923544049263,
+            "meanJumpNorm": 0.30153679847717285
+          }
+        },
+        "eventBalancedAccuracy": 0.656325596695145,
+        "coreParameterCount": 24209,
+        "structure": {
+          "powerBalance": {
+            "maxAbsDefect": 2.86102294921875e-06,
+            "rmsDefect": 7.537915962529951e-07,
+            "minimumDissipation": 1.018509864807129
+          },
+          "hamiltonian": {
+            "kineticEnergyAffineR2": 0.003300607204437256,
+            "normalizedGradientRms": 1.0824010372161865,
+            "gradientScaleToKinetic": 0.00013825876521877944,
+            "kineticGradientCosine": -0.00479015102609992,
+            "stateVariation": 0.9965289831161499
+          },
+          "interconnection": {
+            "canonicalCosine": -0.13107657432556152,
+            "stateVariation": 0.9683807492256165,
+            "skewDefect": 0.0,
+            "jacobiRms": 0.03681672737002373,
+            "jacobiMaxAbs": 0.17727795243263245
+          },
+          "resistance": {
+            "physicalDragCosine": 0.542112410068512,
+            "stateVariation": 0.7117606401443481,
+            "minimumEigenvalue": -1.0575875730722828e-09
+          },
+          "port": {
+            "physicalIncidenceCosine": 0.9940701127052307,
+            "stateVariation": 0.1566629260778427,
+            "positionRowFraction": 0.028782915323972702,
+            "puckMomentumFraction": 0.07162273675203323
+          },
+          "zeroInputDiscreteEnergy": {
+            "finite": true,
+            "increaseFraction": 0.0,
+            "meanNetChange": -6.102077960968018,
+            "maximumStepIncrease": -0.008018970489501953
+          }
+        }
+      },
+      "neuralOdeControl": {
+        "stateReadout": {
+          "r2": 0.8216916918754578,
+          "qR2": 0.9494457244873047,
+          "pR2": 0.8128153085708618,
+          "qRmse": 0.04856095090508461,
+          "pRmse": 0.35449686646461487,
+          "modeR2": 0.36523759365081787
+        },
+        "rolloutByHorizon": {
+          "1": {
+            "deltaNrmse": 0.9339348673820496,
+            "qR2": 0.9479848146438599,
+            "pR2": 0.7659570574760437,
+            "pixels": {
+              "accuracy": 0.8896927833557129,
+              "playerIou": 0.38773869536817074,
+              "puckIou": 0.2388017838820815
+            }
+          },
+          "2": {
+            "deltaNrmse": 0.7893484234809875,
+            "qR2": 0.9354709386825562,
+            "pR2": 0.6959007382392883,
+            "pixels": {
+              "accuracy": 0.8879587650299072,
+              "playerIou": 0.3628318626433611,
+              "puckIou": 0.22065290715545416
+            }
+          },
+          "4": {
+            "deltaNrmse": 0.6648401021957397,
+            "qR2": 0.9056073427200317,
+            "pR2": 0.5927376747131348,
+            "pixels": {
+              "accuracy": 0.8845219612121582,
+              "playerIou": 0.2868232689797878,
+              "puckIou": 0.17947007901966572
+            }
+          },
+          "8": {
+            "deltaNrmse": 0.5674142241477966,
+            "qR2": 0.7764151096343994,
+            "pR2": 0.45646417140960693,
+            "pixels": {
+              "accuracy": 0.8797197341918945,
+              "playerIou": 0.15913979336619377,
+              "puckIou": 0.08857488702051342
+            }
+          }
+        },
+        "negativeControls": {
+          "shuffledInitialStateH8": 0.7401865124702454,
+          "shuffledActionsH8": 0.8603745698928833,
+          "zeroActionsH8": 0.690398097038269
+        },
+        "regimes": {
+          "free": {
+            "samples": 6661,
+            "deltaNrmse": 0.8817792534828186,
+            "meanJumpNorm": 0.03380729630589485
+          },
+          "disc_impact": {
+            "samples": 291,
+            "deltaNrmse": 0.9737020134925842,
+            "meanJumpNorm": 0.10756620019674301
+          },
+          "wall": {
+            "samples": 721,
+            "deltaNrmse": 0.9234741926193237,
+            "meanJumpNorm": 0.18375533819198608
+          },
+          "goal_entry": {
+            "samples": 60,
+            "deltaNrmse": 0.954842209815979,
+            "meanJumpNorm": 0.2045375257730484
+          },
+          "goal_pause": {
+            "samples": 395,
+            "deltaNrmse": 0.9893965125083923,
+            "meanJumpNorm": 0.1544283777475357
+          },
+          "kickoff": {
+            "samples": 64,
+            "deltaNrmse": 0.7856574654579163,
+            "meanJumpNorm": 0.2312455177307129
+          }
+        },
+        "eventBalancedAccuracy": 0.6822578820089499,
+        "coreParameterCount": 24244
+      }
+    },
+    "diagonalOod": {
+      "rendererOracle": {
+        "accuracy": 0.9060163497924805,
+        "playerIou": 0.9017536267638206,
+        "puckIou": 0.8056071102619171
+      },
+      "neuralPortHamiltonian": {
+        "stateReadout": {
+          "r2": 0.8414799571037292,
+          "qR2": 0.9491434693336487,
+          "pR2": 0.8291810750961304,
+          "qRmse": 0.02938544563949108,
+          "pRmse": 0.15934129059314728,
+          "modeR2": 0.6587069034576416
+        },
+        "rolloutByHorizon": {
+          "1": {
+            "deltaNrmse": 0.9595750570297241,
+            "qR2": 0.9491413235664368,
+            "pR2": 0.8351367712020874,
+            "pixels": {
+              "accuracy": 0.8963027000427246,
+              "playerIou": 0.5222388245165348,
+              "puckIou": 0.4251592829823494
+            }
+          },
+          "2": {
+            "deltaNrmse": 0.6762730479240417,
+            "qR2": 0.9494646787643433,
+            "pR2": 0.7816339731216431,
+            "pixels": {
+              "accuracy": 0.8955388069152832,
+              "playerIou": 0.5139153897762299,
+              "puckIou": 0.415259163826704
+            }
+          },
+          "4": {
+            "deltaNrmse": 0.5555763840675354,
+            "qR2": 0.939887523651123,
+            "pR2": 0.7052904367446899,
+            "pixels": {
+              "accuracy": 0.8929104804992676,
+              "playerIou": 0.45956017076969147,
+              "puckIou": 0.37005559727549553
+            }
+          },
+          "8": {
+            "deltaNrmse": 0.4932609796524048,
+            "qR2": 0.884575605392456,
+            "pR2": 0.6483082175254822,
+            "pixels": {
+              "accuracy": 0.8847403526306152,
+              "playerIou": 0.3145831860601902,
+              "puckIou": 0.22876341082155704
+            }
+          }
+        },
+        "negativeControls": {
+          "shuffledInitialStateH8": 0.7830443978309631,
+          "shuffledActionsH8": 1.061389684677124,
+          "zeroActionsH8": 0.8373460173606873
+        },
+        "regimes": {
+          "free": {
+            "samples": 4002,
+            "deltaNrmse": 0.6679893136024475,
+            "meanJumpNorm": 0.000236097548622638
+          },
+          "disc_impact": {
+            "samples": 3,
+            "deltaNrmse": 1.0148801803588867,
+            "meanJumpNorm": 0.0
+          },
+          "wall": {
+            "samples": 91,
+            "deltaNrmse": 0.9198482632637024,
+            "meanJumpNorm": 0.014433464035391808
+          },
+          "goal_entry": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "goal_pause": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "kickoff": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          }
+        },
+        "eventBalancedAccuracy": 0.340492765729626,
+        "coreParameterCount": 24209,
+        "structure": {
+          "powerBalance": {
+            "maxAbsDefect": 2.86102294921875e-06,
+            "rmsDefect": 9.099550766222819e-07,
+            "minimumDissipation": 0.6113178133964539
+          },
+          "hamiltonian": {
+            "kineticEnergyAffineR2": 0.00010728836059570312,
+            "normalizedGradientRms": 1.2054535150527954,
+            "gradientScaleToKinetic": 0.0002849280135706067,
+            "kineticGradientCosine": -0.004535473883152008,
+            "stateVariation": 0.8922396898269653
+          },
+          "interconnection": {
+            "canonicalCosine": -0.025826429948210716,
+            "stateVariation": 0.9506277441978455,
+            "skewDefect": 0.0,
+            "jacobiRms": 0.03224481642246246,
+            "jacobiMaxAbs": 0.20251888036727905
+          },
+          "resistance": {
+            "physicalDragCosine": 0.5656148195266724,
+            "stateVariation": 0.7314858436584473,
+            "minimumEigenvalue": -5.055481033799936e-10
+          },
+          "port": {
+            "physicalIncidenceCosine": 0.9977560043334961,
+            "stateVariation": 0.12717857956886292,
+            "positionRowFraction": 0.01635243371129036,
+            "puckMomentumFraction": 0.03558643162250519
+          },
+          "zeroInputDiscreteEnergy": {
+            "finite": true,
+            "increaseFraction": 0.0,
+            "meanNetChange": -5.620693206787109,
+            "maximumStepIncrease": -0.011174678802490234
+          }
+        }
+      },
+      "neuralOdeControl": {
+        "stateReadout": {
+          "r2": 0.831264853477478,
+          "qR2": 0.9496769905090332,
+          "pR2": 0.8177380561828613,
+          "qRmse": 0.029230909422039986,
+          "pRmse": 0.16459184885025024,
+          "modeR2": 0.6566937565803528
+        },
+        "rolloutByHorizon": {
+          "1": {
+            "deltaNrmse": 0.9380882382392883,
+            "qR2": 0.9488509893417358,
+            "pR2": 0.8426989316940308,
+            "pixels": {
+              "accuracy": 0.8963327407836914,
+              "playerIou": 0.5182621516287327,
+              "puckIou": 0.42737767845392227
+            }
+          },
+          "2": {
+            "deltaNrmse": 0.6637296676635742,
+            "qR2": 0.9509720802307129,
+            "pR2": 0.7896968126296997,
+            "pixels": {
+              "accuracy": 0.8958635330200195,
+              "playerIou": 0.5101138763129711,
+              "puckIou": 0.4310452528297901
+            }
+          },
+          "4": {
+            "deltaNrmse": 0.5433633923530579,
+            "qR2": 0.9486021995544434,
+            "pR2": 0.7174007296562195,
+            "pixels": {
+              "accuracy": 0.8940329551696777,
+              "playerIou": 0.4687360189855099,
+              "puckIou": 0.4194066487252712
+            }
+          },
+          "8": {
+            "deltaNrmse": 0.4541693329811096,
+            "qR2": 0.9192714691162109,
+            "pR2": 0.6997188925743103,
+            "pixels": {
+              "accuracy": 0.8879175186157227,
+              "playerIou": 0.3337121978402138,
+              "puckIou": 0.3311697877943516
+            }
+          }
+        },
+        "negativeControls": {
+          "shuffledInitialStateH8": 0.6854164004325867,
+          "shuffledActionsH8": 0.997087836265564,
+          "zeroActionsH8": 0.7904479503631592
+        },
+        "regimes": {
+          "free": {
+            "samples": 4002,
+            "deltaNrmse": 0.6527471542358398,
+            "meanJumpNorm": 0.00031185211264528334
+          },
+          "disc_impact": {
+            "samples": 3,
+            "deltaNrmse": 0.8834069967269897,
+            "meanJumpNorm": 0.06661402434110641
+          },
+          "wall": {
+            "samples": 91,
+            "deltaNrmse": 0.94157475233078,
+            "meanJumpNorm": 0.019274914637207985
+          },
+          "goal_entry": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "goal_pause": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "kickoff": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          }
+        },
+        "eventBalancedAccuracy": 0.4624263159930706,
+        "coreParameterCount": 24244
+      }
+    },
+    "reversalOod": {
+      "rendererOracle": {
+        "accuracy": 0.909787654876709,
+        "playerIou": 0.9280094876885414,
+        "puckIou": 0.8320217281579971
+      },
+      "neuralPortHamiltonian": {
+        "stateReadout": {
+          "r2": 0.4039194583892822,
+          "qR2": 0.9431805610656738,
+          "pR2": -0.26874470710754395,
+          "qRmse": 0.02701159007847309,
+          "pRmse": 0.11428502202033997,
+          "modeR2": 0.6867748498916626
+        },
+        "rolloutByHorizon": {
+          "1": {
+            "deltaNrmse": 0.7207682132720947,
+            "qR2": 0.9484526515007019,
+            "pR2": -1.3006861209869385,
+            "pixels": {
+              "accuracy": 0.8976178169250488,
+              "playerIou": 0.5638141334056854,
+              "puckIou": 0.42725637182593346
+            }
+          },
+          "2": {
+            "deltaNrmse": 9.263788223266602,
+            "qR2": 0.9482347965240479,
+            "pR2": 0.384793221950531,
+            "pixels": {
+              "accuracy": 0.8971948623657227,
+              "playerIou": 0.5589510947465897,
+              "puckIou": 0.43007707968354225
+            }
+          },
+          "4": {
+            "deltaNrmse": 5.026448726654053,
+            "qR2": 0.9341646432876587,
+            "pR2": 0.2990189790725708,
+            "pixels": {
+              "accuracy": 0.8949222564697266,
+              "playerIou": 0.5024974644184113,
+              "puckIou": 0.3930259644985199
+            }
+          },
+          "8": {
+            "deltaNrmse": 3.3558950424194336,
+            "qR2": 0.8597394227981567,
+            "pR2": -0.12537062168121338,
+            "pixels": {
+              "accuracy": 0.8881349563598633,
+              "playerIou": 0.3680296875536442,
+              "puckIou": 0.23322363011538982
+            }
+          }
+        },
+        "negativeControls": {
+          "shuffledInitialStateH8": 5.751827716827393,
+          "shuffledActionsH8": 4.036087989807129,
+          "zeroActionsH8": 3.889235258102417
+        },
+        "regimes": {
+          "free": {
+            "samples": 4096,
+            "deltaNrmse": 0.8549375534057617,
+            "meanJumpNorm": 0.0
+          },
+          "disc_impact": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "wall": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "goal_entry": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "goal_pause": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "kickoff": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          }
+        },
+        "eventBalancedAccuracy": 1.0,
+        "coreParameterCount": 24209,
+        "structure": {
+          "powerBalance": {
+            "maxAbsDefect": 3.814697265625e-06,
+            "rmsDefect": 1.0065180049423361e-06,
+            "minimumDissipation": 0.8302083015441895
+          },
+          "hamiltonian": {
+            "kineticEnergyAffineR2": 0.003805816173553467,
+            "normalizedGradientRms": 1.30804443359375,
+            "gradientScaleToKinetic": -0.0003751271578948945,
+            "kineticGradientCosine": 0.043162599205970764,
+            "stateVariation": 0.7639899849891663
+          },
+          "interconnection": {
+            "canonicalCosine": 0.039264414459466934,
+            "stateVariation": 0.8997547626495361,
+            "skewDefect": 0.0,
+            "jacobiRms": 0.026462826877832413,
+            "jacobiMaxAbs": 0.1482977271080017
+          },
+          "resistance": {
+            "physicalDragCosine": 0.5045309066772461,
+            "stateVariation": 0.7190276980400085,
+            "minimumEigenvalue": -1.0045028142613432e-09
+          },
+          "port": {
+            "physicalIncidenceCosine": 0.9986933469772339,
+            "stateVariation": 0.05659180134534836,
+            "positionRowFraction": 0.011407014913856983,
+            "puckMomentumFraction": 0.027584640309214592
+          },
+          "zeroInputDiscreteEnergy": {
+            "finite": true,
+            "increaseFraction": 0.0,
+            "meanNetChange": -5.259886741638184,
+            "maximumStepIncrease": -0.013523578643798828
+          }
+        }
+      },
+      "neuralOdeControl": {
+        "stateReadout": {
+          "r2": 0.33728814125061035,
+          "qR2": 0.9456841945648193,
+          "pR2": -0.42161357402801514,
+          "qRmse": 0.02640978991985321,
+          "pRmse": 0.12097425758838654,
+          "modeR2": 0.6853675842285156
+        },
+        "rolloutByHorizon": {
+          "1": {
+            "deltaNrmse": 0.7681218981742859,
+            "qR2": 0.9485999941825867,
+            "pR2": -1.6306848526000977,
+            "pixels": {
+              "accuracy": 0.8976926803588867,
+              "playerIou": 0.5655584558844566,
+              "puckIou": 0.4174131006002426
+            }
+          },
+          "2": {
+            "deltaNrmse": 8.858741760253906,
+            "qR2": 0.9491191506385803,
+            "pR2": 0.44017982482910156,
+            "pixels": {
+              "accuracy": 0.8976054191589355,
+              "playerIou": 0.5626439228653908,
+              "puckIou": 0.4270704984664917
+            }
+          },
+          "4": {
+            "deltaNrmse": 4.094868183135986,
+            "qR2": 0.9445797204971313,
+            "pR2": 0.5452802777290344,
+            "pixels": {
+              "accuracy": 0.8965654373168945,
+              "playerIou": 0.5269179046154022,
+              "puckIou": 0.42571621388196945
+            }
+          },
+          "8": {
+            "deltaNrmse": 2.3363425731658936,
+            "qR2": 0.9223801493644714,
+            "pR2": 0.4655461311340332,
+            "pixels": {
+              "accuracy": 0.8936262130737305,
+              "playerIou": 0.4411891773343086,
+              "puckIou": 0.3731432892382145
+            }
+          }
+        },
+        "negativeControls": {
+          "shuffledInitialStateH8": 5.170532703399658,
+          "shuffledActionsH8": 3.4993669986724854,
+          "zeroActionsH8": 3.7981483936309814
+        },
+        "regimes": {
+          "free": {
+            "samples": 4096,
+            "deltaNrmse": 0.8660935759544373,
+            "meanJumpNorm": 0.0
+          },
+          "disc_impact": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "wall": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "goal_entry": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "goal_pause": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          },
+          "kickoff": {
+            "samples": 0,
+            "deltaNrmse": null,
+            "meanJumpNorm": null
+          }
+        },
+        "eventBalancedAccuracy": 1.0,
+        "coreParameterCount": 24244
+      }
+    }
+  },
+  "artifacts": [
+    "checkpoint.pt",
+    "dynamics.jsonl",
+    "summary.json"
+  ]
+}
