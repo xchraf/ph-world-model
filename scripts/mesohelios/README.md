@@ -33,3 +33,9 @@ smooth core learns the complete state-dependent functions `H(x)`, `J(x)`,
 semidefinite resistance exactly. A capacity-matched Neural ODE, cardinal
 excitation, diagonal and reversal holdouts, and a shared frozen pixel renderer
 are evaluated in the same job. See `docs/neural-port-hamiltonian-experiment.md`.
+
+`jacobian-port-bridge.sbatch` runs the single-seed first pass of Experiment D1.
+It tests whether independently derived causal Jacobian-lens writes at block 5
+map through the trained readout to the learned action port `B(x)`, both
+infinitesimally and after a real render-and-reencode intervention. See
+`docs/jacobian-port-bridge-experiment.md`.
