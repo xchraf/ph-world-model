@@ -78,6 +78,9 @@ def make_clip(
         "actions": action_array,
         "state": state_array[context_frames:],
         "events": event_array,
+        "all_state": state_array,
+        "all_events": np.asarray([0, *events], dtype=np.int64),
+        "all_actions": np.asarray([0, *actions], dtype=np.int64),
     }
 
 
