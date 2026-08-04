@@ -1,0 +1,52 @@
+{
+  "kind": "jacobian_lens_port_hamiltonian_bridge_launch",
+  "date": "2026-08-04",
+  "cluster": "mesohelios1.univ-fcomte.fr",
+  "partition": "gpu",
+  "gpu": "A100",
+  "sourceCommit": "db33e90",
+  "baseCheckpoint": "/Work/Users/aelmessaoudi/world-model/outputs/main-recovery-12000/checkpoint.pt",
+  "phCheckpoint": "/Home/Users/aelmessaoudi/world-model/results/mesohelios-neural-port-hamiltonian/artifacts/neural-ph-seed-111610731/checkpoint.pt",
+  "container": "/Work/Users/aelmessaoudi/world-model/containers/pytorch-2.6.0-cuda12.4.sif",
+  "phTrainingSeeds": [111610731],
+  "evaluationSeed": 121610731,
+  "jobs": [
+    {
+      "jobId": 229328,
+      "role": "shape-and-runtime-pilot",
+      "elapsed": "00:00:16",
+      "lensFitSamples": 64,
+      "testSamples": 64
+    },
+    {
+      "jobId": 229329,
+      "role": "preregistered-single-seed-run",
+      "elapsed": "00:00:36",
+      "lensFitSamples": 512,
+      "testPolicySamples": 256,
+      "testCardinalSamples": 256,
+      "strengths": [1, 4, 8],
+      "primaryStrength": 8
+    },
+    {
+      "jobId": 229330,
+      "role": "post-hoc-dose-matched-random-control",
+      "elapsed": "00:00:28",
+      "lensFitSamples": 512,
+      "testPolicySamples": 256,
+      "testCardinalSamples": 256,
+      "strengths": [4],
+      "primaryStrength": 4
+    }
+  ],
+  "artifacts": {
+    "summary.json": {
+      "bytes": 69572,
+      "sha256": "a8d456cbc2b1cc548f893c8d8efe696be360c8d48a2612a34c0e8647f4927232"
+    },
+    "strength4-control-summary.json": {
+      "bytes": 48253,
+      "sha256": "971df6b54884b18784af2b0d68eed3fb96406fd4a02724e3f406c3b700e86032"
+    }
+  }
+}

@@ -1,0 +1,1894 @@
+{
+  "kind": "jacobian_lens_port_hamiltonian_bridge",
+  "version": 1,
+  "singleTrainingSeed": true,
+  "question": "Does the frozen transformer's native block-5 causal Jacobian lens map through E to the independently learned pH action port B(x)?",
+  "baseCheckpoint": "/work/outputs/main-recovery-12000/checkpoint.pt",
+  "baseCheckpointStep": 12000,
+  "phCheckpoint": "/workspace/results/mesohelios-neural-port-hamiltonian/artifacts/neural-ph-seed-111610731/checkpoint.pt",
+  "phTrainingSeed": 111610731,
+  "config": {
+    "lens_fit_samples": 512,
+    "test_policy_samples": 256,
+    "test_cardinal_samples": 256,
+    "batch_size": 32,
+    "block_count": 5,
+    "intervention_strengths": [
+      1.0,
+      4.0,
+      8.0
+    ],
+    "primary_strength": 8.0,
+    "random_direction_pairs": 16,
+    "seed": 121610731
+  },
+  "protocol": {
+    "latent": "concatenated player/puck tokens after transformer block 5",
+    "readout": "trained affine E(h) into canonical q,p plus hybrid modes",
+    "instantaneousTarget": "dt * B(E(h)) * unit-axis action",
+    "finiteTarget": "centered pH step [Phi(x,+u)-Phi(x,-u)]/2 using the trained integrator",
+    "finiteObservation": "write h5, render hard next frame, append it, re-extract h5, and apply E",
+    "controls": [
+      "wrong action axis",
+      "16 latent direction pairs orthogonal to the lens",
+      "paired plus/minus writes with matched magnitude and model noise"
+    ],
+    "confidenceIntervals": "normal sample-level intervals conditional on one trained seed"
+  },
+  "lens": {
+    "samples": 512,
+    "source": "policy contexts disjoint from bridge evaluation",
+    "method": "mean downstream gradient of next soft player centroid",
+    "directionCosine": 0.12870654463768005,
+    "meanLocalGradientNorm": {
+      "x": 0.2688824534416199,
+      "y": 0.2650067210197449
+    },
+    "seconds": 4.873849375988357
+  },
+  "sharedPlayerPuckTokenFraction": 0.0,
+  "differentialBridge": {
+    "globalCausalLens": {
+      "fullPhysicalState": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.957707941532135,
+            "std": 0.03574378043413162,
+            "sampleCi95Low": 0.9555186349805445,
+            "sampleCi95High": 0.9598972480837256,
+            "positiveFraction": 1.0,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.9245263338088989,
+            "std": 0.018480481579899788,
+            "sampleCi95Low": 0.9229255437629182,
+            "sampleCi95High": 0.9261271238548796,
+            "positiveFraction": 1.0,
+            "samples": 512
+          },
+          "y": {
+            "mean": 0.9908896088600159,
+            "std": 0.003139893990010023,
+            "sampleCi95Low": 0.9906176294192793,
+            "sampleCi95High": 0.9911615883007524,
+            "positiveFraction": 1.0,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.20800812542438507,
+          "std": 0.14640933275222778,
+          "sampleCi95Low": 0.19904055379331112,
+          "sampleCi95High": 0.21697569705545902,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": 0.7496998906135559,
+          "std": 0.17902077734470367,
+          "sampleCi95Low": 0.7387348680011928,
+          "sampleCi95High": 0.760664913225919,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 1.0,
+        "meanEffectNorm": 0.6198409795761108,
+        "meanPortNorm": 0.27368390560150146
+      },
+      "standardizedState": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.8975128531455994,
+            "std": 0.035990312695503235,
+            "sampleCi95Low": 0.8953084464929998,
+            "sampleCi95High": 0.8997172597981989,
+            "positiveFraction": 1.0,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.8763043880462646,
+            "std": 0.03556659072637558,
+            "sampleCi95Low": 0.8732235893041921,
+            "sampleCi95High": 0.8793851867883372,
+            "positiveFraction": 1.0,
+            "samples": 512
+          },
+          "y": {
+            "mean": 0.9187213182449341,
+            "std": 0.020659085363149643,
+            "sampleCi95Low": 0.9169318162741432,
+            "sampleCi95High": 0.920510820215725,
+            "positiveFraction": 1.0,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.1924826204776764,
+          "std": 0.13077986240386963,
+          "sampleCi95Low": 0.18447235390543937,
+          "sampleCi95High": 0.20049288704991342,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": 0.7050302028656006,
+          "std": 0.1517946720123291,
+          "sampleCi95Low": 0.6957327792048454,
+          "sampleCi95High": 0.7143276265263557,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 1.0,
+        "meanEffectNorm": 0.7876160740852356,
+        "meanPortNorm": 0.32718005776405334
+      },
+      "playerPosition": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.513447642326355,
+            "std": 0.6761869788169861,
+            "sampleCi95Low": 0.4720311898738146,
+            "sampleCi95High": 0.5548640947788954,
+            "positiveFraction": 0.7880859375,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.36242419481277466,
+            "std": 0.7768070697784424,
+            "sampleCi95Low": 0.2951367153403111,
+            "sampleCi95High": 0.4297116742852382,
+            "positiveFraction": 0.6875,
+            "samples": 512
+          },
+          "y": {
+            "mean": 0.6644710898399353,
+            "std": 0.5159630179405212,
+            "sampleCi95Low": 0.619778073608601,
+            "sampleCi95High": 0.7091641060712696,
+            "positiveFraction": 0.888671875,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.4879792034626007,
+          "std": 0.3167138397693634,
+          "sampleCi95Low": 0.4685804807767272,
+          "sampleCi95High": 0.5073779261484742,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": 0.02546844817698002,
+          "std": 0.8072932958602905,
+          "sampleCi95Low": -0.023978266194462777,
+          "sampleCi95High": 0.07491516254842281,
+          "positiveFraction": 0.650390625,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 1.0,
+        "meanEffectNorm": 0.05425991863012314,
+        "meanPortNorm": 0.004263404291123152
+      },
+      "playerMomentum": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.9635268449783325,
+            "std": 0.03745317459106445,
+            "sampleCi95Low": 0.9612328380346298,
+            "sampleCi95High": 0.9658208519220353,
+            "positiveFraction": 1.0,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.9282630085945129,
+            "std": 0.017762232571840286,
+            "sampleCi95Low": 0.9267244336946943,
+            "sampleCi95High": 0.9298015834943316,
+            "positiveFraction": 1.0,
+            "samples": 512
+          },
+          "y": {
+            "mean": 0.9987908005714417,
+            "std": 0.0008817055495455861,
+            "sampleCi95Low": 0.9987144267247376,
+            "sampleCi95High": 0.9988671744181457,
+            "positiveFraction": 1.0,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.20970213413238525,
+          "std": 0.14704854786396027,
+          "sampleCi95Low": 0.2006954105757177,
+          "sampleCi95High": 0.21870885768905282,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": 0.7538248300552368,
+          "std": 0.18172302842140198,
+          "sampleCi95Low": 0.7426942945644259,
+          "sampleCi95High": 0.7649553655460477,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 1.0,
+        "meanEffectNorm": 0.6165170669555664,
+        "meanPortNorm": 0.2731514573097229
+      },
+      "puckMomentum": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.19800971448421478,
+            "std": 0.5588799118995667,
+            "sampleCi95Low": 0.16377831988036634,
+            "sampleCi95High": 0.23224110908806322,
+            "positiveFraction": 0.59375,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.5039507150650024,
+            "std": 0.5004611015319824,
+            "sampleCi95Low": 0.46060048383486657,
+            "sampleCi95High": 0.5473009462951383,
+            "positiveFraction": 0.8359375,
+            "samples": 512
+          },
+          "y": {
+            "mean": -0.1079312339425087,
+            "std": 0.43275555968284607,
+            "sampleCi95Low": -0.1454167718213789,
+            "sampleCi95High": -0.07044569606363849,
+            "positiveFraction": 0.3515625,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.5859237313270569,
+          "std": 0.3223766088485718,
+          "sampleCi95Low": 0.5661781640350818,
+          "sampleCi95High": 0.605669298619032,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": -0.3879139721393585,
+          "std": 0.6880911588668823,
+          "sampleCi95Low": -0.43005955561995507,
+          "sampleCi95High": -0.34576838865876197,
+          "positiveFraction": 0.375,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 0.5,
+        "meanEffectNorm": 0.02669513039290905,
+        "meanPortNorm": 0.013157878071069717
+      }
+    },
+    "localPerStateJacobian": {
+      "fullPhysicalState": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.6163570284843445,
+            "std": 0.43748193979263306,
+            "sampleCi95Low": 0.5895612596720458,
+            "sampleCi95High": 0.6431527972966432,
+            "positiveFraction": 0.88671875,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.6061924695968628,
+            "std": 0.43211427330970764,
+            "sampleCi95Low": 0.5687624803160258,
+            "sampleCi95High": 0.6436224588776998,
+            "positiveFraction": 0.892578125,
+            "samples": 512
+          },
+          "y": {
+            "mean": 0.6265214681625366,
+            "std": 0.44297367334365845,
+            "sampleCi95Low": 0.5881508313447558,
+            "sampleCi95High": 0.6648921049803175,
+            "positiveFraction": 0.880859375,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.5057739615440369,
+          "std": 0.28666451573371887,
+          "sampleCi95Low": 0.4882157599553466,
+          "sampleCi95High": 0.5233321631327271,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": 0.11058303713798523,
+          "std": 0.6526203155517578,
+          "sampleCi95Low": 0.07061004281044006,
+          "sampleCi95High": 0.1505560314655304,
+          "positiveFraction": 0.634765625,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 0.8876953125,
+        "meanEffectNorm": 0.3268299400806427,
+        "meanPortNorm": 0.27368390560150146
+      },
+      "standardizedState": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.511300265789032,
+            "std": 0.3666771948337555,
+            "sampleCi95Low": 0.48884128760546447,
+            "sampleCi95High": 0.5337592439725996,
+            "positiveFraction": 0.888671875,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.5003722906112671,
+            "std": 0.355530709028244,
+            "sampleCi95Low": 0.46957601414021033,
+            "sampleCi95High": 0.5311685670823239,
+            "positiveFraction": 0.890625,
+            "samples": 512
+          },
+          "y": {
+            "mean": 0.5222282409667969,
+            "std": 0.37752625346183777,
+            "sampleCi95Low": 0.4895266976641918,
+            "sampleCi95High": 0.554929784269402,
+            "positiveFraction": 0.88671875,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.39274007081985474,
+          "std": 0.24082250893115997,
+          "sampleCi95Low": 0.3779896921478212,
+          "sampleCi95High": 0.4074904494918883,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": 0.11856018006801605,
+          "std": 0.5220710039138794,
+          "sampleCi95Low": 0.08658333107829094,
+          "sampleCi95High": 0.15053702905774116,
+          "positiveFraction": 0.6435546875,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 0.8876953125,
+        "meanEffectNorm": 0.4763759970664978,
+        "meanPortNorm": 0.32718005776405334
+      },
+      "playerPosition": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.18080230057239532,
+            "std": 0.6824443340301514,
+            "sampleCi95Low": 0.13900258511304855,
+            "sampleCi95High": 0.2226020160317421,
+            "positiveFraction": 0.5986328125,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.15772967040538788,
+            "std": 0.716590404510498,
+            "sampleCi95Low": 0.0956581934459713,
+            "sampleCi95High": 0.21980114736480444,
+            "positiveFraction": 0.5859375,
+            "samples": 512
+          },
+          "y": {
+            "mean": 0.20387491583824158,
+            "std": 0.6463770866394043,
+            "sampleCi95Low": 0.1478853572453665,
+            "sampleCi95High": 0.25986447443111665,
+            "positiveFraction": 0.611328125,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.6103495359420776,
+          "std": 0.3181080222129822,
+          "sampleCi95Low": 0.5908654195815325,
+          "sampleCi95High": 0.6298336523026228,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": -0.4295472502708435,
+          "std": 0.8063924312591553,
+          "sampleCi95Low": -0.47893878668546674,
+          "sampleCi95High": -0.38015571385622027,
+          "positiveFraction": 0.34375,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 0.6904296875,
+        "meanEffectNorm": 0.04391296207904816,
+        "meanPortNorm": 0.004263404291123152
+      },
+      "playerMomentum": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.6372712254524231,
+            "std": 0.4633772075176239,
+            "sampleCi95Low": 0.6088893714919686,
+            "sampleCi95High": 0.6656530794128775,
+            "positiveFraction": 0.8857421875,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.6250076293945312,
+            "std": 0.4616681933403015,
+            "sampleCi95Low": 0.5850176623988202,
+            "sampleCi95High": 0.6649975963902423,
+            "positiveFraction": 0.892578125,
+            "samples": 512
+          },
+          "y": {
+            "mean": 0.6495348215103149,
+            "std": 0.46520763635635376,
+            "sampleCi95Low": 0.6092382659052153,
+            "sampleCi95High": 0.6898313771154145,
+            "positiveFraction": 0.87890625,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.5364220142364502,
+          "std": 0.30204930901527405,
+          "sampleCi95Low": 0.5179214940592647,
+          "sampleCi95High": 0.5549225344136357,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": 0.10084918141365051,
+          "std": 0.6973553895950317,
+          "sampleCi95Low": 0.05813616380095482,
+          "sampleCi95High": 0.1435621990263462,
+          "positiveFraction": 0.634765625,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 0.8876953125,
+        "meanEffectNorm": 0.31738027930259705,
+        "meanPortNorm": 0.2731514573097229
+      },
+      "puckMomentum": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.04574640095233917,
+            "std": 0.7401199340820312,
+            "sampleCi95Low": 0.0004140549898147619,
+            "sampleCi95High": 0.09107874691486359,
+            "positiveFraction": 0.51953125,
+            "samples": 1024
+          },
+          "x": {
+            "mean": 0.16471801698207855,
+            "std": 0.7570751309394836,
+            "sampleCi95Low": 0.09913972951009077,
+            "sampleCi95High": 0.23029630445406635,
+            "positiveFraction": 0.59375,
+            "samples": 512
+          },
+          "y": {
+            "mean": -0.07322521507740021,
+            "std": 0.7036336660385132,
+            "sampleCi95Low": -0.13417437182645564,
+            "sampleCi95High": -0.012276058328344767,
+            "positiveFraction": 0.4453125,
+            "samples": 512
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.6493547558784485,
+          "std": 0.30958011746406555,
+          "sampleCi95Low": 0.6303929736837744,
+          "sampleCi95High": 0.6683165380731225,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": -0.6036083102226257,
+          "std": 0.839231014251709,
+          "sampleCi95Low": -0.655011209845543,
+          "sampleCi95High": -0.5522054105997085,
+          "positiveFraction": 0.2978515625,
+          "samples": 1024
+        },
+        "targetCoordinateSignFraction": 0.486328125,
+        "meanEffectNorm": 0.041710130870342255,
+        "meanPortNorm": 0.013157878071069717
+      }
+    },
+    "randomLatentControl": {
+      "fullPhysicalState": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": -0.22620970010757446,
+            "std": 0.6135644316673279,
+            "sampleCi95Low": -0.23560490546748042,
+            "sampleCi95High": -0.2168144947476685,
+            "positiveFraction": 0.34033203125,
+            "samples": 16384
+          },
+          "x": {
+            "mean": -0.363752156496048,
+            "std": 0.5451812148094177,
+            "sampleCi95Low": -0.3755581348487953,
+            "sampleCi95High": -0.35194617814330065,
+            "positiveFraction": 0.244140625,
+            "samples": 8192
+          },
+          "y": {
+            "mean": -0.08866723626852036,
+            "std": 0.6464561820030212,
+            "sampleCi95Low": -0.10266633873832083,
+            "sampleCi95High": -0.07466813379871988,
+            "positiveFraction": 0.4365234375,
+            "samples": 8192
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.5997124910354614,
+          "std": 0.26194754242897034,
+          "sampleCi95Low": 0.5957014192920178,
+          "sampleCi95High": 0.603723562778905,
+          "positiveFraction": 1.0,
+          "samples": 16384
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": -0.8259221315383911,
+          "std": 0.6449756622314453,
+          "sampleCi95Low": -0.8357983213663102,
+          "sampleCi95High": -0.8160459417104721,
+          "positiveFraction": 0.15625,
+          "samples": 16384
+        },
+        "targetCoordinateSignFraction": 0.34375,
+        "meanEffectNorm": 0.29850494861602783,
+        "meanPortNorm": 0.27368390560150146
+      },
+      "standardizedState": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": -0.15552660822868347,
+            "std": 0.4660482108592987,
+            "sampleCi95Low": -0.16266297145746647,
+            "sampleCi95High": -0.14839024499990047,
+            "positiveFraction": 0.3441162109375,
+            "samples": 16384
+          },
+          "x": {
+            "mean": -0.2577933073043823,
+            "std": 0.38647347688674927,
+            "sampleCi95Low": -0.26616244655220284,
+            "sampleCi95High": -0.24942416805656184,
+            "positiveFraction": 0.247802734375,
+            "samples": 8192
+          },
+          "y": {
+            "mean": -0.05325993150472641,
+            "std": 0.5139524340629578,
+            "sampleCi95Low": -0.06438964607680717,
+            "sampleCi95High": -0.04213021693264565,
+            "positiveFraction": 0.4404296875,
+            "samples": 8192
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.41517406702041626,
+          "std": 0.22614076733589172,
+          "sampleCi95Low": 0.4117112865205854,
+          "sampleCi95High": 0.4186368475202471,
+          "positiveFraction": 1.0,
+          "samples": 16384
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": -0.5707007050514221,
+          "std": 0.5049355626106262,
+          "sampleCi95Low": -0.5784325308538973,
+          "sampleCi95High": -0.5629688792489469,
+          "positiveFraction": 0.162353515625,
+          "samples": 16384
+        },
+        "targetCoordinateSignFraction": 0.34375,
+        "meanEffectNorm": 0.5020725727081299,
+        "meanPortNorm": 0.32718002796173096
+      },
+      "playerPosition": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.018541455268859863,
+            "std": 0.6886903643608093,
+            "sampleCi95Low": 0.007995884064584971,
+            "sampleCi95High": 0.029087026473134756,
+            "positiveFraction": 0.507568359375,
+            "samples": 16384
+          },
+          "x": {
+            "mean": 0.025127125903964043,
+            "std": 0.654803454875946,
+            "sampleCi95Low": 0.01094726202829474,
+            "sampleCi95High": 0.039306989779633345,
+            "positiveFraction": 0.52099609375,
+            "samples": 8192
+          },
+          "y": {
+            "mean": 0.011955752968788147,
+            "std": 0.7209663391113281,
+            "sampleCi95Low": -0.0036568777701181925,
+            "sampleCi95High": 0.027568383707694488,
+            "positiveFraction": 0.494140625,
+            "samples": 8192
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.671378493309021,
+          "std": 0.30369457602500916,
+          "sampleCi95Low": 0.666728170113638,
+          "sampleCi95High": 0.6760288165044039,
+          "positiveFraction": 1.0,
+          "samples": 16384
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": -0.6528370976448059,
+          "std": 0.7541671991348267,
+          "sampleCi95Low": -0.664385282881558,
+          "sampleCi95High": -0.6412889124080539,
+          "positiveFraction": 0.24224853515625,
+          "samples": 16384
+        },
+        "targetCoordinateSignFraction": 0.5625,
+        "meanEffectNorm": 0.06202156841754913,
+        "meanPortNorm": 0.004263404291123152
+      },
+      "playerMomentum": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": -0.24435089528560638,
+            "std": 0.6569860577583313,
+            "sampleCi95Low": -0.25441099429503083,
+            "sampleCi95High": -0.23429079627618193,
+            "positiveFraction": 0.339111328125,
+            "samples": 16384
+          },
+          "x": {
+            "mean": -0.3957578241825104,
+            "std": 0.6129468083381653,
+            "sampleCi95Low": -0.409031276300914,
+            "sampleCi95High": -0.38248437206410674,
+            "positiveFraction": 0.2435302734375,
+            "samples": 8192
+          },
+          "y": {
+            "mean": -0.09294398874044418,
+            "std": 0.6646477580070496,
+            "sampleCi95Low": -0.10733703242955281,
+            "sampleCi95High": -0.07855094505133556,
+            "positiveFraction": 0.4346923828125,
+            "samples": 8192
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.6614198684692383,
+          "std": 0.27192482352256775,
+          "sampleCi95Low": 0.657256019609049,
+          "sampleCi95High": 0.6655837173294276,
+          "positiveFraction": 1.0,
+          "samples": 16384
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": -0.9057707190513611,
+          "std": 0.6844269037246704,
+          "sampleCi95Low": -0.9162510060146452,
+          "sampleCi95High": -0.895290432088077,
+          "positiveFraction": 0.15625,
+          "samples": 16384
+        },
+        "targetCoordinateSignFraction": 0.34375,
+        "meanEffectNorm": 0.28354841470718384,
+        "meanPortNorm": 0.2731514275074005
+      },
+      "puckMomentum": {
+        "matchedCosine": {
+          "pooled": {
+            "mean": 0.024724585935473442,
+            "std": 0.6615937948226929,
+            "sampleCi95Low": 0.014593930952250958,
+            "sampleCi95High": 0.03485524091869593,
+            "positiveFraction": 0.5198974609375,
+            "samples": 16384
+          },
+          "x": {
+            "mean": -0.11210742592811584,
+            "std": 0.6557034850120544,
+            "sampleCi95Low": -0.1263067800870434,
+            "sampleCi95High": -0.09790807176918828,
+            "positiveFraction": 0.4295654296875,
+            "samples": 8192
+          },
+          "y": {
+            "mean": 0.16155660152435303,
+            "std": 0.6388024687767029,
+            "sampleCi95Low": 0.1477232413255874,
+            "sampleCi95High": 0.17538996172311866,
+            "positiveFraction": 0.6102294921875,
+            "samples": 8192
+          }
+        },
+        "absoluteSwappedAxisCosine": {
+          "mean": 0.6770811676979065,
+          "std": 0.29428011178970337,
+          "sampleCi95Low": 0.6725750034861266,
+          "sampleCi95High": 0.6815873319096863,
+          "positiveFraction": 1.0,
+          "samples": 16384
+        },
+        "matchedMinusAbsoluteSwapped": {
+          "mean": -0.6523565649986267,
+          "std": 0.717323362827301,
+          "sampleCi95Low": -0.6633405789919198,
+          "sampleCi95High": -0.6413725510053336,
+          "positiveFraction": 0.19647216796875,
+          "samples": 16384
+        },
+        "targetCoordinateSignFraction": 0.5,
+        "meanEffectNorm": 0.038647204637527466,
+        "meanPortNorm": 0.013157878071069717
+      }
+    }
+  },
+  "finiteCausalBridge": {
+    "strengthSweep": {
+      "1.0": {
+        "stateAlignment": {
+          "fullPhysicalState": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.4238453805446625,
+                "std": 0.5503968596458435,
+                "sampleCi95Low": 0.3901335728913546,
+                "sampleCi95High": 0.45755718819797037,
+                "positiveFraction": 0.7568359375,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.3563031554222107,
+                "std": 0.5567368865013123,
+                "sampleCi95Low": 0.3080782830189447,
+                "sampleCi95High": 0.4045280278254767,
+                "positiveFraction": 0.732421875,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.49138766527175903,
+                "std": 0.5360676050186157,
+                "sampleCi95Low": 0.44495317803307993,
+                "sampleCi95High": 0.5378221525104382,
+                "positiveFraction": 0.78125,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.5109847187995911,
+              "std": 0.3142191469669342,
+              "sampleCi95Low": 0.49173879604786636,
+              "sampleCi95High": 0.5302306415513158,
+              "positiveFraction": 0.9541015625,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": -0.08713934570550919,
+              "std": 0.7019545435905457,
+              "sampleCi95Low": -0.1301340615004301,
+              "sampleCi95High": -0.04414462991058826,
+              "positiveFraction": 0.4873046875,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.755859375,
+            "meanEffectNorm": 0.054414816200733185,
+            "meanPortNorm": 0.2652999758720398
+          },
+          "standardizedState": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.3462967872619629,
+                "std": 0.43981122970581055,
+                "sampleCi95Low": 0.319358349442482,
+                "sampleCi95High": 0.3732352250814438,
+                "positiveFraction": 0.7578125,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.2863370180130005,
+                "std": 0.4395614564418793,
+                "sampleCi95Low": 0.2482619494047102,
+                "sampleCi95High": 0.3244120866212908,
+                "positiveFraction": 0.73046875,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.40625661611557007,
+                "std": 0.4322356879711151,
+                "sampleCi95Low": 0.36881610982625707,
+                "sampleCi95High": 0.44369712240488307,
+                "positiveFraction": 0.78515625,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.39163270592689514,
+              "std": 0.2673231363296509,
+              "sampleCi95Low": 0.37525916382670405,
+              "sampleCi95High": 0.40800624802708624,
+              "positiveFraction": 0.9541015625,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": -0.04533589258790016,
+              "std": 0.5479574799537659,
+              "sampleCi95Low": -0.07889828823506832,
+              "sampleCi95High": -0.011773496940732,
+              "positiveFraction": 0.478515625,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.755859375,
+            "meanEffectNorm": 0.08263453841209412,
+            "meanPortNorm": 0.3181679844856262
+          },
+          "playerPosition": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.036247480660676956,
+                "std": 0.6979790925979614,
+                "sampleCi95Low": -0.006503738760948181,
+                "sampleCi95High": 0.07899870008230209,
+                "positiveFraction": 0.4990234375,
+                "samples": 1024
+              },
+              "x": {
+                "mean": -0.0058783576823771,
+                "std": 0.6413161754608154,
+                "sampleCi95Low": -0.06142953721011523,
+                "sampleCi95High": 0.04967282184536103,
+                "positiveFraction": 0.470703125,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.07837331295013428,
+                "std": 0.7486391067504883,
+                "sampleCi95Low": 0.01352575879215731,
+                "sampleCi95High": 0.14322086710811124,
+                "positiveFraction": 0.52734375,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.6054164171218872,
+              "std": 0.3314853310585022,
+              "sampleCi95Low": 0.585112940594554,
+              "sampleCi95High": 0.6257198936492204,
+              "positiveFraction": 0.9541015625,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": -0.5691689252853394,
+              "std": 0.7850161194801331,
+              "sampleCi95Low": -0.6172511626034975,
+              "sampleCi95High": -0.5210866879671812,
+              "positiveFraction": 0.2666015625,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.5185546875,
+            "meanEffectNorm": 0.007329427637159824,
+            "meanPortNorm": 0.005975246895104647
+          },
+          "playerMomentum": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.44325491786003113,
+                "std": 0.5893670916557312,
+                "sampleCi95Low": 0.4071561834961176,
+                "sampleCi95High": 0.47935365222394466,
+                "positiveFraction": 0.755859375,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.37458744645118713,
+                "std": 0.6032004356384277,
+                "sampleCi95Low": 0.32233787444049716,
+                "sampleCi95High": 0.4268370184618771,
+                "positiveFraction": 0.732421875,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.5119223594665527,
+                "std": 0.5675272941589355,
+                "sampleCi95Low": 0.4627628156860438,
+                "sampleCi95High": 0.5610819032470616,
+                "positiveFraction": 0.779296875,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.549906849861145,
+              "std": 0.3312471807003021,
+              "sampleCi95Low": 0.5296179600432516,
+              "sampleCi95High": 0.5701957396790385,
+              "positiveFraction": 0.9541015625,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": -0.1066519170999527,
+              "std": 0.7562274932861328,
+              "sampleCi95Low": -0.15297085106372832,
+              "sampleCi95High": -0.06033298313617706,
+              "positiveFraction": 0.484375,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.755859375,
+            "meanEffectNorm": 0.052093882113695145,
+            "meanPortNorm": 0.2646995782852173
+          },
+          "puckMomentum": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": -0.01323569007217884,
+                "std": 0.6870182156562805,
+                "sampleCi95Low": -0.05531555578112602,
+                "sampleCi95High": 0.02884417563676834,
+                "positiveFraction": 0.470703125,
+                "samples": 1024
+              },
+              "x": {
+                "mean": -0.04664246365427971,
+                "std": 0.692119836807251,
+                "sampleCi95Low": -0.10659428582929609,
+                "sampleCi95High": 0.013309358520736676,
+                "positiveFraction": 0.455078125,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.020171083509922028,
+                "std": 0.680915117263794,
+                "sampleCi95Low": -0.03881017935171154,
+                "sampleCi95High": 0.0791523463715556,
+                "positiveFraction": 0.486328125,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.5990225672721863,
+              "std": 0.3276498317718506,
+              "sampleCi95Low": 0.5789540150761604,
+              "sampleCi95High": 0.6190911194682122,
+              "positiveFraction": 0.9541015625,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": -0.6122581958770752,
+              "std": 0.7483579516410828,
+              "sampleCi95Low": -0.6580951204150916,
+              "sampleCi95High": -0.5664212713390588,
+              "positiveFraction": 0.232421875,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.4873046875,
+            "meanEffectNorm": 0.00845855288207531,
+            "meanPortNorm": 0.013037974014878273
+          }
+        },
+        "softRenderedPlayerEffect": {
+          "targetAxisPixels": {
+            "mean": 0.08041830360889435,
+            "std": 0.06311232596635818,
+            "sampleCi95Low": 0.07655267364345492,
+            "sampleCi95High": 0.08428393357433378,
+            "positiveFraction": 0.939453125,
+            "samples": 1024
+          },
+          "absoluteOrthogonalPixels": {
+            "mean": 0.02479846216738224,
+            "std": 0.023043790832161903,
+            "sampleCi95Low": 0.023387029978912323,
+            "sampleCi95High": 0.026209894355852158,
+            "positiveFraction": 1.0,
+            "samples": 1024
+          },
+          "targetPositiveFraction": 0.939453125
+        },
+        "hardRenderedPlayerEffect": {
+          "targetAxisPixels": {
+            "mean": 0.07867512106895447,
+            "std": 0.06957545876502991,
+            "sampleCi95Low": 0.07441362421959638,
+            "sampleCi95High": 0.08293661791831256,
+            "positiveFraction": 0.8515625,
+            "samples": 1024
+          },
+          "absoluteOrthogonalPixels": {
+            "mean": 0.03624337539076805,
+            "std": 0.03210698440670967,
+            "sampleCi95Low": 0.034276822595857084,
+            "sampleCi95High": 0.03820992818567902,
+            "positiveFraction": 0.908203125,
+            "samples": 1024
+          },
+          "targetPositiveFraction": 0.8515625
+        }
+      },
+      "4.0": {
+        "stateAlignment": {
+          "fullPhysicalState": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.6549104452133179,
+                "std": 0.47396090626716614,
+                "sampleCi95Low": 0.6258803397044539,
+                "sampleCi95High": 0.6839405507221819,
+                "positiveFraction": 0.888671875,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.6023159027099609,
+                "std": 0.49906492233276367,
+                "sampleCi95Low": 0.5590866093328162,
+                "sampleCi95High": 0.6455451960871057,
+                "positiveFraction": 0.875,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.70750492811203,
+                "std": 0.441710889339447,
+                "sampleCi95Low": 0.6692436743779867,
+                "sampleCi95High": 0.7457661818460734,
+                "positiveFraction": 0.90234375,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.4286822974681854,
+              "std": 0.28720808029174805,
+              "sampleCi95Low": 0.4110908025503159,
+              "sampleCi95High": 0.44627379238605497,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": 0.22622811794281006,
+              "std": 0.6618309617042542,
+              "sampleCi95Low": 0.1856909715384245,
+              "sampleCi95High": 0.2667652643471956,
+              "positiveFraction": 0.712890625,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.88671875,
+            "meanEffectNorm": 0.1439528912305832,
+            "meanPortNorm": 0.2652999758720398
+          },
+          "standardizedState": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.5567216873168945,
+                "std": 0.407469779253006,
+                "sampleCi95Low": 0.5317641633376479,
+                "sampleCi95High": 0.5816792112961412,
+                "positiveFraction": 0.88671875,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.5085917711257935,
+                "std": 0.41794803738594055,
+                "sampleCi95Low": 0.4723888694269406,
+                "sampleCi95High": 0.5447946728246463,
+                "positiveFraction": 0.87109375,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.6048515439033508,
+                "std": 0.39123597741127014,
+                "sampleCi95Low": 0.570962456351073,
+                "sampleCi95High": 0.6387406314556286,
+                "positiveFraction": 0.90234375,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.34062087535858154,
+              "std": 0.2378745973110199,
+              "sampleCi95Low": 0.32605105627328157,
+              "sampleCi95High": 0.3551906944438815,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": 0.2161007970571518,
+              "std": 0.539238452911377,
+              "sampleCi95Low": 0.18307244181632995,
+              "sampleCi95High": 0.24912915229797364,
+              "positiveFraction": 0.708984375,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.88671875,
+            "meanEffectNorm": 0.2048240751028061,
+            "meanPortNorm": 0.3181679844856262
+          },
+          "playerPosition": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.12118960171937943,
+                "std": 0.7066956758499146,
+                "sampleCi95Low": 0.07790449157357215,
+                "sampleCi95High": 0.1644747118651867,
+                "positiveFraction": 0.5830078125,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.1330031454563141,
+                "std": 0.6518814563751221,
+                "sampleCi95Low": 0.0765367951605692,
+                "sampleCi95High": 0.18946949575205896,
+                "positiveFraction": 0.599609375,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.10937605798244476,
+                "std": 0.7580143809318542,
+                "sampleCi95Low": 0.04371641213069974,
+                "sampleCi95High": 0.1750357038341898,
+                "positiveFraction": 0.56640625,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.6262103319168091,
+              "std": 0.3087315559387207,
+              "sampleCi95Low": 0.6073005241155625,
+              "sampleCi95High": 0.6451201397180557,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": -0.5050207376480103,
+              "std": 0.8078402876853943,
+              "sampleCi95Low": -0.5545009552687407,
+              "sampleCi95High": -0.45554052002727985,
+              "positiveFraction": 0.3095703125,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.60546875,
+            "meanEffectNorm": 0.01625513844192028,
+            "meanPortNorm": 0.005975246895104647
+          },
+          "playerMomentum": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.6760181784629822,
+                "std": 0.49473607540130615,
+                "sampleCi95Low": 0.6457155938446522,
+                "sampleCi95High": 0.7063207630813122,
+                "positiveFraction": 0.8896484375,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.623247504234314,
+                "std": 0.5262233018875122,
+                "sampleCi95Low": 0.5776657362493921,
+                "sampleCi95High": 0.6688292722192358,
+                "positiveFraction": 0.876953125,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.7287887334823608,
+                "std": 0.4555383622646332,
+                "sampleCi95Low": 0.6893297360139886,
+                "sampleCi95High": 0.7682477309507331,
+                "positiveFraction": 0.90234375,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.454241544008255,
+              "std": 0.3056502640247345,
+              "sampleCi95Low": 0.43552046533674,
+              "sampleCi95High": 0.47296262267977,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": 0.22177661955356598,
+              "std": 0.701650083065033,
+              "sampleCi95Low": 0.17880055196583272,
+              "sampleCi95High": 0.26475268714129924,
+              "positiveFraction": 0.7119140625,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.88671875,
+            "meanEffectNorm": 0.1399981826543808,
+            "meanPortNorm": 0.2646995782852173
+          },
+          "puckMomentum": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.004485251381993294,
+                "std": 0.699413001537323,
+                "sampleCi95Low": -0.03835379496216774,
+                "sampleCi95High": 0.047324297726154325,
+                "positiveFraction": 0.5009765625,
+                "samples": 1024
+              },
+              "x": {
+                "mean": -0.011557930149137974,
+                "std": 0.71577388048172,
+                "sampleCi95Low": -0.07355867932303009,
+                "sampleCi95High": 0.050442819024754136,
+                "positiveFraction": 0.490234375,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.020528435707092285,
+                "std": 0.6829834580421448,
+                "sampleCi95Low": -0.03863198803383792,
+                "sampleCi95High": 0.07968885944802248,
+                "positiveFraction": 0.51171875,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.654034435749054,
+              "std": 0.2979205250740051,
+              "sampleCi95Low": 0.6357868035882711,
+              "sampleCi95High": 0.6722820679098368,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": -0.6495491862297058,
+              "std": 0.7565699815750122,
+              "sampleCi95Low": -0.6958890976011753,
+              "sampleCi95High": -0.6032092748582363,
+              "positiveFraction": 0.23046875,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.48046875,
+            "meanEffectNorm": 0.018265381455421448,
+            "meanPortNorm": 0.013037974014878273
+          }
+        },
+        "softRenderedPlayerEffect": {
+          "targetAxisPixels": {
+            "mean": 0.22284013032913208,
+            "std": 0.17808620631694794,
+            "sampleCi95Low": 0.211932350192219,
+            "sampleCi95High": 0.23374791046604515,
+            "positiveFraction": 0.95703125,
+            "samples": 1024
+          },
+          "absoluteOrthogonalPixels": {
+            "mean": 0.058491166681051254,
+            "std": 0.060676779597997665,
+            "sampleCi95Low": 0.054774713930673895,
+            "sampleCi95High": 0.062207619431428614,
+            "positiveFraction": 1.0,
+            "samples": 1024
+          },
+          "targetPositiveFraction": 0.95703125
+        },
+        "hardRenderedPlayerEffect": {
+          "targetAxisPixels": {
+            "mean": 0.2221178561449051,
+            "std": 0.1788824200630188,
+            "sampleCi95Low": 0.21116130791604518,
+            "sampleCi95High": 0.233074404373765,
+            "positiveFraction": 0.94921875,
+            "samples": 1024
+          },
+          "absoluteOrthogonalPixels": {
+            "mean": 0.0677795261144638,
+            "std": 0.06696290522813797,
+            "sampleCi95Low": 0.06367804816924036,
+            "sampleCi95High": 0.07188100405968725,
+            "positiveFraction": 0.98046875,
+            "samples": 1024
+          },
+          "targetPositiveFraction": 0.94921875
+        }
+      },
+      "8.0": {
+        "stateAlignment": {
+          "fullPhysicalState": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.5674744844436646,
+                "std": 0.5444150567054749,
+                "sampleCi95Low": 0.5341290622204542,
+                "sampleCi95High": 0.6008199066668749,
+                "positiveFraction": 0.830078125,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.36474597454071045,
+                "std": 0.6050930619239807,
+                "sampleCi95Low": 0.3123324621421266,
+                "sampleCi95High": 0.4171594869392943,
+                "positiveFraction": 0.720703125,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.7702029943466187,
+                "std": 0.38060393929481506,
+                "sampleCi95Low": 0.7372348601099632,
+                "sampleCi95High": 0.8031711285832741,
+                "positiveFraction": 0.939453125,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.44581955671310425,
+              "std": 0.3045673370361328,
+              "sampleCi95Low": 0.4271648073196411,
+              "sampleCi95High": 0.46447430610656737,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": 0.12165497988462448,
+              "std": 0.7450199723243713,
+              "sampleCi95Low": 0.07602250657975673,
+              "sampleCi95High": 0.16728745318949223,
+              "positiveFraction": 0.6298828125,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.8310546875,
+            "meanEffectNorm": 0.25034254789352417,
+            "meanPortNorm": 0.2652999758720398
+          },
+          "standardizedState": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.4825226068496704,
+                "std": 0.45612818002700806,
+                "sampleCi95Low": 0.45458475582301616,
+                "sampleCi95High": 0.5104604578763247,
+                "positiveFraction": 0.8271484375,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.2881014347076416,
+                "std": 0.4734609127044678,
+                "sampleCi95Low": 0.2470899755126292,
+                "sampleCi95High": 0.32911289390265397,
+                "positiveFraction": 0.72265625,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.6769437789916992,
+                "std": 0.34146833419799805,
+                "sampleCi95Low": 0.647365593594394,
+                "sampleCi95High": 0.7065219643890044,
+                "positiveFraction": 0.931640625,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.33906808495521545,
+              "std": 0.24783803522586823,
+              "sampleCi95Low": 0.323888005297631,
+              "sampleCi95High": 0.3542481646127999,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": 0.14345452189445496,
+              "std": 0.5978230834007263,
+              "sampleCi95Low": 0.10683785803616047,
+              "sampleCi95High": 0.18007118575274944,
+              "positiveFraction": 0.6357421875,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.8310546875,
+            "meanEffectNorm": 0.3728957176208496,
+            "meanPortNorm": 0.3181679844856262
+          },
+          "playerPosition": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.14670200645923615,
+                "std": 0.6821693778038025,
+                "sampleCi95Low": 0.10491913206875325,
+                "sampleCi95High": 0.18848488084971904,
+                "positiveFraction": 0.59375,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.09195101261138916,
+                "std": 0.6150971055030823,
+                "sampleCi95Low": 0.03867094414868194,
+                "sampleCi95High": 0.14523108107409638,
+                "positiveFraction": 0.568359375,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.20145298540592194,
+                "std": 0.7397765517234802,
+                "sampleCi95Low": 0.13737311091082893,
+                "sampleCi95High": 0.26553285990101494,
+                "positiveFraction": 0.619140625,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.6630828380584717,
+              "std": 0.3059743642807007,
+              "sampleCi95Low": 0.6443419082462788,
+              "sampleCi95High": 0.6818237678706646,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": -0.5163808465003967,
+              "std": 0.7724472880363464,
+              "sampleCi95Low": -0.5636932428926229,
+              "sampleCi95High": -0.4690684501081705,
+              "positiveFraction": 0.2890625,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.5927734375,
+            "meanEffectNorm": 0.03256930410861969,
+            "meanPortNorm": 0.005975246895104647
+          },
+          "playerMomentum": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.5804261565208435,
+                "std": 0.5795276761054993,
+                "sampleCi95Low": 0.5449300863593817,
+                "sampleCi95High": 0.6159222266823053,
+                "positiveFraction": 0.830078125,
+                "samples": 1024
+              },
+              "x": {
+                "mean": 0.3725197911262512,
+                "std": 0.6541738510131836,
+                "sampleCi95Low": 0.3158548722757745,
+                "sampleCi95High": 0.4291847099767279,
+                "positiveFraction": 0.720703125,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.7883325815200806,
+                "std": 0.3972395062446594,
+                "sampleCi95Low": 0.7539234648140333,
+                "sampleCi95High": 0.8227416982261279,
+                "positiveFraction": 0.939453125,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.47530457377433777,
+              "std": 0.3230941891670227,
+              "sampleCi95Low": 0.45551505468785763,
+              "sampleCi95High": 0.4950940928608179,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": 0.10512163490056992,
+              "std": 0.7952370047569275,
+              "sampleCi95Low": 0.056413368359208106,
+              "sampleCi95High": 0.15382990144193173,
+              "positiveFraction": 0.62890625,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.8310546875,
+            "meanEffectNorm": 0.2415120154619217,
+            "meanPortNorm": 0.2646995782852173
+          },
+          "puckMomentum": {
+            "matchedCosine": {
+              "pooled": {
+                "mean": 0.07481002062559128,
+                "std": 0.6943216919898987,
+                "sampleCi95Low": 0.03228281699120999,
+                "sampleCi95High": 0.11733722425997256,
+                "positiveFraction": 0.55859375,
+                "samples": 1024
+              },
+              "x": {
+                "mean": -0.020322389900684357,
+                "std": 0.6815690994262695,
+                "sampleCi95Low": -0.07936030107699596,
+                "sampleCi95High": 0.03871552127562725,
+                "positiveFraction": 0.49609375,
+                "samples": 512
+              },
+              "y": {
+                "mean": 0.16994242370128632,
+                "std": 0.6945765018463135,
+                "sampleCi95Low": 0.10977780377401238,
+                "sampleCi95High": 0.23010704362856027,
+                "positiveFraction": 0.62109375,
+                "samples": 512
+              }
+            },
+            "absoluteSwappedAxisCosine": {
+              "mean": 0.6621310114860535,
+              "std": 0.30259260535240173,
+              "sampleCi95Low": 0.6435972144082188,
+              "sampleCi95High": 0.6806648085638881,
+              "positiveFraction": 1.0,
+              "samples": 1024
+            },
+            "matchedMinusAbsoluteSwapped": {
+              "mean": -0.5873210430145264,
+              "std": 0.7634658217430115,
+              "sampleCi95Low": -0.6340833245962858,
+              "sampleCi95High": -0.5405587614327669,
+              "positiveFraction": 0.26171875,
+              "samples": 1024
+            },
+            "targetCoordinateSignFraction": 0.5244140625,
+            "meanEffectNorm": 0.034789036959409714,
+            "meanPortNorm": 0.013037974014878273
+          }
+        },
+        "softRenderedPlayerEffect": {
+          "targetAxisPixels": {
+            "mean": 0.2241283357143402,
+            "std": 0.24242165684700012,
+            "sampleCi95Low": 0.20928000923246146,
+            "sampleCi95High": 0.23897666219621896,
+            "positiveFraction": 0.9091796875,
+            "samples": 1024
+          },
+          "absoluteOrthogonalPixels": {
+            "mean": 0.09183981269598007,
+            "std": 0.09759761393070221,
+            "sampleCi95Low": 0.08586195884272456,
+            "sampleCi95High": 0.09781766654923559,
+            "positiveFraction": 1.0,
+            "samples": 1024
+          },
+          "targetPositiveFraction": 0.9091796875
+        },
+        "hardRenderedPlayerEffect": {
+          "targetAxisPixels": {
+            "mean": 0.22132685780525208,
+            "std": 0.2520609498023987,
+            "sampleCi95Low": 0.20588812462985515,
+            "sampleCi95High": 0.236765590980649,
+            "positiveFraction": 0.90234375,
+            "samples": 1024
+          },
+          "absoluteOrthogonalPixels": {
+            "mean": 0.10153166204690933,
+            "std": 0.10457687079906464,
+            "sampleCi95Low": 0.09512632871046663,
+            "sampleCi95High": 0.10793699538335204,
+            "positiveFraction": 0.990234375,
+            "samples": 1024
+          },
+          "targetPositiveFraction": 0.90234375
+        }
+      }
+    },
+    "randomLatentControlAtPrimaryStrength": {
+      "stateAlignment": {
+        "fullPhysicalState": {
+          "matchedCosine": {
+            "pooled": {
+              "mean": -0.03032650239765644,
+              "std": 0.6568606495857239,
+              "sampleCi95Low": -0.07055921718478203,
+              "sampleCi95High": 0.009906212389469149,
+              "positiveFraction": 0.478515625,
+              "samples": 1024
+            },
+            "x": {
+              "mean": -0.035258274525403976,
+              "std": 0.6608757972717285,
+              "sampleCi95Low": -0.09250371985258486,
+              "sampleCi95High": 0.02198717080177691,
+              "positiveFraction": 0.484375,
+              "samples": 512
+            },
+            "y": {
+              "mean": -0.025394724681973457,
+              "std": 0.6534299254417419,
+              "sampleCi95Low": -0.08199520426745774,
+              "sampleCi95High": 0.03120575490351083,
+              "positiveFraction": 0.47265625,
+              "samples": 512
+            }
+          },
+          "absoluteSwappedAxisCosine": {
+            "mean": 0.5928804874420166,
+            "std": 0.29637449979782104,
+            "sampleCi95Low": 0.5747275493294001,
+            "sampleCi95High": 0.6110334255546331,
+            "positiveFraction": 0.9931640625,
+            "samples": 1024
+          },
+          "matchedMinusAbsoluteSwapped": {
+            "mean": -0.6232069730758667,
+            "std": 0.7156209945678711,
+            "sampleCi95Low": -0.6670387589931488,
+            "sampleCi95High": -0.5793751871585846,
+            "positiveFraction": 0.2373046875,
+            "samples": 1024
+          },
+          "targetCoordinateSignFraction": 0.4833984375,
+          "meanEffectNorm": 0.12204727530479431,
+          "meanPortNorm": 0.2652999758720398
+        },
+        "standardizedState": {
+          "matchedCosine": {
+            "pooled": {
+              "mean": -0.025109359994530678,
+              "std": 0.5247393846511841,
+              "sampleCi95Low": -0.0572496473044157,
+              "sampleCi95High": 0.007030927315354346,
+              "positiveFraction": 0.482421875,
+              "samples": 1024
+            },
+            "x": {
+              "mean": -0.022920578718185425,
+              "std": 0.5307447910308838,
+              "sampleCi95Low": -0.06889400071831386,
+              "sampleCi95High": 0.023052843281943014,
+              "positiveFraction": 0.486328125,
+              "samples": 512
+            },
+            "y": {
+              "mean": -0.02729814127087593,
+              "std": 0.5191743969917297,
+              "sampleCi95Low": -0.07226932902045881,
+              "sampleCi95High": 0.017673046478706947,
+              "positiveFraction": 0.478515625,
+              "samples": 512
+            }
+          },
+          "absoluteSwappedAxisCosine": {
+            "mean": 0.45987817645072937,
+            "std": 0.26607897877693176,
+            "sampleCi95Low": 0.4435808390006423,
+            "sampleCi95High": 0.4761755139008164,
+            "positiveFraction": 0.9931640625,
+            "samples": 1024
+          },
+          "matchedMinusAbsoluteSwapped": {
+            "mean": -0.4849874973297119,
+            "std": 0.5850077271461487,
+            "sampleCi95Low": -0.5208192206174135,
+            "sampleCi95High": -0.4491557740420103,
+            "positiveFraction": 0.23046875,
+            "samples": 1024
+          },
+          "targetCoordinateSignFraction": 0.4833984375,
+          "meanEffectNorm": 0.18386660516262054,
+          "meanPortNorm": 0.3181679844856262
+        },
+        "playerPosition": {
+          "matchedCosine": {
+            "pooled": {
+              "mean": -0.01547253504395485,
+              "std": 0.7112665772438049,
+              "sampleCi95Low": -0.0590376129001379,
+              "sampleCi95High": 0.0280925428122282,
+              "positiveFraction": 0.48046875,
+              "samples": 1024
+            },
+            "x": {
+              "mean": -0.014649942517280579,
+              "std": 0.6713583469390869,
+              "sampleCi95Low": -0.07280339238381592,
+              "sampleCi95High": 0.04350350734925477,
+              "positiveFraction": 0.48046875,
+              "samples": 512
+            },
+            "y": {
+              "mean": -0.016295135021209717,
+              "std": 0.7497112154960632,
+              "sampleCi95Low": -0.08123555586129695,
+              "sampleCi95High": 0.04864528581887752,
+              "positiveFraction": 0.48046875,
+              "samples": 512
+            }
+          },
+          "absoluteSwappedAxisCosine": {
+            "mean": 0.6166560649871826,
+            "std": 0.3167264461517334,
+            "sampleCi95Low": 0.5972565701603889,
+            "sampleCi95High": 0.6360555598139763,
+            "positiveFraction": 0.9931640625,
+            "samples": 1024
+          },
+          "matchedMinusAbsoluteSwapped": {
+            "mean": -0.6321285963058472,
+            "std": 0.7860385179519653,
+            "sampleCi95Low": -0.6802734555304051,
+            "sampleCi95High": -0.5839837370812893,
+            "positiveFraction": 0.255859375,
+            "samples": 1024
+          },
+          "targetCoordinateSignFraction": 0.484375,
+          "meanEffectNorm": 0.015421333722770214,
+          "meanPortNorm": 0.005975246895104647
+        },
+        "playerMomentum": {
+          "matchedCosine": {
+            "pooled": {
+              "mean": -0.02958361990749836,
+              "std": 0.7024878263473511,
+              "sampleCi95Low": -0.07261099927127361,
+              "sampleCi95High": 0.01344375945627689,
+              "positiveFraction": 0.4814453125,
+              "samples": 1024
+            },
+            "x": {
+              "mean": -0.039612628519535065,
+              "std": 0.703041672706604,
+              "sampleCi95Low": -0.10051050646241275,
+              "sampleCi95High": 0.021285249423342617,
+              "positiveFraction": 0.484375,
+              "samples": 512
+            },
+            "y": {
+              "mean": -0.019554613158106804,
+              "std": 0.7024776935577393,
+              "sampleCi95Low": -0.08040363889960975,
+              "sampleCi95High": 0.041294412583396146,
+              "positiveFraction": 0.478515625,
+              "samples": 512
+            }
+          },
+          "absoluteSwappedAxisCosine": {
+            "mean": 0.6372409462928772,
+            "std": 0.3062901794910431,
+            "sampleCi95Low": 0.6184806727990508,
+            "sampleCi95High": 0.6560012197867036,
+            "positiveFraction": 0.9931640625,
+            "samples": 1024
+          },
+          "matchedMinusAbsoluteSwapped": {
+            "mean": -0.6668245196342468,
+            "std": 0.7600038647651672,
+            "sampleCi95Low": -0.7133747563511134,
+            "sampleCi95High": -0.6202742829173803,
+            "positiveFraction": 0.23828125,
+            "samples": 1024
+          },
+          "targetCoordinateSignFraction": 0.4833984375,
+          "meanEffectNorm": 0.11688554286956787,
+          "meanPortNorm": 0.2646995782852173
+        },
+        "puckMomentum": {
+          "matchedCosine": {
+            "pooled": {
+              "mean": -0.0022030561231076717,
+              "std": 0.6905637979507446,
+              "sampleCi95Low": -0.04450008874759078,
+              "sampleCi95High": 0.04009397650137544,
+              "positiveFraction": 0.498046875,
+              "samples": 1024
+            },
+            "x": {
+              "mean": 0.01502513699233532,
+              "std": 0.6875007748603821,
+              "sampleCi95Low": -0.04452657935457548,
+              "sampleCi95High": 0.07457685333924612,
+              "positiveFraction": 0.509765625,
+              "samples": 512
+            },
+            "y": {
+              "mean": -0.01943124830722809,
+              "std": 0.6938571929931641,
+              "sampleCi95Low": -0.07953356128394293,
+              "sampleCi95High": 0.04067106466948675,
+              "positiveFraction": 0.486328125,
+              "samples": 512
+            }
+          },
+          "absoluteSwappedAxisCosine": {
+            "mean": 0.6351740956306458,
+            "std": 0.3116580545902252,
+            "sampleCi95Low": 0.6160850397869945,
+            "sampleCi95High": 0.654263151474297,
+            "positiveFraction": 0.9931640625,
+            "samples": 1024
+          },
+          "matchedMinusAbsoluteSwapped": {
+            "mean": -0.637377142906189,
+            "std": 0.7601794004440308,
+            "sampleCi95Low": -0.6839381311833859,
+            "sampleCi95High": -0.5908161546289921,
+            "positiveFraction": 0.2392578125,
+            "samples": 1024
+          },
+          "targetCoordinateSignFraction": 0.490234375,
+          "meanEffectNorm": 0.018400687724351883,
+          "meanPortNorm": 0.013037974014878273
+        }
+      },
+      "softRenderedPlayerEffect": {
+        "targetAxisPixels": {
+          "mean": -0.0006159693002700806,
+          "std": 0.09806614369153976,
+          "sampleCi95Low": -0.006622520601376891,
+          "sampleCi95High": 0.00539058200083673,
+          "positiveFraction": 0.51171875,
+          "samples": 1024
+        },
+        "absoluteOrthogonalPixels": {
+          "mean": 0.03471559286117554,
+          "std": 0.03966408222913742,
+          "sampleCi95Low": 0.03228616782464087,
+          "sampleCi95High": 0.03714501789771021,
+          "positiveFraction": 1.0,
+          "samples": 1024
+        },
+        "targetPositiveFraction": 0.51171875
+      },
+      "hardRenderedPlayerEffect": {
+        "targetAxisPixels": {
+          "mean": -5.689123645424843e-05,
+          "std": 0.12279704213142395,
+          "sampleCi95Low": -0.007578210067003965,
+          "sampleCi95High": 0.007464427594095468,
+          "positiveFraction": 0.47265625,
+          "samples": 1024
+        },
+        "absoluteOrthogonalPixels": {
+          "mean": 0.042475778609514236,
+          "std": 0.046234093606472015,
+          "sampleCi95Low": 0.03964394037611783,
+          "sampleCi95High": 0.045307616842910646,
+          "positiveFraction": 0.8837890625,
+          "samples": 1024
+        },
+        "targetPositiveFraction": 0.47265625
+      }
+    }
+  },
+  "conclusion": {
+    "outcome": "infinitesimal_only_single_seed",
+    "text": "The readout differential aligns with the learned port, but the bridge does not survive the finite render-and-reencode intervention.",
+    "gates": {
+      "differentialMomentumCosineAtLeast0.50": true,
+      "differentialAxisSpecificityAtLeast0.25": true,
+      "differentialTargetSignAtLeast0.75": true,
+      "finiteMomentumCosineAtLeast0.30": true,
+      "finiteAxisSpecificityAtLeast0.15": false,
+      "finiteTargetSignAtLeast0.65": true,
+      "finiteBeatsRandomBy0.20": true
+    },
+    "differentialPass": true,
+    "finiteCausalPass": false,
+    "scope": "Provisional within-seed conclusion. Sample-level confidence intervals do not quantify training-seed uncertainty."
+  },
+  "timing": {
+    "totalSeconds": 23.554736386053264
+  }
+}
