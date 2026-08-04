@@ -118,3 +118,9 @@ A short A100 calibration job uses the final code path with fewer trajectories
 and steps. The full jobs are submitted only after that job passes. Total time is
 estimated from separately measured collection, optimization, and evaluation
 rates; queued time is reported apart from compute time.
+
+## Completed run
+
+The five-seed outputs, final aggregate, runtime record, and scientific decision
+are stored in
+[`results/mesohelios-port-hamiltonian-bottleneck`](../results/mesohelios-port-hamiltonian-bottleneck/README.md).

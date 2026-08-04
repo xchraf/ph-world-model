@@ -1,6 +1,6 @@
 # Experiment B — Mesohelios run manifest
 
-Status: training in progress.
+Status: completed successfully.
 
 ## Frozen implementation
 
@@ -59,3 +59,10 @@ between-job startup overhead.
 
 This estimate is based on the final batch size of 256 and the actual full data
 volume, not on the smaller pilot throughput.
+
+## Actual completion time
+
+All five jobs completed with exit code `0:0`. Their individual Slurm times were
+5:13, 5:10, 4:57, 5:14, and 5:02. Cumulative allocated time was 25:36. From the
+first job start at 16:46:45 to the last job end at 17:13:14, serialized wall
+time was 26:29, inside the preregistered 26–27 minute estimate.

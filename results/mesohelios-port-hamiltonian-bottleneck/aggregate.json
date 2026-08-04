@@ -1,0 +1,529 @@
+{
+  "version": 1,
+  "runs": 5,
+  "sources": [
+    "results/mesohelios-port-hamiltonian-bottleneck/artifacts/port-hamiltonian-bottleneck-seed-101410733/summary.json",
+    "results/mesohelios-port-hamiltonian-bottleneck/artifacts/port-hamiltonian-bottleneck-seed-111410737/summary.json",
+    "results/mesohelios-port-hamiltonian-bottleneck/artifacts/port-hamiltonian-bottleneck-seed-121410739/summary.json",
+    "results/mesohelios-port-hamiltonian-bottleneck/artifacts/port-hamiltonian-bottleneck-seed-131410741/summary.json",
+    "results/mesohelios-port-hamiltonian-bottleneck/artifacts/port-hamiltonian-bottleneck-seed-91410731/summary.json"
+  ],
+  "baseCheckpointStep": 12000,
+  "config": {
+    "trajectories": 8192,
+    "transitions_per_trajectory": 8,
+    "fit_fraction": 0.75,
+    "goal_centered_fraction": 0.2,
+    "feature_batch_size": 64,
+    "block_count": 5,
+    "steps": 6000,
+    "batch_size": 256,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "warmup_steps": 200,
+    "min_learning_rate_ratio": 0.1,
+    "hidden_size": 64,
+    "state_loss_weight": 1.0,
+    "teacher_dynamics_weight": 1.0,
+    "rollout_loss_weight": 2.0,
+    "event_loss_weight": 0.2,
+    "free_port_weight": 0.2,
+    "ridge": 0.01,
+    "log_every": 100,
+    "seed": 101410733
+  },
+  "capacity": {
+    "portHamiltonian": 5598,
+    "signFreeControl": 5598
+  },
+  "timing": {
+    "collectionSeconds": {
+      "mean": 99.12461612720509,
+      "std": 0.3970966875476692
+    },
+    "trainingSeconds": {
+      "mean": 193.39630214734933,
+      "std": 6.9997143149102445
+    },
+    "evaluationSeconds": {
+      "mean": 0.12397790376562626,
+      "std": 0.0005670258953937071
+    },
+    "totalSeconds": {
+      "mean": 292.64489617832004,
+      "std": 7.0407645824732565
+    }
+  },
+  "branches": {
+    "portHamiltonian": {
+      "stateReadout": {
+        "qR2": {
+          "mean": 0.952151620388031,
+          "std": 0.0013111070436257971
+        },
+        "pR2": {
+          "mean": 0.8366870403289794,
+          "std": 0.0023221265152121007
+        },
+        "modeR2": {
+          "mean": 0.8395669341087342,
+          "std": 0.007519256014847887
+        }
+      },
+      "horizons": {
+        "1": {
+          "deltaNrmse": {
+            "mean": 1.3420464992523193,
+            "std": 0.08153427588172531
+          },
+          "qR2": {
+            "mean": 0.9425216794013977,
+            "std": 0.0022431492938203915
+          },
+          "pR2": {
+            "mean": 0.7481954336166382,
+            "std": 0.007070745306707747
+          }
+        },
+        "2": {
+          "deltaNrmse": {
+            "mean": 0.9334295630455017,
+            "std": 0.03141830665532434
+          },
+          "qR2": {
+            "mean": 0.9025823950767518,
+            "std": 0.004404858799237756
+          },
+          "pR2": {
+            "mean": 0.6524224638938904,
+            "std": 0.008130537160789795
+          }
+        },
+        "4": {
+          "deltaNrmse": {
+            "mean": 0.6761486649513244,
+            "std": 0.009468396093966712
+          },
+          "qR2": {
+            "mean": 0.9211801052093506,
+            "std": 0.0035897060256250123
+          },
+          "pR2": {
+            "mean": 0.47412105798721316,
+            "std": 0.017197773758296016
+          }
+        },
+        "8": {
+          "deltaNrmse": {
+            "mean": 0.6481055498123169,
+            "std": 0.006041269944526639
+          },
+          "qR2": {
+            "mean": 0.8735815048217773,
+            "std": 0.004027211705866897
+          },
+          "pR2": {
+            "mean": 0.29397447109222413,
+            "std": 0.015346559494194488
+          }
+        }
+      },
+      "shuffledInitialState": {
+        "mean": 1.0173357009887696,
+        "std": 0.009737400675424532
+      },
+      "eventPrediction": {
+        "accuracy": {
+          "mean": 0.91822509765625,
+          "std": 0.005873408994937865
+        },
+        "balancedAccuracy": {
+          "mean": 0.8754842360814413,
+          "std": 0.02486511151411145
+        }
+      },
+      "freeCore": {
+        "effectiveMass": [
+          {
+            "mean": 1.7220655559732108,
+            "std": 0.03146345707729976
+          },
+          {
+            "mean": 0.965200624646935,
+            "std": 0.02875741827168324
+          }
+        ],
+        "effectiveDrag": [
+          {
+            "mean": 0.19453042877741553,
+            "std": 0.014537376151457749
+          },
+          {
+            "mean": 0.15053392313664682,
+            "std": 0.009719421344182522
+          }
+        ],
+        "violationRate": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "energyRatio": {
+          "mean": 0.9829089641571045,
+          "std": 0.0009740164202088376
+        }
+      },
+      "stability": {
+        "energyGrowthFraction": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "finalToInitialEnergy": {
+          "mean": 0.34325947761535647,
+          "std": 0.020685544271052052
+        }
+      },
+      "externalPort": {
+        "cosine": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "gain": {
+          "mean": 1.0000001192092896,
+          "std": 0.0
+        },
+        "crossTalkRmse": {
+          "mean": 6.258205687004193e-09,
+          "std": 3.7696486058194203e-10
+        }
+      },
+      "regimes": {
+        "free": {
+          "samples": {
+            "mean": 13777.2,
+            "std": 24.09771773425857
+          },
+          "deltaNrmse": {
+            "mean": 1.019259786605835,
+            "std": 0.004598185249375984
+          },
+          "meanPortNorm": {
+            "mean": 0.053286779671907425,
+            "std": 0.003392626932959829
+          }
+        },
+        "disc_impact": {
+          "samples": {
+            "mean": 446.0,
+            "std": 17.421251390184345
+          },
+          "deltaNrmse": {
+            "mean": 0.8491204380989075,
+            "std": 0.019830452572625275
+          },
+          "meanPortNorm": {
+            "mean": 0.18769671022891998,
+            "std": 0.03387945400394742
+          }
+        },
+        "wall": {
+          "samples": {
+            "mean": 574.0,
+            "std": 27.694764848252458
+          },
+          "deltaNrmse": {
+            "mean": 0.9090413212776184,
+            "std": 0.004481002291884322
+          },
+          "meanPortNorm": {
+            "mean": 0.14823659062385558,
+            "std": 0.009145450447628814
+          }
+        },
+        "goal_entry": {
+          "samples": {
+            "mean": 60.0,
+            "std": 7.106335201775948
+          },
+          "deltaNrmse": {
+            "mean": 1.0677209854125977,
+            "std": 0.03340267866994326
+          },
+          "meanPortNorm": {
+            "mean": 0.13902005404233933,
+            "std": 0.01293886573888484
+          }
+        },
+        "goal_pause": {
+          "samples": {
+            "mean": 1089.8,
+            "std": 14.237275020171522
+          },
+          "deltaNrmse": {
+            "mean": 1.0103008151054382,
+            "std": 0.008191025904725207
+          },
+          "meanPortNorm": {
+            "mean": 0.13698909282684327,
+            "std": 0.00807954114034038
+          }
+        },
+        "kickoff": {
+          "samples": {
+            "mean": 437.0,
+            "std": 3.6742346141747673
+          },
+          "deltaNrmse": {
+            "mean": 0.8120640635490417,
+            "std": 0.00926012328337099
+          },
+          "meanPortNorm": {
+            "mean": 0.3892017245292664,
+            "std": 0.020206543262390412
+          }
+        }
+      }
+    },
+    "signFreeControl": {
+      "stateReadout": {
+        "qR2": {
+          "mean": 0.9524837970733643,
+          "std": 0.0013830072544916438
+        },
+        "pR2": {
+          "mean": 0.8326383233070374,
+          "std": 0.0033128037560039517
+        },
+        "modeR2": {
+          "mean": 0.8413618564605713,
+          "std": 0.0073724315465623635
+        }
+      },
+      "horizons": {
+        "1": {
+          "deltaNrmse": {
+            "mean": 1.3403892755508422,
+            "std": 0.08030848480013658
+          },
+          "qR2": {
+            "mean": 0.9433180451393127,
+            "std": 0.0019317131934673008
+          },
+          "pR2": {
+            "mean": 0.748671543598175,
+            "std": 0.007337877196224757
+          }
+        },
+        "2": {
+          "deltaNrmse": {
+            "mean": 0.9336291551589966,
+            "std": 0.03047209716031807
+          },
+          "qR2": {
+            "mean": 0.9029335141181946,
+            "std": 0.004260103606398063
+          },
+          "pR2": {
+            "mean": 0.6521733999252319,
+            "std": 0.008569969897846322
+          }
+        },
+        "4": {
+          "deltaNrmse": {
+            "mean": 0.6795102119445801,
+            "std": 0.009192569568059809
+          },
+          "qR2": {
+            "mean": 0.9214329242706298,
+            "std": 0.002908468200775607
+          },
+          "pR2": {
+            "mean": 0.4686730146408081,
+            "std": 0.018102933222908863
+          }
+        },
+        "8": {
+          "deltaNrmse": {
+            "mean": 0.6505800366401673,
+            "std": 0.005919569920557583
+          },
+          "qR2": {
+            "mean": 0.8747324466705322,
+            "std": 0.003927680783047253
+          },
+          "pR2": {
+            "mean": 0.2879944324493408,
+            "std": 0.020500205250250526
+          }
+        }
+      },
+      "shuffledInitialState": {
+        "mean": 1.0087400317192077,
+        "std": 0.00942892005906089
+      },
+      "eventPrediction": {
+        "accuracy": {
+          "mean": 0.92032470703125,
+          "std": 0.006907847784953588
+        },
+        "balancedAccuracy": {
+          "mean": 0.8824792702992758,
+          "std": 0.02351611230572467
+        }
+      },
+      "freeCore": {
+        "effectiveMass": [
+          {
+            "mean": 1.6524002559636102,
+            "std": 0.049068102246677014
+          },
+          {
+            "mean": 0.9315911137246072,
+            "std": 0.03271560284663777
+          }
+        ],
+        "effectiveDrag": [
+          {
+            "mean": 1.2059807926183403,
+            "std": 0.2809662495545052
+          },
+          {
+            "mean": 0.7753896857492336,
+            "std": 0.24337317155237803
+          }
+        ],
+        "violationRate": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "energyRatio": {
+          "mean": 0.9060763120651245,
+          "std": 0.010324539348033993
+        }
+      },
+      "stability": {
+        "energyGrowthFraction": {
+          "mean": 0.0,
+          "std": 0.0
+        },
+        "finalToInitialEnergy": {
+          "mean": 0.009455439471639692,
+          "std": 0.00856276005695974
+        }
+      },
+      "externalPort": {
+        "cosine": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "gain": {
+          "mean": 1.0000001192092896,
+          "std": 0.0
+        },
+        "crossTalkRmse": {
+          "mean": 5.819658066563704e-09,
+          "std": 2.512102843116534e-10
+        }
+      },
+      "regimes": {
+        "free": {
+          "samples": {
+            "mean": 13777.2,
+            "std": 24.09771773425857
+          },
+          "deltaNrmse": {
+            "mean": 1.0083058595657348,
+            "std": 0.004930353248778944
+          },
+          "meanPortNorm": {
+            "mean": 0.04200073555111885,
+            "std": 0.0033057604639830556
+          }
+        },
+        "disc_impact": {
+          "samples": {
+            "mean": 446.0,
+            "std": 17.421251390184345
+          },
+          "deltaNrmse": {
+            "mean": 0.8733091592788697,
+            "std": 0.01116616885680936
+          },
+          "meanPortNorm": {
+            "mean": 0.16361843347549437,
+            "std": 0.02783979133900573
+          }
+        },
+        "wall": {
+          "samples": {
+            "mean": 574.0,
+            "std": 27.694764848252458
+          },
+          "deltaNrmse": {
+            "mean": 0.9032298922538757,
+            "std": 0.007218011281989267
+          },
+          "meanPortNorm": {
+            "mean": 0.1419930040836334,
+            "std": 0.004047023030088811
+          }
+        },
+        "goal_entry": {
+          "samples": {
+            "mean": 60.0,
+            "std": 7.106335201775948
+          },
+          "deltaNrmse": {
+            "mean": 1.0508491039276122,
+            "std": 0.034406068946542225
+          },
+          "meanPortNorm": {
+            "mean": 0.12214735001325608,
+            "std": 0.013208162368823773
+          }
+        },
+        "goal_pause": {
+          "samples": {
+            "mean": 1089.8,
+            "std": 14.237275020171522
+          },
+          "deltaNrmse": {
+            "mean": 1.011017417907715,
+            "std": 0.007968871654635609
+          },
+          "meanPortNorm": {
+            "mean": 0.1320882797241211,
+            "std": 0.008028209309250358
+          }
+        },
+        "kickoff": {
+          "samples": {
+            "mean": 437.0,
+            "std": 3.6742346141747673
+          },
+          "deltaNrmse": {
+            "mean": 0.8196879029273987,
+            "std": 0.012720403729362856
+          },
+          "meanPortNorm": {
+            "mean": 0.36744941473007203,
+            "std": 0.02619958913176799
+          }
+        }
+      }
+    }
+  },
+  "paired": {
+    "h8DeltaNrmsePhMinusControl": {
+      "mean": -0.002474486827850342,
+      "std": 0.0034809366339683444
+    },
+    "playerDragPhMinusControl": {
+      "mean": -1.011450363840925,
+      "std": 0.26846186936177757
+    },
+    "puckDragPhMinusControl": {
+      "mean": -0.6248557626125868,
+      "std": 0.2351860137845922
+    }
+  }
+}

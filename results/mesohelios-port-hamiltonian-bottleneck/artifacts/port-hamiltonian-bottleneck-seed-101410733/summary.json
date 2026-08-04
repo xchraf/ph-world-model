@@ -1,0 +1,496 @@
+{
+  "kind": "causal_port_hamiltonian_bottleneck",
+  "version": 1,
+  "question": "Does forcing block-5 entity features through a canonical hybrid pH state improve causal rollout, passivity, and control relative to an equal-capacity sign-free core?",
+  "baseCheckpoint": "/work/outputs/main-recovery-12000/checkpoint.pt",
+  "baseCheckpointStep": 12000,
+  "frozenBackbone": true,
+  "hardBottleneck": "Every evaluated future state is rolled from the first block-5 feature through the 10D canonical-plus-mode state; future backbone features are not consumed.",
+  "config": {
+    "trajectories": 8192,
+    "transitions_per_trajectory": 8,
+    "fit_fraction": 0.75,
+    "goal_centered_fraction": 0.2,
+    "feature_batch_size": 64,
+    "block_count": 5,
+    "steps": 6000,
+    "batch_size": 256,
+    "learning_rate": 0.0003,
+    "weight_decay": 0.0001,
+    "warmup_steps": 200,
+    "min_learning_rate_ratio": 0.1,
+    "hidden_size": 64,
+    "state_loss_weight": 1.0,
+    "teacher_dynamics_weight": 1.0,
+    "rollout_loss_weight": 2.0,
+    "event_loss_weight": 0.2,
+    "free_port_weight": 0.2,
+    "ridge": 0.01,
+    "log_every": 100,
+    "seed": 101410733
+  },
+  "data": {
+    "fitTrajectories": 6144,
+    "testTrajectories": 2048,
+    "transitionsPerTrajectory": 8,
+    "regimeCounts": {
+      "free": 55092,
+      "disc_impact": 1802,
+      "wall": 2269,
+      "goal_entry": 262,
+      "goal_pause": 4364,
+      "kickoff": 1747
+    }
+  },
+  "capacity": {
+    "portHamiltonian": 5598,
+    "signFreeControl": 5598
+  },
+  "timing": {
+    "collectionSeconds": 99.67060864495579,
+    "trainingSeconds": 198.96955406898633,
+    "evaluationSeconds": 0.12419765791855752,
+    "totalSeconds": 298.7643603718607
+  },
+  "evaluation": {
+    "portHamiltonian": {
+      "stateReadout": {
+        "r2": 0.8540424108505249,
+        "qR2": 0.9538252353668213,
+        "pR2": 0.8352377414703369,
+        "qRmse": 0.040112756192684174,
+        "pRmse": 0.1745436042547226,
+        "modeR2": 0.844560980796814
+      },
+      "rolloutByHorizon": {
+        "1": {
+          "deltaNrmse": 1.452341914176941,
+          "qR2": 0.9461643695831299,
+          "pR2": 0.7566871047019958
+        },
+        "2": {
+          "deltaNrmse": 0.9700632691383362,
+          "qR2": 0.9080972671508789,
+          "pR2": 0.6615173816680908
+        },
+        "4": {
+          "deltaNrmse": 0.6903729438781738,
+          "qR2": 0.9229826927185059,
+          "pR2": 0.47873979806900024
+        },
+        "8": {
+          "deltaNrmse": 0.6581642031669617,
+          "qR2": 0.877933144569397,
+          "pR2": 0.28745532035827637
+        }
+      },
+      "shuffledInitialStateControl": {
+        "horizon": 8,
+        "deltaNrmse": 1.0276293754577637
+      },
+      "regimes": {
+        "free": {
+          "samples": 13801,
+          "transition": {
+            "nextRmse": 0.08678224682807922,
+            "deltaNrmse": 1.0242341756820679,
+            "q": {
+              "nextRmse": 0.03662017732858658,
+              "deltaNrmse": 0.9341481328010559,
+              "deltaCosine": 0.4090135395526886
+            },
+            "p": {
+              "nextRmse": 0.11713787168264389,
+              "deltaNrmse": 1.0345057249069214,
+              "deltaCosine": 0.12109047174453735
+            }
+          },
+          "meanPortNorm": 0.05546984449028969
+        },
+        "disc_impact": {
+          "samples": 430,
+          "transition": {
+            "nextRmse": 0.19899532198905945,
+            "deltaNrmse": 0.8217127323150635,
+            "q": {
+              "nextRmse": 0.03778520226478577,
+              "deltaNrmse": 0.9005851745605469,
+              "deltaCosine": 0.43002063035964966
+            },
+            "p": {
+              "nextRmse": 0.2788737118244171,
+              "deltaNrmse": 0.8204523324966431,
+              "deltaCosine": 0.5337781310081482
+            }
+          },
+          "meanPortNorm": 0.21632225811481476
+        },
+        "wall": {
+          "samples": 559,
+          "transition": {
+            "nextRmse": 0.2442253828048706,
+            "deltaNrmse": 0.9158650040626526,
+            "q": {
+              "nextRmse": 0.05186157301068306,
+              "deltaNrmse": 0.9799988865852356,
+              "deltaCosine": 0.23202751576900482
+            },
+            "p": {
+              "nextRmse": 0.34147101640701294,
+              "deltaNrmse": 0.9145306944847107,
+              "deltaCosine": 0.500208854675293
+            }
+          },
+          "meanPortNorm": 0.15076270699501038
+        },
+        "goal_entry": {
+          "samples": 60,
+          "transition": {
+            "nextRmse": 0.15643112361431122,
+            "deltaNrmse": 1.097996711730957,
+            "q": {
+              "nextRmse": 0.05652039125561714,
+              "deltaNrmse": 1.1090174913406372,
+              "deltaCosine": -0.0635000690817833
+            },
+            "p": {
+              "nextRmse": 0.213885098695755,
+              "deltaNrmse": 1.0972392559051514,
+              "deltaCosine": -0.05628981068730354
+            }
+          },
+          "meanPortNorm": 0.1439928263425827
+        },
+        "goal_pause": {
+          "samples": 1094,
+          "transition": {
+            "nextRmse": 0.271062970161438,
+            "deltaNrmse": 1.0115758180618286,
+            "q": {
+              "nextRmse": 0.06514972448348999,
+              "deltaNrmse": 1.2774730920791626,
+              "deltaCosine": -0.2251361906528473
+            },
+            "p": {
+              "nextRmse": 0.37776419520378113,
+              "deltaNrmse": 1.0060113668441772,
+              "deltaCosine": 0.034333981573581696
+            }
+          },
+          "meanPortNorm": 0.13033294677734375
+        },
+        "kickoff": {
+          "samples": 440,
+          "transition": {
+            "nextRmse": 0.297969251871109,
+            "deltaNrmse": 0.8056900501251221,
+            "q": {
+              "nextRmse": 0.10175861418247223,
+              "deltaNrmse": 0.5762640237808228,
+              "deltaCosine": 0.9298174977302551
+            },
+            "p": {
+              "nextRmse": 0.40892118215560913,
+              "deltaNrmse": 0.8306183815002441,
+              "deltaCosine": 0.5981137752532959
+            }
+          },
+          "meanPortNorm": 0.40100058913230896
+        }
+      },
+      "eventPrediction": {
+        "accuracy": 0.9205322265625,
+        "balancedAccuracy": 0.8865601519743601,
+        "perRegimeRecall": {
+          "free": 0.9252228140830994,
+          "disc_impact": 0.8279069662094116,
+          "wall": 0.6726296544075012,
+          "goal_entry": 0.9000000357627869,
+          "goal_pause": 0.9936015009880066,
+          "kickoff": 0.9999999403953552
+        }
+      },
+      "freeCore": {
+        "parameters": {
+          "positionGain": [
+            0.02930554375052452,
+            0.05020921304821968
+          ],
+          "momentumDecay": [
+            0.9899712800979614,
+            0.9929376244544983
+          ],
+          "effectiveMass": [
+            1.6975921432391983,
+            0.9923125464027184
+          ],
+          "effectiveDrag": [
+            0.2015869255271771,
+            0.14174864324385245
+          ],
+          "withinPortHamiltonianDomain": true
+        },
+        "parameterCount": 4,
+        "passivity": {
+          "coreViolationRate": 0.0,
+          "meanEnergyRatio": 0.982893705368042
+        }
+      },
+      "stability": {
+        "steps": 64,
+        "finite": true,
+        "energyGrowthFraction": 0.0,
+        "finalToInitialEnergy": 0.34753182530403137,
+        "maxAbsoluteState": 2.907783269882202
+      },
+      "externalPortInterventions": [
+        {
+          "coordinate": 0,
+          "cosine": 1.0,
+          "gain": 1.0000001192092896,
+          "crossTalkRmse": 7.212114905286171e-09
+        },
+        {
+          "coordinate": 1,
+          "cosine": 1.0,
+          "gain": 1.0000001192092896,
+          "crossTalkRmse": 7.991214800995294e-09
+        },
+        {
+          "coordinate": 2,
+          "cosine": 1.0,
+          "gain": 1.0000001192092896,
+          "crossTalkRmse": 5.161808758202824e-09
+        },
+        {
+          "coordinate": 3,
+          "cosine": 1.0,
+          "gain": 1.0000001192092896,
+          "crossTalkRmse": 5.481418874353494e-09
+        }
+      ]
+    },
+    "signFreeControl": {
+      "stateReadout": {
+        "r2": 0.8509116768836975,
+        "qR2": 0.9541540741920471,
+        "pR2": 0.8314549922943115,
+        "qRmse": 0.03996967524290085,
+        "pRmse": 0.17653590440750122,
+        "modeR2": 0.8452962040901184
+      },
+      "rolloutByHorizon": {
+        "1": {
+          "deltaNrmse": 1.449230432510376,
+          "qR2": 0.9466099739074707,
+          "pR2": 0.7576901316642761
+        },
+        "2": {
+          "deltaNrmse": 0.9697926044464111,
+          "qR2": 0.9082298278808594,
+          "pR2": 0.6616911888122559
+        },
+        "4": {
+          "deltaNrmse": 0.6934615969657898,
+          "qR2": 0.9231954216957092,
+          "pR2": 0.4739055633544922
+        },
+        "8": {
+          "deltaNrmse": 0.6572474837303162,
+          "qR2": 0.8786154389381409,
+          "pR2": 0.28936320543289185
+        }
+      },
+      "shuffledInitialStateControl": {
+        "horizon": 8,
+        "deltaNrmse": 1.0165503025054932
+      },
+      "regimes": {
+        "free": {
+          "samples": 13801,
+          "transition": {
+            "nextRmse": 0.08738845586776733,
+            "deltaNrmse": 1.0140984058380127,
+            "q": {
+              "nextRmse": 0.036549363285303116,
+              "deltaNrmse": 0.9345390200614929,
+              "deltaCosine": 0.41124215722084045
+            },
+            "p": {
+              "nextRmse": 0.1180577278137207,
+              "deltaNrmse": 1.022836685180664,
+              "deltaCosine": 0.15269438922405243
+            }
+          },
+          "meanPortNorm": 0.043236780911684036
+        },
+        "disc_impact": {
+          "samples": 430,
+          "transition": {
+            "nextRmse": 0.1958007663488388,
+            "deltaNrmse": 0.8546094298362732,
+            "q": {
+              "nextRmse": 0.037627480924129486,
+              "deltaNrmse": 0.89902663230896,
+              "deltaCosine": 0.4366132915019989
+            },
+            "p": {
+              "nextRmse": 0.274335652589798,
+              "deltaNrmse": 0.8538357615470886,
+              "deltaCosine": 0.45558032393455505
+            }
+          },
+          "meanPortNorm": 0.18304187059402466
+        },
+        "wall": {
+          "samples": 559,
+          "transition": {
+            "nextRmse": 0.24469810724258423,
+            "deltaNrmse": 0.9121869206428528,
+            "q": {
+              "nextRmse": 0.05188344046473503,
+              "deltaNrmse": 0.9854937195777893,
+              "deltaCosine": 0.213942289352417
+            },
+            "p": {
+              "nextRmse": 0.3421438932418823,
+              "deltaNrmse": 0.9106884002685547,
+              "deltaCosine": 0.5426427125930786
+            }
+          },
+          "meanPortNorm": 0.13773107528686523
+        },
+        "goal_entry": {
+          "samples": 60,
+          "transition": {
+            "nextRmse": 0.15345387160778046,
+            "deltaNrmse": 1.081861972808838,
+            "q": {
+              "nextRmse": 0.05473872274160385,
+              "deltaNrmse": 1.091271162033081,
+              "deltaCosine": -0.024286776781082153
+            },
+            "p": {
+              "nextRmse": 0.20999965071678162,
+              "deltaNrmse": 1.0812314748764038,
+              "deltaCosine": -0.10879416018724442
+            }
+          },
+          "meanPortNorm": 0.1225818619132042
+        },
+        "goal_pause": {
+          "samples": 1094,
+          "transition": {
+            "nextRmse": 0.27095723152160645,
+            "deltaNrmse": 1.0131738185882568,
+            "q": {
+              "nextRmse": 0.06468324363231659,
+              "deltaNrmse": 1.2721562385559082,
+              "deltaCosine": -0.22742195427417755
+            },
+            "p": {
+              "nextRmse": 0.37769263982772827,
+              "deltaNrmse": 1.0077834129333496,
+              "deltaCosine": 0.02466597408056259
+            }
+          },
+          "meanPortNorm": 0.12651267647743225
+        },
+        "kickoff": {
+          "samples": 440,
+          "transition": {
+            "nextRmse": 0.29856210947036743,
+            "deltaNrmse": 0.8146780133247375,
+            "q": {
+              "nextRmse": 0.1024869754910469,
+              "deltaNrmse": 0.5824699401855469,
+              "deltaCosine": 0.9319900274276733
+            },
+            "p": {
+              "nextRmse": 0.4096035957336426,
+              "deltaNrmse": 0.8402165174484253,
+              "deltaCosine": 0.5882425308227539
+            }
+          },
+          "meanPortNorm": 0.38317736983299255
+        }
+      },
+      "eventPrediction": {
+        "accuracy": 0.92156982421875,
+        "balancedAccuracy": 0.8850159247716268,
+        "perRegimeRecall": {
+          "free": 0.9268893599510193,
+          "disc_impact": 0.8232558369636536,
+          "wall": 0.6672629714012146,
+          "goal_entry": 0.9000000357627869,
+          "goal_pause": 0.9926874041557312,
+          "kickoff": 0.9999999403953552
+        }
+      },
+      "freeCore": {
+        "parameters": {
+          "positionGain": [
+            0.02977369725704193,
+            0.050577882677316666
+          ],
+          "momentumDecay": [
+            0.9313247203826904,
+            0.9723071455955505
+          ],
+          "effectiveMass": [
+            1.6209864945838488,
+            0.9748221080277824
+          ],
+          "effectiveDrag": [
+            1.4229455170920464,
+            0.5616706205208131
+          ],
+          "withinPortHamiltonianDomain": true
+        },
+        "parameterCount": 4,
+        "passivity": {
+          "coreViolationRate": 0.0,
+          "meanEnergyRatio": 0.9042627215385437
+        }
+      },
+      "stability": {
+        "steps": 64,
+        "finite": true,
+        "energyGrowthFraction": 0.0,
+        "finalToInitialEnergy": 0.015196545049548149,
+        "maxAbsoluteState": 2.060418128967285
+      },
+      "externalPortInterventions": [
+        {
+          "coordinate": 0,
+          "cosine": 1.0,
+          "gain": 1.0000001192092896,
+          "crossTalkRmse": 5.979261530342228e-09
+        },
+        {
+          "coordinate": 1,
+          "cosine": 1.0,
+          "gain": 1.0000001192092896,
+          "crossTalkRmse": 5.332279062741918e-09
+        },
+        {
+          "coordinate": 2,
+          "cosine": 1.0,
+          "gain": 1.0000001192092896,
+          "crossTalkRmse": 5.116979728825299e-09
+        },
+        {
+          "coordinate": 3,
+          "cosine": 1.0,
+          "gain": 1.0000001192092896,
+          "crossTalkRmse": 5.7528488639491115e-09
+        }
+      ]
+    }
+  },
+  "artifacts": [
+    "checkpoint.pt",
+    "train.jsonl",
+    "summary.json"
+  ]
+}
