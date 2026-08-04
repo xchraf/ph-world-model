@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "frameSize": 64,
+  "inputFrames": 12,
+  "hallucinationFrames": 36,
+  "checkpointStep": 12000,
+  "scenarios": [
+    {
+      "id": "collision",
+      "title": "Collision",
+      "description": "The discs meet and exchange momentum.",
+      "seed": 30000044,
+      "event": "contact",
+      "atlas": "/blocket-league/hallucinations/collision.png",
+      "meanEntityErrorPixels": 4.36
+    },
+    {
+      "id": "wall-bounce",
+      "title": "Wall bounce",
+      "description": "Repeated wall contacts redirect both trajectories.",
+      "seed": 30000003,
+      "event": "wall bounce",
+      "atlas": "/blocket-league/hallucinations/wall-bounce.png",
+      "meanEntityErrorPixels": 2.23
+    },
+    {
+      "id": "goal-reset",
+      "title": "Goal + reset",
+      "description": "The puck scores, pauses, and the imagined world restarts.",
+      "seed": 30000019,
+      "event": "goal and kickoff",
+      "atlas": "/blocket-league/hallucinations/goal-reset.png",
+      "meanEntityErrorPixels": 0.47
+    }
+  ]
+}

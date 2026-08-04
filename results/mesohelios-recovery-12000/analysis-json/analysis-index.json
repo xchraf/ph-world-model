@@ -1,0 +1,38 @@
+{
+  "checkpoint": "/work/outputs/main-recovery-12000/checkpoint.pt",
+  "torch": "2.6.0+cu124",
+  "cuda": "12.4",
+  "gpu": "NVIDIA A100-PCIE-40GB",
+  "stages": [
+    {
+      "name": "pixel_interpretability_and_jacobian_lens",
+      "status": "completed",
+      "seconds": 112.93367985996883
+    },
+    {
+      "name": "direction_ring",
+      "status": "completed",
+      "seconds": 76.38318326696754
+    },
+    {
+      "name": "position_geometry",
+      "status": "completed",
+      "seconds": 71.46071315405425
+    },
+    {
+      "name": "position_writes",
+      "status": "completed",
+      "seconds": 76.31083152303472
+    },
+    {
+      "name": "collision_anticipation",
+      "status": "completed",
+      "seconds": 69.22723638406023
+    },
+    {
+      "name": "collision_random_weight_control",
+      "status": "completed",
+      "seconds": 75.28316960704979
+    }
+  ]
+}

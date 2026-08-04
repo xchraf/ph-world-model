@@ -1,0 +1,1397 @@
+{
+  "version": 1,
+  "question": "Does writing along linearly decoded puck-position directions causally change the model's rendered puck position?",
+  "checkpoint": "/work/outputs/main-recovery-12000/checkpoint.pt",
+  "checkpointStep": 12000,
+  "block": 5,
+  "fitSamples": 1024,
+  "testSamples": 128,
+  "labelSource": "puck centroids measured from rendered categorical pixels",
+  "directionMethod": "minimum-norm hidden direction whose linear ridge decoder predicts a pure x or y coordinate change, normalized to unit activation norm",
+  "readouts": {
+    "fixed_bottom_right": "one fixed bottom-right final-frame token",
+    "spatial_mean": "same write applied to every final-frame spatial token",
+    "puck_token": "token containing the rendered puck centroid",
+    "puck_token_jacobian": "same puck token, but oriented by the average downstream gradient of the next rendered puck centroid"
+  },
+  "nextFrameActivationStrengthSweep": [
+    1.0,
+    4.0,
+    8.0,
+    16.0
+  ],
+  "nextFrame": {
+    "fixed_bottom_right": {
+      "x_plus": {
+        "1.0": {
+          "meanPuckDeltaX": 0.0,
+          "meanPuckDeltaY": 0.0,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 1.0,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0,
+          "expectedSignFraction": 0.0
+        },
+        "4.0": {
+          "meanPuckDeltaX": 0.0,
+          "meanPuckDeltaY": 0.0,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0017834104364737868,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 1.0,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0,
+          "expectedSignFraction": 0.0
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.0007992088794708252,
+          "meanPuckDeltaY": -9.879469871520996e-05,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.002969559980556369,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 0.9997395873069763,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.0007992088794708252,
+          "expectedSignFraction": 0.0
+        },
+        "16.0": {
+          "meanPuckDeltaX": -9.328126907348633e-06,
+          "meanPuckDeltaY": -0.0014314055442810059,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.3296946883201599,
+          "expectedXSignFraction": 0.015625,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 1.0002586841583252,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -9.328126907348633e-06,
+          "expectedSignFraction": 0.015625
+        }
+      },
+      "x_minus": {
+        "1.0": {
+          "meanPuckDeltaX": 0.0,
+          "meanPuckDeltaY": 0.0,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 1.0,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0,
+          "expectedSignFraction": 0.0
+        },
+        "4.0": {
+          "meanPuckDeltaX": 0.0,
+          "meanPuckDeltaY": 0.0,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 1.0,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0,
+          "expectedSignFraction": 0.0
+        },
+        "8.0": {
+          "meanPuckDeltaX": 0.0020012259483337402,
+          "meanPuckDeltaY": 0.0008562803268432617,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0011426121927797794,
+          "expectedXSignFraction": 0.0078125,
+          "expectedYSignFraction": 0.0078125,
+          "meanPuckPixelMassRatio": 1.0002789497375488,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0020012259483337402,
+          "expectedSignFraction": 0.0
+        },
+        "16.0": {
+          "meanPuckDeltaX": 0.00492367148399353,
+          "meanPuckDeltaY": 0.0030830800533294678,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.002955351024866104,
+          "expectedXSignFraction": 0.015625,
+          "expectedYSignFraction": 0.015625,
+          "meanPuckPixelMassRatio": 1.0005184412002563,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.00492367148399353,
+          "expectedSignFraction": 0.0078125
+        }
+      },
+      "y_plus": {
+        "1.0": {
+          "meanPuckDeltaX": 0.0,
+          "meanPuckDeltaY": 0.0,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 1.0,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0,
+          "expectedSignFraction": 0.0
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.0001732558012008667,
+          "meanPuckDeltaY": -0.0007717907428741455,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 0.999755859375,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.0007717907428741455,
+          "expectedSignFraction": 0.0
+        },
+        "8.0": {
+          "meanPuckDeltaX": 0.016888484358787537,
+          "meanPuckDeltaY": 0.008679121732711792,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0006067666690796614,
+          "expectedXSignFraction": 0.015625,
+          "expectedYSignFraction": 0.015625,
+          "meanPuckPixelMassRatio": 1.0008822679519653,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.008679121732711792,
+          "expectedSignFraction": 0.015625
+        },
+        "16.0": {
+          "meanPuckDeltaX": 2.9920666217803955,
+          "meanPuckDeltaY": 3.544853687286377,
+          "medianPuckDisplacement": 4.584928512573242,
+          "meanPlayerCollateralDisplacement": 0.0023820356000214815,
+          "expectedXSignFraction": 1.0,
+          "expectedYSignFraction": 1.0,
+          "meanPuckPixelMassRatio": 1.1345103979110718,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 3.544853687286377,
+          "expectedSignFraction": 1.0
+        }
+      },
+      "y_minus": {
+        "1.0": {
+          "meanPuckDeltaX": 0.0,
+          "meanPuckDeltaY": 0.0,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0006340219988487661,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 1.0,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0,
+          "expectedSignFraction": 0.0
+        },
+        "4.0": {
+          "meanPuckDeltaX": 0.0,
+          "meanPuckDeltaY": 0.0,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0006340219988487661,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 1.0,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0,
+          "expectedSignFraction": 0.0
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.0007992088794708252,
+          "meanPuckDeltaY": -9.879469871520996e-05,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0018658617045730352,
+          "expectedXSignFraction": 0.0,
+          "expectedYSignFraction": 0.0,
+          "meanPuckPixelMassRatio": 0.9997395873069763,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -9.879469871520996e-05,
+          "expectedSignFraction": 0.0078125
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.0015969723463058472,
+          "meanPuckDeltaY": -0.0003922879695892334,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.004276413936167955,
+          "expectedXSignFraction": 0.0078125,
+          "expectedYSignFraction": 0.0078125,
+          "meanPuckPixelMassRatio": 1.0005608797073364,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.0003922879695892334,
+          "expectedSignFraction": 0.0234375
+        }
+      }
+    },
+    "spatial_mean": {
+      "x_plus": {
+        "1.0": {
+          "meanPuckDeltaX": -0.008034475147724152,
+          "meanPuckDeltaY": 0.014629825949668884,
+          "medianPuckDisplacement": 0.10230586677789688,
+          "meanPlayerCollateralDisplacement": 0.07519722729921341,
+          "expectedXSignFraction": 0.25,
+          "expectedYSignFraction": 0.3515625,
+          "meanPuckPixelMassRatio": 1.00381338596344,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.008034475147724152,
+          "expectedSignFraction": 0.25
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.09355999529361725,
+          "meanPuckDeltaY": 0.0980093702673912,
+          "medianPuckDisplacement": 0.2425856590270996,
+          "meanPlayerCollateralDisplacement": 0.31223854422569275,
+          "expectedXSignFraction": 0.3515625,
+          "expectedYSignFraction": 0.671875,
+          "meanPuckPixelMassRatio": 1.169012427330017,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.09355999529361725,
+          "expectedSignFraction": 0.3515625
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.17469513416290283,
+          "meanPuckDeltaY": 0.3004690408706665,
+          "medianPuckDisplacement": 0.5730351805686951,
+          "meanPlayerCollateralDisplacement": 0.5522953867912292,
+          "expectedXSignFraction": 0.328125,
+          "expectedYSignFraction": 0.7421875,
+          "meanPuckPixelMassRatio": 1.4227200746536255,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.17469513416290283,
+          "expectedSignFraction": 0.328125
+        },
+        "16.0": {
+          "meanPuckDeltaX": -3.112165927886963,
+          "meanPuckDeltaY": -0.9455824494361877,
+          "medianPuckDisplacement": 2.550015687942505,
+          "meanPlayerCollateralDisplacement": 6.726046562194824,
+          "expectedXSignFraction": 0.171875,
+          "expectedYSignFraction": 0.296875,
+          "meanPuckPixelMassRatio": 1.1448359489440918,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -3.112165927886963,
+          "expectedSignFraction": 0.171875
+        }
+      },
+      "x_minus": {
+        "1.0": {
+          "meanPuckDeltaX": -0.018912069499492645,
+          "meanPuckDeltaY": -0.0066860876977443695,
+          "medianPuckDisplacement": 0.10299346596002579,
+          "meanPlayerCollateralDisplacement": 0.07272094488143921,
+          "expectedXSignFraction": 0.2421875,
+          "expectedYSignFraction": 0.2578125,
+          "meanPuckPixelMassRatio": 1.0216593742370605,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.018912069499492645,
+          "expectedSignFraction": 0.3828125
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.3506755530834198,
+          "meanPuckDeltaY": 0.171658456325531,
+          "medianPuckDisplacement": 0.5094724893569946,
+          "meanPlayerCollateralDisplacement": 0.2507157623767853,
+          "expectedXSignFraction": 0.1640625,
+          "expectedYSignFraction": 0.71875,
+          "meanPuckPixelMassRatio": 1.4112037420272827,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.3506755530834198,
+          "expectedSignFraction": 0.828125
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.6502585411071777,
+          "meanPuckDeltaY": 0.2928684949874878,
+          "medianPuckDisplacement": 0.8482908606529236,
+          "meanPlayerCollateralDisplacement": 0.357990026473999,
+          "expectedXSignFraction": 0.109375,
+          "expectedYSignFraction": 0.7265625,
+          "meanPuckPixelMassRatio": 1.9891027212142944,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.6502585411071777,
+          "expectedSignFraction": 0.890625
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.6644397974014282,
+          "meanPuckDeltaY": 0.3478390574455261,
+          "medianPuckDisplacement": 0.9184472560882568,
+          "meanPlayerCollateralDisplacement": 0.4546828269958496,
+          "expectedXSignFraction": 0.2734375,
+          "expectedYSignFraction": 0.6328125,
+          "meanPuckPixelMassRatio": 2.090178966522217,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.6644397974014282,
+          "expectedSignFraction": 0.7265625
+        }
+      },
+      "y_plus": {
+        "1.0": {
+          "meanPuckDeltaX": 0.01505625993013382,
+          "meanPuckDeltaY": 0.014736700803041458,
+          "medianPuckDisplacement": 0.09424113482236862,
+          "meanPlayerCollateralDisplacement": 0.04372779652476311,
+          "expectedXSignFraction": 0.3515625,
+          "expectedYSignFraction": 0.328125,
+          "meanPuckPixelMassRatio": 1.01048743724823,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.014736700803041458,
+          "expectedSignFraction": 0.328125
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.0458688884973526,
+          "meanPuckDeltaY": 0.2660566568374634,
+          "medianPuckDisplacement": 0.37803032994270325,
+          "meanPlayerCollateralDisplacement": 0.20313650369644165,
+          "expectedXSignFraction": 0.4609375,
+          "expectedYSignFraction": 0.8203125,
+          "meanPuckPixelMassRatio": 1.3239468336105347,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.2660566568374634,
+          "expectedSignFraction": 0.8203125
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.3077976703643799,
+          "meanPuckDeltaY": 0.4887016713619232,
+          "medianPuckDisplacement": 0.841966450214386,
+          "meanPlayerCollateralDisplacement": 0.3118564486503601,
+          "expectedXSignFraction": 0.2734375,
+          "expectedYSignFraction": 0.8359375,
+          "meanPuckPixelMassRatio": 2.2238471508026123,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.4887016713619232,
+          "expectedSignFraction": 0.8359375
+        },
+        "16.0": {
+          "meanPuckDeltaX": -6.431962490081787,
+          "meanPuckDeltaY": -3.8762617111206055,
+          "medianPuckDisplacement": 8.824403762817383,
+          "meanPlayerCollateralDisplacement": 0.38115936517715454,
+          "expectedXSignFraction": 0.0703125,
+          "expectedYSignFraction": 0.2265625,
+          "meanPuckPixelMassRatio": 5.1410698890686035,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -3.8762617111206055,
+          "expectedSignFraction": 0.2265625
+        }
+      },
+      "y_minus": {
+        "1.0": {
+          "meanPuckDeltaX": -0.03807222098112106,
+          "meanPuckDeltaY": -0.009053271263837814,
+          "medianPuckDisplacement": 0.10230586677789688,
+          "meanPlayerCollateralDisplacement": 0.05570639669895172,
+          "expectedXSignFraction": 0.1171875,
+          "expectedYSignFraction": 0.2734375,
+          "meanPuckPixelMassRatio": 1.0195424556732178,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.009053271263837814,
+          "expectedSignFraction": 0.328125
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.3135724663734436,
+          "meanPuckDeltaY": 0.04463077709078789,
+          "medianPuckDisplacement": 0.38457855582237244,
+          "meanPlayerCollateralDisplacement": 0.265229195356369,
+          "expectedXSignFraction": 0.125,
+          "expectedYSignFraction": 0.5859375,
+          "meanPuckPixelMassRatio": 1.2952834367752075,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.04463077709078789,
+          "expectedSignFraction": 0.390625
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.4916504919528961,
+          "meanPuckDeltaY": 0.17761212587356567,
+          "medianPuckDisplacement": 0.5338837504386902,
+          "meanPlayerCollateralDisplacement": 0.4363926649093628,
+          "expectedXSignFraction": 0.03125,
+          "expectedYSignFraction": 0.7421875,
+          "meanPuckPixelMassRatio": 1.2962868213653564,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.17761212587356567,
+          "expectedSignFraction": 0.2421875
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.33603769540786743,
+          "meanPuckDeltaY": 0.06080642715096474,
+          "medianPuckDisplacement": 0.43446698784828186,
+          "meanPlayerCollateralDisplacement": 0.5929733514785767,
+          "expectedXSignFraction": 0.21875,
+          "expectedYSignFraction": 0.515625,
+          "meanPuckPixelMassRatio": 0.6131200194358826,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.06080642715096474,
+          "expectedSignFraction": 0.4609375
+        }
+      }
+    },
+    "puck_token": {
+      "x_plus": {
+        "1.0": {
+          "meanPuckDeltaX": 0.0043221116065979,
+          "meanPuckDeltaY": 0.0038409195840358734,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0029836161993443966,
+          "expectedXSignFraction": 0.15625,
+          "expectedYSignFraction": 0.1953125,
+          "meanPuckPixelMassRatio": 0.9912262558937073,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0043221116065979,
+          "expectedSignFraction": 0.15625
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.035273171961307526,
+          "meanPuckDeltaY": 0.030365370213985443,
+          "medianPuckDisplacement": 0.11058380454778671,
+          "meanPlayerCollateralDisplacement": 0.021699529141187668,
+          "expectedXSignFraction": 0.2734375,
+          "expectedYSignFraction": 0.453125,
+          "meanPuckPixelMassRatio": 0.9976435899734497,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.035273171961307526,
+          "expectedSignFraction": 0.2734375
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.06602083146572113,
+          "meanPuckDeltaY": 0.06030206382274628,
+          "medianPuckDisplacement": 0.1781139373779297,
+          "meanPlayerCollateralDisplacement": 0.03570900112390518,
+          "expectedXSignFraction": 0.3515625,
+          "expectedYSignFraction": 0.546875,
+          "meanPuckPixelMassRatio": 1.0309083461761475,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.06602083146572113,
+          "expectedSignFraction": 0.3515625
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.07066185772418976,
+          "meanPuckDeltaY": 0.12181244790554047,
+          "medianPuckDisplacement": 0.23232236504554749,
+          "meanPlayerCollateralDisplacement": 0.042782463133335114,
+          "expectedXSignFraction": 0.359375,
+          "expectedYSignFraction": 0.6953125,
+          "meanPuckPixelMassRatio": 1.041346549987793,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.07066185772418976,
+          "expectedSignFraction": 0.359375
+        }
+      },
+      "x_minus": {
+        "1.0": {
+          "meanPuckDeltaX": -0.013123326003551483,
+          "meanPuckDeltaY": -0.0027466490864753723,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0023573320358991623,
+          "expectedXSignFraction": 0.140625,
+          "expectedYSignFraction": 0.1796875,
+          "meanPuckPixelMassRatio": 1.0159337520599365,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.013123326003551483,
+          "expectedSignFraction": 0.3046875
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.04608089476823807,
+          "meanPuckDeltaY": 0.01549503207206726,
+          "medianPuckDisplacement": 0.1154826357960701,
+          "meanPlayerCollateralDisplacement": 0.022577041760087013,
+          "expectedXSignFraction": 0.265625,
+          "expectedYSignFraction": 0.4609375,
+          "meanPuckPixelMassRatio": 1.0499780178070068,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.04608089476823807,
+          "expectedSignFraction": 0.515625
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.07669896632432938,
+          "meanPuckDeltaY": 0.021124400198459625,
+          "medianPuckDisplacement": 0.18450917303562164,
+          "meanPlayerCollateralDisplacement": 0.0629938393831253,
+          "expectedXSignFraction": 0.296875,
+          "expectedYSignFraction": 0.5234375,
+          "meanPuckPixelMassRatio": 1.07566237449646,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.07669896632432938,
+          "expectedSignFraction": 0.6796875
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.10241475701332092,
+          "meanPuckDeltaY": 0.005769003182649612,
+          "medianPuckDisplacement": 0.21508470177650452,
+          "meanPlayerCollateralDisplacement": 0.5019288659095764,
+          "expectedXSignFraction": 0.265625,
+          "expectedYSignFraction": 0.4609375,
+          "meanPuckPixelMassRatio": 1.0598835945129395,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.10241475701332092,
+          "expectedSignFraction": 0.7109375
+        }
+      },
+      "y_plus": {
+        "1.0": {
+          "meanPuckDeltaX": -0.001515418291091919,
+          "meanPuckDeltaY": 0.004687044769525528,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.0026599408593028784,
+          "expectedXSignFraction": 0.0703125,
+          "expectedYSignFraction": 0.125,
+          "meanPuckPixelMassRatio": 0.9968769550323486,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.004687044769525528,
+          "expectedSignFraction": 0.125
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.03286480903625488,
+          "meanPuckDeltaY": 0.01722489297389984,
+          "medianPuckDisplacement": 0.10878607630729675,
+          "meanPlayerCollateralDisplacement": 0.024126514792442322,
+          "expectedXSignFraction": 0.234375,
+          "expectedYSignFraction": 0.375,
+          "meanPuckPixelMassRatio": 1.0097270011901855,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.01722489297389984,
+          "expectedSignFraction": 0.375
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.07935211062431335,
+          "meanPuckDeltaY": 0.04560035467147827,
+          "medianPuckDisplacement": 0.18919333815574646,
+          "meanPlayerCollateralDisplacement": 0.054634105414152145,
+          "expectedXSignFraction": 0.28125,
+          "expectedYSignFraction": 0.5546875,
+          "meanPuckPixelMassRatio": 1.0539638996124268,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.04560035467147827,
+          "expectedSignFraction": 0.5546875
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.07783973217010498,
+          "meanPuckDeltaY": 0.06268517673015594,
+          "medianPuckDisplacement": 0.21843083202838898,
+          "meanPlayerCollateralDisplacement": 0.1606064736843109,
+          "expectedXSignFraction": 0.328125,
+          "expectedYSignFraction": 0.59375,
+          "meanPuckPixelMassRatio": 1.0710355043411255,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.06268517673015594,
+          "expectedSignFraction": 0.59375
+        }
+      },
+      "y_minus": {
+        "1.0": {
+          "meanPuckDeltaX": -0.0014588534832000732,
+          "meanPuckDeltaY": 0.003645334392786026,
+          "medianPuckDisplacement": 0.0,
+          "meanPlayerCollateralDisplacement": 0.004156009294092655,
+          "expectedXSignFraction": 0.1640625,
+          "expectedYSignFraction": 0.1875,
+          "meanPuckPixelMassRatio": 1.0074095726013184,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.003645334392786026,
+          "expectedSignFraction": 0.140625
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.043398529291152954,
+          "meanPuckDeltaY": 0.0075338296592235565,
+          "medianPuckDisplacement": 0.11003638058900833,
+          "meanPlayerCollateralDisplacement": 0.02560889720916748,
+          "expectedXSignFraction": 0.265625,
+          "expectedYSignFraction": 0.4609375,
+          "meanPuckPixelMassRatio": 1.0422873497009277,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.0075338296592235565,
+          "expectedSignFraction": 0.34375
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.05755259096622467,
+          "meanPuckDeltaY": 0.02211623266339302,
+          "medianPuckDisplacement": 0.17316365242004395,
+          "meanPlayerCollateralDisplacement": 0.03712210804224014,
+          "expectedXSignFraction": 0.3671875,
+          "expectedYSignFraction": 0.546875,
+          "meanPuckPixelMassRatio": 1.0703320503234863,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.02211623266339302,
+          "expectedSignFraction": 0.359375
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.06922981142997742,
+          "meanPuckDeltaY": 0.026975765824317932,
+          "medianPuckDisplacement": 0.21996699273586273,
+          "meanPlayerCollateralDisplacement": 0.040999673306941986,
+          "expectedXSignFraction": 0.3671875,
+          "expectedYSignFraction": 0.5078125,
+          "meanPuckPixelMassRatio": 1.0732192993164062,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.026975765824317932,
+          "expectedSignFraction": 0.4453125
+        }
+      }
+    },
+    "puck_token_jacobian": {
+      "x_plus": {
+        "1.0": {
+          "meanPuckDeltaX": 0.136135071516037,
+          "meanPuckDeltaY": 0.0061781145632267,
+          "medianPuckDisplacement": 0.11256782710552216,
+          "meanPlayerCollateralDisplacement": 0.008008304052054882,
+          "expectedXSignFraction": 0.7578125,
+          "expectedYSignFraction": 0.375,
+          "meanPuckPixelMassRatio": 0.990325391292572,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.136135071516037,
+          "expectedSignFraction": 0.7578125
+        },
+        "4.0": {
+          "meanPuckDeltaX": 0.6629481315612793,
+          "meanPuckDeltaY": 0.015185397118330002,
+          "medianPuckDisplacement": 0.6206880211830139,
+          "meanPlayerCollateralDisplacement": 0.028322255238890648,
+          "expectedXSignFraction": 0.9765625,
+          "expectedYSignFraction": 0.5,
+          "meanPuckPixelMassRatio": 0.9495869874954224,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.6629481315612793,
+          "expectedSignFraction": 0.9765625
+        },
+        "8.0": {
+          "meanPuckDeltaX": 0.9280597567558289,
+          "meanPuckDeltaY": -0.00036769360303878784,
+          "medianPuckDisplacement": 0.9343321323394775,
+          "meanPlayerCollateralDisplacement": 0.04618055745959282,
+          "expectedXSignFraction": 0.9765625,
+          "expectedYSignFraction": 0.4609375,
+          "meanPuckPixelMassRatio": 0.8611094951629639,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.9280597567558289,
+          "expectedSignFraction": 0.9765625
+        },
+        "16.0": {
+          "meanPuckDeltaX": 0.9512147903442383,
+          "meanPuckDeltaY": -0.0011503510177135468,
+          "medianPuckDisplacement": 0.9469157457351685,
+          "meanPlayerCollateralDisplacement": 0.05349905788898468,
+          "expectedXSignFraction": 0.984375,
+          "expectedYSignFraction": 0.4453125,
+          "meanPuckPixelMassRatio": 0.8386101722717285,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.9512147903442383,
+          "expectedSignFraction": 0.984375
+        }
+      },
+      "x_minus": {
+        "1.0": {
+          "meanPuckDeltaX": -0.14505186676979065,
+          "meanPuckDeltaY": 0.0017919465899467468,
+          "medianPuckDisplacement": 0.12330000102519989,
+          "meanPlayerCollateralDisplacement": 0.005249433685094118,
+          "expectedXSignFraction": 0.0390625,
+          "expectedYSignFraction": 0.359375,
+          "meanPuckPixelMassRatio": 1.0102109909057617,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.14505186676979065,
+          "expectedSignFraction": 0.8046875
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.3254895806312561,
+          "meanPuckDeltaY": -0.02288607880473137,
+          "medianPuckDisplacement": 0.3327237069606781,
+          "meanPlayerCollateralDisplacement": 0.039043985307216644,
+          "expectedXSignFraction": 0.0234375,
+          "expectedYSignFraction": 0.3828125,
+          "meanPuckPixelMassRatio": 0.977288007736206,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.3254895806312561,
+          "expectedSignFraction": 0.96875
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.3423594832420349,
+          "meanPuckDeltaY": 0.011793140321969986,
+          "medianPuckDisplacement": 0.4044114053249359,
+          "meanPlayerCollateralDisplacement": 0.09823817014694214,
+          "expectedXSignFraction": 0.0703125,
+          "expectedYSignFraction": 0.4609375,
+          "meanPuckPixelMassRatio": 0.8946952223777771,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.3423594832420349,
+          "expectedSignFraction": 0.9140625
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.30305397510528564,
+          "meanPuckDeltaY": 0.04256952181458473,
+          "medianPuckDisplacement": 0.44721487164497375,
+          "meanPlayerCollateralDisplacement": 0.15111622214317322,
+          "expectedXSignFraction": 0.1484375,
+          "expectedYSignFraction": 0.5234375,
+          "meanPuckPixelMassRatio": 0.8507333397865295,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.30305397510528564,
+          "expectedSignFraction": 0.8515625
+        }
+      },
+      "y_plus": {
+        "1.0": {
+          "meanPuckDeltaX": -0.003279276192188263,
+          "meanPuckDeltaY": 0.12075865268707275,
+          "medianPuckDisplacement": 0.11264363676309586,
+          "meanPlayerCollateralDisplacement": 0.010020903311669827,
+          "expectedXSignFraction": 0.359375,
+          "expectedYSignFraction": 0.6953125,
+          "meanPuckPixelMassRatio": 0.9937334060668945,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.12075865268707275,
+          "expectedSignFraction": 0.6953125
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.02314426749944687,
+          "meanPuckDeltaY": 0.36843425035476685,
+          "medianPuckDisplacement": 0.3784377872943878,
+          "meanPlayerCollateralDisplacement": 0.02813657373189926,
+          "expectedXSignFraction": 0.4765625,
+          "expectedYSignFraction": 0.9296875,
+          "meanPuckPixelMassRatio": 0.9888009428977966,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.36843425035476685,
+          "expectedSignFraction": 0.9296875
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.030050449073314667,
+          "meanPuckDeltaY": 0.43617361783981323,
+          "medianPuckDisplacement": 0.46022602915763855,
+          "meanPlayerCollateralDisplacement": 0.04083748534321785,
+          "expectedXSignFraction": 0.4921875,
+          "expectedYSignFraction": 0.921875,
+          "meanPuckPixelMassRatio": 0.9655933976173401,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.43617361783981323,
+          "expectedSignFraction": 0.921875
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.05237268656492233,
+          "meanPuckDeltaY": 0.315621942281723,
+          "medianPuckDisplacement": 0.4240924119949341,
+          "meanPlayerCollateralDisplacement": 0.050882741808891296,
+          "expectedXSignFraction": 0.4609375,
+          "expectedYSignFraction": 0.8515625,
+          "meanPuckPixelMassRatio": 0.9728512167930603,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": 0.315621942281723,
+          "expectedSignFraction": 0.8515625
+        }
+      },
+      "y_minus": {
+        "1.0": {
+          "meanPuckDeltaX": -0.012978605926036835,
+          "meanPuckDeltaY": -0.14537285268306732,
+          "medianPuckDisplacement": 0.12056687474250793,
+          "meanPlayerCollateralDisplacement": 0.0017980503616854548,
+          "expectedXSignFraction": 0.2734375,
+          "expectedYSignFraction": 0.0546875,
+          "meanPuckPixelMassRatio": 1.013777494430542,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.14537285268306732,
+          "expectedSignFraction": 0.7890625
+        },
+        "4.0": {
+          "meanPuckDeltaX": -0.030162125825881958,
+          "meanPuckDeltaY": -0.5028901100158691,
+          "medianPuckDisplacement": 0.4857676923274994,
+          "meanPlayerCollateralDisplacement": 0.021071529015898705,
+          "expectedXSignFraction": 0.3671875,
+          "expectedYSignFraction": 0.0390625,
+          "meanPuckPixelMassRatio": 1.0317537784576416,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.5028901100158691,
+          "expectedSignFraction": 0.953125
+        },
+        "8.0": {
+          "meanPuckDeltaX": -0.0450836718082428,
+          "meanPuckDeltaY": -0.6741359233856201,
+          "medianPuckDisplacement": 0.6858162879943848,
+          "meanPlayerCollateralDisplacement": 0.03294668346643448,
+          "expectedXSignFraction": 0.4140625,
+          "expectedYSignFraction": 0.03125,
+          "meanPuckPixelMassRatio": 1.0042445659637451,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.6741359233856201,
+          "expectedSignFraction": 0.953125
+        },
+        "16.0": {
+          "meanPuckDeltaX": -0.0675232782959938,
+          "meanPuckDeltaY": -0.642674446105957,
+          "medianPuckDisplacement": 0.6863759756088257,
+          "meanPlayerCollateralDisplacement": 0.041559066623449326,
+          "expectedXSignFraction": 0.3828125,
+          "expectedYSignFraction": 0.03125,
+          "meanPuckPixelMassRatio": 0.9729163646697998,
+          "puckPresentFraction": 1.0,
+          "expectedAxisMeanDelta": -0.642674446105957,
+          "expectedSignFraction": 0.9609375
+        }
+      }
+    }
+  },
+  "rollout": {
+    "writeFrames": 1,
+    "activationStrength": 8.0,
+    "frames": 12,
+    "effects": {
+      "fixed_bottom_right": {
+        "x_plus": {
+          "expectedAxisMeanDeltaByFrame": [
+            -0.0007992088794708252,
+            0.0013979077339172363,
+            -0.0012487471103668213,
+            -0.003834366798400879,
+            -0.008501783013343811,
+            -0.0083131343126297,
+            -0.013073593378067017,
+            -0.012370698153972626,
+            -0.015903368592262268,
+            -0.021651044487953186,
+            -0.02822684869170189,
+            -0.017458833754062653
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            -9.879469871520996e-05,
+            0.0002301633358001709,
+            0.001354217529296875,
+            -0.0020245015621185303,
+            0.0002052783966064453,
+            -0.0023272037506103516,
+            -0.001664668321609497,
+            -0.005040943622589111,
+            -0.004035472869873047,
+            0.001795262098312378,
+            0.002948969602584839,
+            -0.002156674861907959
+          ],
+          "expectedSignFractionAtFinal": 0.015625,
+          "finalMeanPlayerCollateralDisplacement": 0.045468199998140335,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "x_minus": {
+          "expectedAxisMeanDeltaByFrame": [
+            0.0020012259483337402,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.0004138648509979248,
+            -0.0008513778448104858,
+            -0.0012845993041992188,
+            -0.000710219144821167
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            0.0008562803268432617,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            -0.0002409517765045166,
+            0.0012495964765548706,
+            0.0017448961734771729,
+            0.0018262863159179688
+          ],
+          "expectedSignFractionAtFinal": 0.0078125,
+          "finalMeanPlayerCollateralDisplacement": 0.003456268459558487,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "y_plus": {
+          "expectedAxisMeanDeltaByFrame": [
+            0.008679121732711792,
+            -0.0011872053146362305,
+            -0.0014204680919647217,
+            -0.002635061740875244,
+            -0.0033533871173858643,
+            -0.0064280033111572266,
+            -0.00820866972208023,
+            -0.009735733270645142,
+            -0.009421229362487793,
+            -0.009825021028518677,
+            -0.01219940185546875,
+            -0.02126540243625641
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            0.016888484358787537,
+            -0.0006638020277023315,
+            -0.0013415515422821045,
+            -0.005010820925235748,
+            -0.007125943899154663,
+            -0.00820249319076538,
+            -0.012408092617988586,
+            -0.013770949095487595,
+            -0.01484479010105133,
+            -0.002646923065185547,
+            0.0013205856084823608,
+            0.010284766554832458
+          ],
+          "expectedSignFractionAtFinal": 0.0078125,
+          "finalMeanPlayerCollateralDisplacement": 0.028768569231033325,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "y_minus": {
+          "expectedAxisMeanDeltaByFrame": [
+            -9.879469871520996e-05,
+            -2.5875866413116455e-05,
+            0.0029504597187042236,
+            -2.5741755962371826e-05,
+            -0.0005657002329826355,
+            -0.0005198270082473755,
+            -0.0012555047869682312,
+            0.0004851892590522766,
+            -0.005288951098918915,
+            -0.007403865456581116,
+            -0.006471134722232819,
+            -0.006919346749782562
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            -0.0007992088794708252,
+            -0.0006963610649108887,
+            -0.0021615028381347656,
+            -0.0021557211875915527,
+            -0.004475295543670654,
+            -0.0007374286651611328,
+            -0.00029140710830688477,
+            0.005591392517089844,
+            0.0065940916538238525,
+            0.00939476490020752,
+            0.011820316314697266,
+            0.017865866422653198
+          ],
+          "expectedSignFractionAtFinal": 0.015625,
+          "finalMeanPlayerCollateralDisplacement": 0.04025299847126007,
+          "puckPresentFractionAtFinal": 1.0
+        }
+      },
+      "spatial_mean": {
+        "x_plus": {
+          "expectedAxisMeanDeltaByFrame": [
+            -0.17469513416290283,
+            -0.16689206659793854,
+            -0.18419697880744934,
+            -0.26803091168403625,
+            -0.24688240885734558,
+            -0.3259027898311615,
+            -0.35599663853645325,
+            -0.4066934585571289,
+            -0.45802491903305054,
+            -0.5480313897132874,
+            -0.5038132071495056,
+            -0.5539538860321045
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            0.3004690706729889,
+            0.24437102675437927,
+            0.286268413066864,
+            0.2985329031944275,
+            0.2621208429336548,
+            0.30155205726623535,
+            0.3363756537437439,
+            0.3338790535926819,
+            0.36780649423599243,
+            0.4410812556743622,
+            0.4559338390827179,
+            0.6245616674423218
+          ],
+          "expectedSignFractionAtFinal": 0.3984375,
+          "finalMeanPlayerCollateralDisplacement": 1.5694204568862915,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "x_minus": {
+          "expectedAxisMeanDeltaByFrame": [
+            -0.6502585411071777,
+            -0.603118360042572,
+            -0.6045116782188416,
+            -0.7125658392906189,
+            -0.8755925297737122,
+            -0.9743350744247437,
+            -1.1316587924957275,
+            -1.3318431377410889,
+            -1.5042105913162231,
+            -1.7356902360916138,
+            -2.0332655906677246,
+            -2.0910322666168213
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            0.2928685247898102,
+            0.164275661110878,
+            0.16686612367630005,
+            0.18677759170532227,
+            0.17818617820739746,
+            0.22876876592636108,
+            0.3191656768321991,
+            0.3314574360847473,
+            0.4363498091697693,
+            0.5257952213287354,
+            0.6234815716743469,
+            0.7114667296409607
+          ],
+          "expectedSignFractionAtFinal": 0.7109375,
+          "finalMeanPlayerCollateralDisplacement": 1.8628331422805786,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "y_plus": {
+          "expectedAxisMeanDeltaByFrame": [
+            0.4887016713619232,
+            0.31258541345596313,
+            0.31957536935806274,
+            0.3455149531364441,
+            0.35564738512039185,
+            0.4152478575706482,
+            0.5412370562553406,
+            0.5951652526855469,
+            0.6837157607078552,
+            0.8131202459335327,
+            0.9198914170265198,
+            1.0213607549667358
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            -0.3077976405620575,
+            -0.08859385550022125,
+            -0.06879931688308716,
+            -0.14720183610916138,
+            -0.242069810628891,
+            -0.31227627396583557,
+            -0.4217887818813324,
+            -0.575651228427887,
+            -0.713324785232544,
+            -0.9171383380889893,
+            -1.1873818635940552,
+            -1.2417412996292114
+          ],
+          "expectedSignFractionAtFinal": 0.59375,
+          "finalMeanPlayerCollateralDisplacement": 1.9508830308914185,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "y_minus": {
+          "expectedAxisMeanDeltaByFrame": [
+            0.17761211097240448,
+            0.11036990582942963,
+            0.1168823391199112,
+            0.10522317886352539,
+            0.09978131949901581,
+            0.12850625813007355,
+            0.18497467041015625,
+            0.19128991663455963,
+            0.21255527436733246,
+            0.24456526339054108,
+            0.23778125643730164,
+            0.33299750089645386
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            -0.49165046215057373,
+            -0.4953182339668274,
+            -0.5817973613739014,
+            -0.7121109962463379,
+            -0.8261798620223999,
+            -0.888706624507904,
+            -0.9616290330886841,
+            -1.0626250505447388,
+            -1.1155022382736206,
+            -1.21922767162323,
+            -1.2184654474258423,
+            -1.341017484664917
+          ],
+          "expectedSignFractionAtFinal": 0.453125,
+          "finalMeanPlayerCollateralDisplacement": 1.7519137859344482,
+          "puckPresentFractionAtFinal": 1.0
+        }
+      },
+      "puck_token": {
+        "x_plus": {
+          "expectedAxisMeanDeltaByFrame": [
+            -0.06602083146572113,
+            -0.08021645247936249,
+            -0.09577786922454834,
+            -0.1352202445268631,
+            -0.15814125537872314,
+            -0.18674543499946594,
+            -0.21547196805477142,
+            -0.26141706109046936,
+            -0.27989649772644043,
+            -0.29566285014152527,
+            -0.2534969747066498,
+            -0.2253117561340332
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            0.06030206382274628,
+            0.0528741292655468,
+            0.06740788370370865,
+            0.07664848119020462,
+            0.09357745945453644,
+            0.12510837614536285,
+            0.15204177796840668,
+            0.14867398142814636,
+            0.19350488483905792,
+            0.18572063744068146,
+            0.15446490049362183,
+            0.18526005744934082
+          ],
+          "expectedSignFractionAtFinal": 0.3828125,
+          "finalMeanPlayerCollateralDisplacement": 0.7372643351554871,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "x_minus": {
+          "expectedAxisMeanDeltaByFrame": [
+            -0.07669896632432938,
+            -0.0854453295469284,
+            -0.0871729925274849,
+            -0.10632505267858505,
+            -0.14598475396633148,
+            -0.1780618280172348,
+            -0.19096550345420837,
+            -0.21974074840545654,
+            -0.23845335841178894,
+            -0.2352689504623413,
+            -0.33764636516571045,
+            -0.28111469745635986
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            0.021124400198459625,
+            0.03586916625499725,
+            0.049960680305957794,
+            0.03798576071858406,
+            0.054243747144937515,
+            0.04227336123585701,
+            0.06387266516685486,
+            0.06589250266551971,
+            0.0820518508553505,
+            0.09148894250392914,
+            0.09294962137937546,
+            0.08175308257341385
+          ],
+          "expectedSignFractionAtFinal": 0.5,
+          "finalMeanPlayerCollateralDisplacement": 0.6448841691017151,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "y_plus": {
+          "expectedAxisMeanDeltaByFrame": [
+            0.04560035467147827,
+            0.051350027322769165,
+            0.07721295952796936,
+            0.08581729233264923,
+            0.11635920405387878,
+            0.16162730753421783,
+            0.20593775808811188,
+            0.20554722845554352,
+            0.22667695581912994,
+            0.25158241391181946,
+            0.23432858288288116,
+            0.2615567445755005
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            -0.07935211062431335,
+            -0.09369929879903793,
+            -0.0969521552324295,
+            -0.1031799241900444,
+            -0.12095917761325836,
+            -0.14257101714611053,
+            -0.14848926663398743,
+            -0.17353466153144836,
+            -0.15790298581123352,
+            -0.17375245690345764,
+            -0.11756327748298645,
+            -0.07378413528203964
+          ],
+          "expectedSignFractionAtFinal": 0.5,
+          "finalMeanPlayerCollateralDisplacement": 0.68972247838974,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "y_minus": {
+          "expectedAxisMeanDeltaByFrame": [
+            0.02211623266339302,
+            0.024779029190540314,
+            0.020766738802194595,
+            0.0016289353370666504,
+            0.004794325679540634,
+            0.012451902031898499,
+            0.02404695376753807,
+            -0.0040323324501514435,
+            0.03355315700173378,
+            0.009921733289957047,
+            0.0143875852227211,
+            -0.01752001792192459
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            -0.05755259096622467,
+            -0.08126458525657654,
+            -0.07851172983646393,
+            -0.11287804692983627,
+            -0.14579066634178162,
+            -0.16384367644786835,
+            -0.16228128969669342,
+            -0.1779797226190567,
+            -0.19841380417346954,
+            -0.1710512638092041,
+            -0.23584496974945068,
+            -0.2176247239112854
+          ],
+          "expectedSignFractionAtFinal": 0.46875,
+          "finalMeanPlayerCollateralDisplacement": 0.7340173721313477,
+          "puckPresentFractionAtFinal": 1.0
+        }
+      },
+      "puck_token_jacobian": {
+        "x_plus": {
+          "expectedAxisMeanDeltaByFrame": [
+            0.9280597567558289,
+            0.9969525337219238,
+            1.2427709102630615,
+            1.5446549654006958,
+            1.7650635242462158,
+            1.9878000020980835,
+            2.1490588188171387,
+            2.104761838912964,
+            2.1581525802612305,
+            2.189971923828125,
+            2.099741220474243,
+            2.0430235862731934
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            -0.00036769360303878784,
+            -0.02875690907239914,
+            -0.04355587065219879,
+            -0.04225984588265419,
+            -0.0508844256401062,
+            -0.03524595499038696,
+            0.008560776710510254,
+            0.11378566175699234,
+            0.20176000893115997,
+            0.1801353394985199,
+            0.19354355335235596,
+            0.17494913935661316
+          ],
+          "expectedSignFractionAtFinal": 0.75,
+          "finalMeanPlayerCollateralDisplacement": 1.6050034761428833,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "x_minus": {
+          "expectedAxisMeanDeltaByFrame": [
+            -0.3423594534397125,
+            -0.41741132736206055,
+            -0.4691176414489746,
+            -0.5460213422775269,
+            -0.6549503803253174,
+            -0.7230324745178223,
+            -0.7973459362983704,
+            -0.8898831009864807,
+            -0.9147287607192993,
+            -0.9681940078735352,
+            -0.9736443161964417,
+            -1.0650644302368164
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            0.011793140321969986,
+            0.005483899265527725,
+            0.030685577541589737,
+            0.029539380222558975,
+            0.024722065776586533,
+            0.04922546446323395,
+            0.0697498470544815,
+            0.02872902899980545,
+            0.05103296414017677,
+            0.06463789939880371,
+            -0.017112452536821365,
+            0.04252316802740097
+          ],
+          "expectedSignFractionAtFinal": 0.6640625,
+          "finalMeanPlayerCollateralDisplacement": 1.3282853364944458,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "y_plus": {
+          "expectedAxisMeanDeltaByFrame": [
+            0.43617361783981323,
+            0.46202853322029114,
+            0.5770158171653748,
+            0.7367691397666931,
+            0.8591004014015198,
+            0.9641085863113403,
+            1.0752589702606201,
+            1.144278645515442,
+            1.2707469463348389,
+            1.3549280166625977,
+            1.3897091150283813,
+            1.4567384719848633
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            -0.030050449073314667,
+            -0.053156912326812744,
+            -0.050344958901405334,
+            -0.04908348619937897,
+            -0.0560314804315567,
+            -0.050156235694885254,
+            -0.036783307790756226,
+            -0.05030813068151474,
+            -0.059571899473667145,
+            -0.06948333233594894,
+            -0.005562439560890198,
+            -0.08899137377738953
+          ],
+          "expectedSignFractionAtFinal": 0.5859375,
+          "finalMeanPlayerCollateralDisplacement": 1.1418581008911133,
+          "puckPresentFractionAtFinal": 1.0
+        },
+        "y_minus": {
+          "expectedAxisMeanDeltaByFrame": [
+            -0.6741358637809753,
+            -0.7726696729660034,
+            -0.966425895690918,
+            -1.1761868000030518,
+            -1.3269529342651367,
+            -1.3947659730911255,
+            -1.4848618507385254,
+            -1.5702177286148071,
+            -1.620266318321228,
+            -1.6901030540466309,
+            -1.7713454961776733,
+            -1.8834004402160645
+          ],
+          "orthogonalAxisMeanDeltaByFrame": [
+            -0.0450836718082428,
+            -0.09635387361049652,
+            -0.08772546052932739,
+            -0.10672914981842041,
+            -0.1590224653482437,
+            -0.18164488673210144,
+            -0.21326571702957153,
+            -0.26288366317749023,
+            -0.2547929584980011,
+            -0.2943279445171356,
+            -0.4263518154621124,
+            -0.49508753418922424
+          ],
+          "expectedSignFractionAtFinal": 0.6953125,
+          "finalMeanPlayerCollateralDisplacement": 1.2370678186416626,
+          "puckPresentFractionAtFinal": 1.0
+        }
+      }
+    }
+  },
+  "directionNormPerProbePredictedPixel": {
+    "fixed_bottom_right": {
+      "x_plus": 0.0031274165958166122,
+      "x_minus": 0.0031274165958166122,
+      "y_plus": 0.0027869197074323893,
+      "y_minus": 0.0027869197074323893
+    },
+    "spatial_mean": {
+      "x_plus": 0.005885510705411434,
+      "x_minus": 0.005885510705411434,
+      "y_plus": 0.003876448841765523,
+      "y_minus": 0.003876448841765523
+    },
+    "puck_token": {
+      "x_plus": 0.028711780905723572,
+      "x_minus": 0.028711780905723572,
+      "y_plus": 0.017673363909125328,
+      "y_minus": 0.017673363909125328
+    },
+    "puck_token_jacobian": "not a linear-probe direction"
+  }
+}
