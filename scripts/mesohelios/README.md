@@ -39,3 +39,10 @@ It tests whether independently derived causal Jacobian-lens writes at block 5
 map through the trained readout to the learned action port `B(x)`, both
 infinitesimally and after a real render-and-reencode intervention. See
 `docs/jacobian-port-bridge-experiment.md`.
+
+`pixel-only-port-hamiltonian.sbatch` runs Experiment D2. It learns an
+eight-dimensional visual latent, a generic no-bypass pixel renderer, and the
+complete state-dependent functions `H(x)`, `J(x)`, `R(x)`, and `B(x)` from
+pixels and actions only. Physical states are forbidden from training and used
+only after freezing for discovery, counterfactual, and real-simulator control
+audits. See `docs/pixel-only-port-hamiltonian-world-model.md`.
