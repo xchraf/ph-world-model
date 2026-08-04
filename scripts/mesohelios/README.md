@@ -21,3 +21,8 @@ consecutive physical times, fits canonical `q,p` readouts, and compares a
 four-parameter dissipative port-Hamiltonian free-flow map with Hamiltonian,
 affine, and MLP controls. Its output is written to
 `$WORK/world-model/outputs/port-hamiltonian-audit/audit.json`.
+
+`port-hamiltonian-bottleneck.sbatch` runs Experiment B. It freezes the recovery
+checkpoint through block 5 and trains paired equal-capacity causal bottlenecks:
+a constrained hybrid pH branch and a sign-free control. Runtime and scientific
+criteria are preregistered in `docs/port-hamiltonian-bottleneck-experiment.md`.
