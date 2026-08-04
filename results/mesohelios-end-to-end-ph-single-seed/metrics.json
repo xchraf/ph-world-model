@@ -1,0 +1,66 @@
+{
+  "commit": "d7b04d9",
+  "job": 229335,
+  "seed": 131610731,
+  "remoteOutput": "/Work/Users/aelmessaoudi/world-model/outputs/end-to-end-ph-full-131610731",
+  "wallClockSeconds": 1578,
+  "measuredSeconds": 1565.3230452178977,
+  "outcome": "provisional_end_to_end_breakthrough_not_supported_single_seed",
+  "gatesPassed": 10,
+  "gatesTotal": 13,
+  "capacity": {
+    "portHamiltonianCompleteParameters": 5704130,
+    "neuralOdeCompleteParameters": 5704165,
+    "relativeCoreParameterGap": 0.0014457433186005205
+  },
+  "policy": {
+    "portHamiltonian": {
+      "qR2": 0.864840567111969,
+      "pR2": 0.3120753765106201,
+      "playerReconstructionIou": 0.5310306549072266,
+      "puckReconstructionIou": 0.34704044461250305,
+      "h4PlayerCentroidErrorPx": 3.774779796600342,
+      "h8PlayerCentroidErrorPx": 7.800501823425293,
+      "h8PuckCentroidErrorPx": 12.40764045715332,
+      "h8CrossEntropy": 0.24134477972984314,
+      "shuffledActionRelativeDegradation": 0.5285646915435791,
+      "counterfactualMomentumCosine": 0.9558348655700684,
+      "renderedCounterfactualCosine": 0.9781392812728882,
+      "renderedCounterfactualSignAgreement": 1.0,
+      "realClosedLoopError": 0.10094998776912689,
+      "realImprovementVsCoast": 0.42694994807243347,
+      "beatsCoastFraction": 0.75
+    },
+    "neuralOde": {
+      "qR2": 0.8822407126426697,
+      "pR2": 0.20010393857955933,
+      "playerReconstructionIou": 0.4993336796760559,
+      "puckReconstructionIou": 0.36257362365722656,
+      "h4PlayerCentroidErrorPx": 4.340877532958984,
+      "h8PlayerCentroidErrorPx": 13.289379119873047,
+      "h8PuckCentroidErrorPx": 14.731459617614746,
+      "h8CrossEntropy": 0.2583776116371155,
+      "shuffledActionRelativeDegradation": 0.36519116163253784,
+      "counterfactualMomentumCosine": 0.9606937170028687,
+      "renderedCounterfactualCosine": 0.976406455039978,
+      "renderedCounterfactualSignAgreement": 1.0,
+      "realClosedLoopError": 0.1134987473487854,
+      "realImprovementVsCoast": 0.3557159900665283,
+      "beatsCoastFraction": 0.65625
+    }
+  },
+  "structure": {
+    "physicalPortIncidenceCosine": 0.800410807132721,
+    "powerBalanceMaximumAbsDefect": 2.8312206268310547e-7,
+    "minimumResistanceEigenvalue": -1.806544636107077e-10,
+    "zeroInputEnergyIncreaseFraction": 0.000732421875,
+    "hamiltonianPhysicalKineticEnergyAffineR2": 0.0905572772026062,
+    "jacobiRms": 0.012819292955100536
+  },
+  "tailTrainingMeansSteps4500To5000": {
+    "portHamiltonianRolloutPixel": 0.1060516441410238,
+    "neuralOdeRolloutPixel": 0.11375304582444104,
+    "portHamiltonianWhitening": 1.8704240972345525,
+    "neuralOdeWhitening": 1.5773047100413928
+  }
+}
