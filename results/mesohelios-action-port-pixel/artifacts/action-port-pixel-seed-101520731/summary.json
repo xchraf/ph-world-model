@@ -1,0 +1,353 @@
+{
+  "kind": "action_port_pixel_reinjection",
+  "version": 1,
+  "baseCheckpointStep": 12000,
+  "frozenBackbone": true,
+  "noPixelBypass": true,
+  "config": {
+    "trajectories": 8192,
+    "transitions_per_trajectory": 8,
+    "fit_fraction": 0.75,
+    "feature_batch_size": 64,
+    "block_count": 5,
+    "dynamics_steps": 6000,
+    "dynamics_batch_size": 256,
+    "renderer_steps": 5000,
+    "renderer_batch_size": 64,
+    "learning_rate": 0.0003,
+    "renderer_learning_rate": 0.0005,
+    "renderer_entity_dice_weight": 1.0,
+    "weight_decay": 0.0001,
+    "warmup_steps": 200,
+    "min_learning_rate_ratio": 0.1,
+    "hidden_size": 64,
+    "renderer_hidden_size": 64,
+    "state_loss_weight": 1.0,
+    "teacher_dynamics_weight": 1.0,
+    "rollout_loss_weight": 2.0,
+    "event_loss_weight": 0.2,
+    "free_port_weight": 0.2,
+    "ridge": 0.01,
+    "log_every": 100,
+    "seed": 101520731
+  },
+  "capacity": {
+    "portHamiltonian": 5600,
+    "tangentMatchedControl": 5600,
+    "renderer": 5961
+  },
+  "timing": {
+    "collectionSeconds": 119.9971718559973,
+    "dynamicsSeconds": 251.70928169996478,
+    "rendererSeconds": 22.702941425028257,
+    "evaluationSeconds": 0.805198765010573,
+    "totalSeconds": 395.2145937460009
+  },
+  "data": {
+    "fitTrajectories": 6144,
+    "testTrajectories": 2048,
+    "regimeCounts": {
+      "free": 53522,
+      "disc_impact": 2449,
+      "wall": 5676,
+      "goal_entry": 454,
+      "goal_pause": 2914,
+      "kickoff": 521
+    }
+  },
+  "evaluation": {
+    "rendererOracle": {
+      "accuracy": 0.9194016456604004,
+      "playerIou": 0.9136099610477686,
+      "puckIou": 0.8582947328686714
+    },
+    "portHamiltonian": {
+      "stateReadout": {
+        "r2": 0.826413631439209,
+        "qR2": 0.9523778557777405,
+        "pR2": 0.8176028728485107,
+        "qRmse": 0.047574348747730255,
+        "pRmse": 0.35204121470451355,
+        "modeR2": 0.7340466976165771
+      },
+      "rolloutByHorizon": {
+        "1": {
+          "deltaNrmse": 0.9887418150901794,
+          "qR2": 0.9501420855522156,
+          "pR2": 0.7556942105293274,
+          "pixels": {
+            "accuracy": 0.903076171875,
+            "playerIou": 0.40631282329559326,
+            "puckIou": 0.21433239616453648
+          }
+        },
+        "2": {
+          "deltaNrmse": 0.8243908882141113,
+          "qR2": 0.9387927651405334,
+          "pR2": 0.6828990578651428,
+          "pixels": {
+            "accuracy": 0.90181565284729,
+            "playerIou": 0.3776998771354556,
+            "puckIou": 0.19606430223211646
+          }
+        },
+        "4": {
+          "deltaNrmse": 0.727256178855896,
+          "qR2": 0.9040511846542358,
+          "pR2": 0.5372423529624939,
+          "pixels": {
+            "accuracy": 0.898505687713623,
+            "playerIou": 0.3022877359762788,
+            "puckIou": 0.15470016840845346
+          }
+        },
+        "8": {
+          "deltaNrmse": 0.6214845776557922,
+          "qR2": 0.7053223848342896,
+          "pR2": 0.3792458176612854,
+          "pixels": {
+            "accuracy": 0.8886059522628784,
+            "playerIou": 0.17220182996243238,
+            "puckIou": 0.08369049103930593
+          }
+        }
+      },
+      "negativeControls": {
+        "shuffledInitialStateH8": 0.7979831099510193,
+        "shuffledActionsH8": 0.9339213371276855,
+        "zeroActionsH8": 0.7665800452232361
+      },
+      "regimes": {
+        "free": {
+          "samples": 13293,
+          "deltaNrmse": 0.8843302726745605,
+          "meanJumpNorm": 0.0470094159245491
+        },
+        "disc_impact": {
+          "samples": 626,
+          "deltaNrmse": 0.9999501705169678,
+          "meanJumpNorm": 0.058467499911785126
+        },
+        "wall": {
+          "samples": 1422,
+          "deltaNrmse": 0.8998263478279114,
+          "meanJumpNorm": 0.3676909804344177
+        },
+        "goal_entry": {
+          "samples": 126,
+          "deltaNrmse": 1.0958927869796753,
+          "meanJumpNorm": 0.28348323702812195
+        },
+        "goal_pause": {
+          "samples": 784,
+          "deltaNrmse": 0.9865418672561646,
+          "meanJumpNorm": 0.19733819365501404
+        },
+        "kickoff": {
+          "samples": 133,
+          "deltaNrmse": 0.6900294423103333,
+          "meanJumpNorm": 0.434394508600235
+        }
+      },
+      "eventBalancedAccuracy": 0.7261335915730646,
+      "core": {
+        "parameterCount": 6,
+        "parameters": {
+          "positionGain": [
+            0.02743280678987503,
+            0.050447218120098114
+          ],
+          "momentumDecay": [
+            0.9204897284507751,
+            0.9938826560974121
+          ],
+          "actionPositionGain": 0.003252418013289571,
+          "actionMomentumGain": 0.2584105432033539,
+          "effectiveMass": [
+            1.7491756966934644,
+            0.9881002730501408
+          ],
+          "effectiveDrag": [
+            1.6569887406838086,
+            0.12272263020314993
+          ],
+          "withinPortHamiltonianDomain": true
+        },
+        "stability": {
+          "finite": true,
+          "energyGrowthFraction": 0.0,
+          "finalToInitialEnergy": 0.1413540095090866
+        }
+      },
+      "actionInterventions": [
+        {
+          "direction": 0,
+          "momentumCosine": 1.0,
+          "puckCrossTalkRmse": 0.0
+        },
+        {
+          "direction": 1,
+          "momentumCosine": 1.0,
+          "puckCrossTalkRmse": 0.0
+        },
+        {
+          "direction": 2,
+          "momentumCosine": 1.0,
+          "puckCrossTalkRmse": 0.0
+        },
+        {
+          "direction": 3,
+          "momentumCosine": 1.0,
+          "puckCrossTalkRmse": 0.0
+        }
+      ]
+    },
+    "tangentMatchedControl": {
+      "stateReadout": {
+        "r2": 0.826407790184021,
+        "qR2": 0.9523769617080688,
+        "pR2": 0.8175966143608093,
+        "qRmse": 0.04757479950785637,
+        "pRmse": 0.35204723477363586,
+        "modeR2": 0.7340537309646606
+      },
+      "rolloutByHorizon": {
+        "1": {
+          "deltaNrmse": 0.9892452359199524,
+          "qR2": 0.9501319527626038,
+          "pR2": 0.7554425001144409,
+          "pixels": {
+            "accuracy": 0.9030671119689941,
+            "playerIou": 0.40619181748479605,
+            "puckIou": 0.21439146902412176
+          }
+        },
+        "2": {
+          "deltaNrmse": 0.8247731924057007,
+          "qR2": 0.9387730956077576,
+          "pR2": 0.6826022863388062,
+          "pixels": {
+            "accuracy": 0.9018172025680542,
+            "playerIou": 0.37742962036281824,
+            "puckIou": 0.1960916738025844
+          }
+        },
+        "4": {
+          "deltaNrmse": 0.7278483510017395,
+          "qR2": 0.9039823412895203,
+          "pR2": 0.5364823341369629,
+          "pixels": {
+            "accuracy": 0.8984994888305664,
+            "playerIou": 0.3019782453775406,
+            "puckIou": 0.15449881157837808
+          }
+        },
+        "8": {
+          "deltaNrmse": 0.6211469769477844,
+          "qR2": 0.7047609090805054,
+          "pR2": 0.3799822926521301,
+          "pixels": {
+            "accuracy": 0.888566255569458,
+            "playerIou": 0.17195523530244827,
+            "puckIou": 0.08370585949160159
+          }
+        }
+      },
+      "negativeControls": {
+        "shuffledInitialStateH8": 0.7978602647781372,
+        "shuffledActionsH8": 0.934389591217041,
+        "zeroActionsH8": 0.7666833400726318
+      },
+      "regimes": {
+        "free": {
+          "samples": 13293,
+          "deltaNrmse": 0.8844733238220215,
+          "meanJumpNorm": 0.0470089465379715
+        },
+        "disc_impact": {
+          "samples": 626,
+          "deltaNrmse": 1.0002824068069458,
+          "meanJumpNorm": 0.058056317269802094
+        },
+        "wall": {
+          "samples": 1422,
+          "deltaNrmse": 0.8998438715934753,
+          "meanJumpNorm": 0.36789077520370483
+        },
+        "goal_entry": {
+          "samples": 126,
+          "deltaNrmse": 1.095930814743042,
+          "meanJumpNorm": 0.28354009985923767
+        },
+        "goal_pause": {
+          "samples": 784,
+          "deltaNrmse": 0.9865642189979553,
+          "meanJumpNorm": 0.19738584756851196
+        },
+        "kickoff": {
+          "samples": 133,
+          "deltaNrmse": 0.6900961995124817,
+          "meanJumpNorm": 0.43431413173675537
+        }
+      },
+      "eventBalancedAccuracy": 0.7261461284166822,
+      "core": {
+        "parameterCount": 6,
+        "parameters": {
+          "positionGain": [
+            0.027504848316311836,
+            0.05044958367943764
+          ],
+          "momentumDecay": [
+            0.920535683631897,
+            0.9938845634460449
+          ],
+          "actionPositionGain": 0.0030807622242718935,
+          "actionMomentumGain": 0.25859707593917847,
+          "effectiveMass": [
+            1.744637150616527,
+            0.9880548885636732
+          ],
+          "effectiveDrag": [
+            1.6559902714431396,
+            0.12268424847285354
+          ],
+          "withinPortHamiltonianDomain": true
+        },
+        "stability": {
+          "finite": true,
+          "energyGrowthFraction": 0.0,
+          "finalToInitialEnergy": 0.14116807281970978
+        }
+      },
+      "actionInterventions": [
+        {
+          "direction": 0,
+          "momentumCosine": 1.0,
+          "puckCrossTalkRmse": 0.0
+        },
+        {
+          "direction": 1,
+          "momentumCosine": 1.0,
+          "puckCrossTalkRmse": 0.0
+        },
+        {
+          "direction": 2,
+          "momentumCosine": 1.0,
+          "puckCrossTalkRmse": 0.0
+        },
+        {
+          "direction": 3,
+          "momentumCosine": 1.0,
+          "puckCrossTalkRmse": 0.0
+        }
+      ]
+    }
+  },
+  "artifacts": [
+    "checkpoint.pt",
+    "dynamics.jsonl",
+    "renderer.jsonl",
+    "summary.json"
+  ]
+}

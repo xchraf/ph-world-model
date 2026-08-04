@@ -92,3 +92,9 @@ evaluation, and serialization path on one A100. Its measured stage rates are
 used to revise the initial 1 h 15–1 h 45 end-to-end estimate before the full
 independent repetitions are submitted. Queue time is reported separately from
 compute time.
+
+## Completed run
+
+The five-seed aggregate, interpretation, checkpoints, logs, calibration record,
+and measured runtime are stored in
+[`results/mesohelios-action-port-pixel`](../results/mesohelios-action-port-pixel/README.md).

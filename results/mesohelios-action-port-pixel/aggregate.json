@@ -1,0 +1,716 @@
+{
+  "kind": "action_port_pixel_reinjection_aggregate",
+  "version": 1,
+  "runs": 5,
+  "sources": [
+    "results/mesohelios-action-port-pixel/artifacts/action-port-pixel-seed-101510731/summary.json",
+    "results/mesohelios-action-port-pixel/artifacts/action-port-pixel-seed-101520731/summary.json",
+    "results/mesohelios-action-port-pixel/artifacts/action-port-pixel-seed-101530731/summary.json",
+    "results/mesohelios-action-port-pixel/artifacts/action-port-pixel-seed-101540731/summary.json",
+    "results/mesohelios-action-port-pixel/artifacts/action-port-pixel-seed-101550731/summary.json"
+  ],
+  "baseCheckpointStep": 12000,
+  "config": {
+    "trajectories": 8192,
+    "transitions_per_trajectory": 8,
+    "fit_fraction": 0.75,
+    "feature_batch_size": 64,
+    "block_count": 5,
+    "dynamics_steps": 6000,
+    "dynamics_batch_size": 256,
+    "renderer_steps": 5000,
+    "renderer_batch_size": 64,
+    "learning_rate": 0.0003,
+    "renderer_learning_rate": 0.0005,
+    "renderer_entity_dice_weight": 1.0,
+    "weight_decay": 0.0001,
+    "warmup_steps": 200,
+    "min_learning_rate_ratio": 0.1,
+    "hidden_size": 64,
+    "renderer_hidden_size": 64,
+    "state_loss_weight": 1.0,
+    "teacher_dynamics_weight": 1.0,
+    "rollout_loss_weight": 2.0,
+    "event_loss_weight": 0.2,
+    "free_port_weight": 0.2,
+    "ridge": 0.01,
+    "log_every": 100,
+    "seed": 101510731
+  },
+  "capacity": {
+    "portHamiltonian": 5600,
+    "tangentMatchedControl": 5600,
+    "renderer": 5961
+  },
+  "timing": {
+    "collectionSeconds": {
+      "mean": 119.57674693597946,
+      "std": 0.4123387018373748
+    },
+    "dynamicsSeconds": {
+      "mean": 248.35006530419923,
+      "std": 2.7849683106652003
+    },
+    "rendererSeconds": {
+      "mean": 22.292767079593613,
+      "std": 0.877565279823514
+    },
+    "evaluationSeconds": {
+      "mean": 0.8022388320183381,
+      "std": 0.004253919268492143
+    },
+    "totalSeconds": {
+      "mean": 391.0218181517906,
+      "std": 3.7203483084668294
+    }
+  },
+  "rendererOracle": {
+    "accuracy": {
+      "mean": 0.9164029598236084,
+      "std": 0.004643274018230852
+    },
+    "playerIou": {
+      "mean": 0.917461521178484,
+      "std": 0.005316956459685615
+    },
+    "puckIou": {
+      "mean": 0.8612085863947868,
+      "std": 0.03643120065003784
+    }
+  },
+  "branches": {
+    "portHamiltonian": {
+      "stateReadout": {
+        "qR2": {
+          "mean": 0.9528262972831726,
+          "std": 0.0012112142498436926
+        },
+        "pR2": {
+          "mean": 0.8193923234939575,
+          "std": 0.004646870282722225
+        },
+        "modeR2": {
+          "mean": 0.7223334074020386,
+          "std": 0.010778123556267788
+        }
+      },
+      "horizons": {
+        "1": {
+          "deltaNrmse": {
+            "mean": 0.9700071573257446,
+            "std": 0.015935371911737037
+          },
+          "qR2": {
+            "mean": 0.9512091159820557,
+            "std": 0.0012869352883307286
+          },
+          "pR2": {
+            "mean": 0.7759394764900207,
+            "std": 0.016968415983335414
+          },
+          "pixels": {
+            "accuracy": {
+              "mean": 0.8987755298614502,
+              "std": 0.005966383249940314
+            },
+            "playerIou": {
+              "mean": 0.4101767513900995,
+              "std": 0.004970657350282002
+            },
+            "puckIou": {
+              "mean": 0.2164015317335725,
+              "std": 0.006822696334479955
+            }
+          }
+        },
+        "2": {
+          "deltaNrmse": {
+            "mean": 0.8120292067527771,
+            "std": 0.012692547013956805
+          },
+          "qR2": {
+            "mean": 0.93971107006073,
+            "std": 0.0017089431123383512
+          },
+          "pR2": {
+            "mean": 0.6983798384666443,
+            "std": 0.01509516841058792
+          },
+          "pixels": {
+            "accuracy": {
+              "mean": 0.8972359418869018,
+              "std": 0.006327798035387673
+            },
+            "playerIou": {
+              "mean": 0.3785516170784831,
+              "std": 0.001953436699321669
+            },
+            "puckIou": {
+              "mean": 0.20026614600792528,
+              "std": 0.008031221894321951
+            }
+          }
+        },
+        "4": {
+          "deltaNrmse": {
+            "mean": 0.7111151933670044,
+            "std": 0.013587164280413573
+          },
+          "qR2": {
+            "mean": 0.906320083141327,
+            "std": 0.002440623670056735
+          },
+          "pR2": {
+            "mean": 0.5576099753379822,
+            "std": 0.014961730913674533
+          },
+          "pixels": {
+            "accuracy": {
+              "mean": 0.8936473608016968,
+              "std": 0.006433446904789848
+            },
+            "playerIou": {
+              "mean": 0.30299985185265543,
+              "std": 0.002089556850066579
+            },
+            "puckIou": {
+              "mean": 0.15500531033612788,
+              "std": 0.0056288562528165565
+            }
+          }
+        },
+        "8": {
+          "deltaNrmse": {
+            "mean": 0.6240149736404419,
+            "std": 0.012093898588357533
+          },
+          "qR2": {
+            "mean": 0.719824755191803,
+            "std": 0.011893679184997775
+          },
+          "pR2": {
+            "mean": 0.3627038598060608,
+            "std": 0.030314555998041982
+          },
+          "pixels": {
+            "accuracy": {
+              "mean": 0.8841602087020874,
+              "std": 0.006523304137137394
+            },
+            "playerIou": {
+              "mean": 0.17355050863698124,
+              "std": 0.006518163088134619
+            },
+            "puckIou": {
+              "mean": 0.08101719063706696,
+              "std": 0.004150390327933209
+            }
+          }
+        }
+      },
+      "negativeControls": {
+        "shuffledInitialStateH8": {
+          "mean": 0.7944769024848938,
+          "std": 0.0034544900247771597
+        },
+        "shuffledActionsH8": {
+          "mean": 0.9381323218345642,
+          "std": 0.012202865386493124
+        },
+        "zeroActionsH8": {
+          "mean": 0.7627149224281311,
+          "std": 0.004020359688596891
+        }
+      },
+      "eventBalancedAccuracy": {
+        "mean": 0.7469389377317082,
+        "std": 0.019613763150734917
+      },
+      "core": {
+        "positionGain": [
+          {
+            "mean": 0.02723676525056362,
+            "std": 0.0004915718745726004
+          },
+          {
+            "mean": 0.04908758327364922,
+            "std": 0.001239345982429277
+          }
+        ],
+        "momentumDecay": [
+          {
+            "mean": 0.9188633441925049,
+            "std": 0.0031320965163144517
+          },
+          {
+            "mean": 0.9937463998794556,
+            "std": 0.000303549912848505
+          }
+        ],
+        "effectiveMass": [
+          {
+            "mean": 1.7606656375249994,
+            "std": 0.030303141757035745
+          },
+          {
+            "mean": 1.0159202408953045,
+            "std": 0.025797599132301056
+          }
+        ],
+        "effectiveDrag": [
+          {
+            "mean": 1.6924504431072804,
+            "std": 0.06824282702523722
+          },
+          {
+            "mean": 0.12546546224699112,
+            "std": 0.006110064741583379
+          }
+        ],
+        "actionPositionGain": {
+          "mean": 0.0033758160192519427,
+          "std": 0.0002710312341803585
+        },
+        "actionMomentumGain": {
+          "mean": 0.2616591572761536,
+          "std": 0.004820595909882315
+        },
+        "withinDomainFraction": 1.0,
+        "stability": {
+          "energyGrowthFraction": {
+            "mean": 0.0,
+            "std": 0.0
+          },
+          "finalToInitialEnergy": {
+            "mean": 0.13315455317497255,
+            "std": 0.013137357686778385
+          }
+        }
+      },
+      "actionInterventions": {
+        "momentumCosine": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "puckCrossTalkRmse": {
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "regimes": {
+        "free": {
+          "samples": {
+            "mean": 13345.4,
+            "std": 59.57180541162069
+          },
+          "deltaNrmse": {
+            "mean": 0.8832038402557373,
+            "std": 0.005435885769154458
+          },
+          "meanJumpNorm": {
+            "mean": 0.0477264903485775,
+            "std": 0.007618266957652722
+          }
+        },
+        "disc_impact": {
+          "samples": {
+            "mean": 592.4,
+            "std": 25.812787528664934
+          },
+          "deltaNrmse": {
+            "mean": 0.9937833547592163,
+            "std": 0.004648746678989491
+          },
+          "meanJumpNorm": {
+            "mean": 0.130040542781353,
+            "std": 0.06769783128029454
+          }
+        },
+        "wall": {
+          "samples": {
+            "mean": 1427.2,
+            "std": 41.06945336865345
+          },
+          "deltaNrmse": {
+            "mean": 0.8961767196655274,
+            "std": 0.004207024614406721
+          },
+          "meanJumpNorm": {
+            "mean": 0.37504122257232664,
+            "std": 0.014973573632480383
+          }
+        },
+        "goal_entry": {
+          "samples": {
+            "mean": 117.6,
+            "std": 11.260550608207398
+          },
+          "deltaNrmse": {
+            "mean": 1.053269624710083,
+            "std": 0.032121568501023115
+          },
+          "meanJumpNorm": {
+            "mean": 0.27586382031440737,
+            "std": 0.009132078653239437
+          }
+        },
+        "goal_pause": {
+          "samples": {
+            "mean": 771.0,
+            "std": 62.6418390534633
+          },
+          "deltaNrmse": {
+            "mean": 0.9916730761528015,
+            "std": 0.008318169889299983
+          },
+          "meanJumpNorm": {
+            "mean": 0.19477844834327698,
+            "std": 0.011455822598337408
+          }
+        },
+        "kickoff": {
+          "samples": {
+            "mean": 130.4,
+            "std": 10.526157893552615
+          },
+          "deltaNrmse": {
+            "mean": 0.6783988237380981,
+            "std": 0.029145505430947547
+          },
+          "meanJumpNorm": {
+            "mean": 0.41432729959487913,
+            "std": 0.057621518454521715
+          }
+        }
+      }
+    },
+    "tangentMatchedControl": {
+      "stateReadout": {
+        "qR2": {
+          "mean": 0.9528233289718628,
+          "std": 0.0012135045351933502
+        },
+        "pR2": {
+          "mean": 0.8193894743919372,
+          "std": 0.0046470117725441636
+        },
+        "modeR2": {
+          "mean": 0.7223382353782654,
+          "std": 0.010782360321146973
+        }
+      },
+      "horizons": {
+        "1": {
+          "deltaNrmse": {
+            "mean": 0.9701241612434387,
+            "std": 0.016091978804659277
+          },
+          "qR2": {
+            "mean": 0.9512028098106384,
+            "std": 0.0012921755833845345
+          },
+          "pR2": {
+            "mean": 0.7758823513984681,
+            "std": 0.0170365523104234
+          },
+          "pixels": {
+            "accuracy": {
+              "mean": 0.8987778186798095,
+              "std": 0.005966087563876681
+            },
+            "playerIou": {
+              "mean": 0.4100816177204251,
+              "std": 0.005070197868344144
+            },
+            "puckIou": {
+              "mean": 0.21644890429452063,
+              "std": 0.006880859724926734
+            }
+          }
+        },
+        "2": {
+          "deltaNrmse": {
+            "mean": 0.8122050762176514,
+            "std": 0.012711771129765738
+          },
+          "qR2": {
+            "mean": 0.9396974802017212,
+            "std": 0.0017165335873041965
+          },
+          "pR2": {
+            "mean": 0.6982473015785218,
+            "std": 0.015130819773872347
+          },
+          "pixels": {
+            "accuracy": {
+              "mean": 0.897229814529419,
+              "std": 0.006328340987039447
+            },
+            "playerIou": {
+              "mean": 0.3783884743228555,
+              "std": 0.001980984574289697
+            },
+            "puckIou": {
+              "mean": 0.20018690656870602,
+              "std": 0.008030058465476969
+            }
+          }
+        },
+        "4": {
+          "deltaNrmse": {
+            "mean": 0.7114049077033997,
+            "std": 0.013718051746100513
+          },
+          "qR2": {
+            "mean": 0.9062724113464355,
+            "std": 0.0024651565696312398
+          },
+          "pR2": {
+            "mean": 0.5572461605072021,
+            "std": 0.01511267796977593
+          },
+          "pixels": {
+            "accuracy": {
+              "mean": 0.8936322212219239,
+              "std": 0.006427027799750925
+            },
+            "playerIou": {
+              "mean": 0.3025728141888976,
+              "std": 0.002331737154944166
+            },
+            "puckIou": {
+              "mean": 0.15487226136028767,
+              "std": 0.00574261508217397
+            }
+          }
+        },
+        "8": {
+          "deltaNrmse": {
+            "mean": 0.6240508556365967,
+            "std": 0.012360439001105493
+          },
+          "qR2": {
+            "mean": 0.7196395635604859,
+            "std": 0.012036246393198592
+          },
+          "pR2": {
+            "mean": 0.36262654066085814,
+            "std": 0.03095423882468849
+          },
+          "pixels": {
+            "accuracy": {
+              "mean": 0.8841365337371826,
+              "std": 0.006506235403565834
+            },
+            "playerIou": {
+              "mean": 0.1733495180029422,
+              "std": 0.006482791226018559
+            },
+            "puckIou": {
+              "mean": 0.08101621347013861,
+              "std": 0.004130593486231933
+            }
+          }
+        }
+      },
+      "negativeControls": {
+        "shuffledInitialStateH8": {
+          "mean": 0.7946825861930847,
+          "std": 0.003359396219014611
+        },
+        "shuffledActionsH8": {
+          "mean": 0.9385036706924439,
+          "std": 0.012360342308866882
+        },
+        "zeroActionsH8": {
+          "mean": 0.7627372860908508,
+          "std": 0.0042015583646381575
+        }
+      },
+      "eventBalancedAccuracy": {
+        "mean": 0.7469209609708438,
+        "std": 0.019566873496510706
+      },
+      "core": {
+        "positionGain": [
+          {
+            "mean": 0.027299054712057114,
+            "std": 0.0004989354066555631
+          },
+          {
+            "mean": 0.04908277094364166,
+            "std": 0.001256598134028194
+          }
+        ],
+        "momentumDecay": [
+          {
+            "mean": 0.9190108299255371,
+            "std": 0.002930421607142848
+          },
+          {
+            "mean": 0.9937578678131104,
+            "std": 0.0002845737908224039
+          }
+        ],
+        "effectiveMass": [
+          {
+            "mean": 1.7568000129211985,
+            "std": 0.030709551150465905
+          },
+          {
+            "mean": 1.0160409539097608,
+            "std": 0.02618849839859384
+          }
+        ],
+        "effectiveDrag": [
+          {
+            "mean": 1.689228887267845,
+            "std": 0.06383323223126552
+          },
+          {
+            "mean": 0.12523457110934072,
+            "std": 0.005727962511672152
+          }
+        ],
+        "actionPositionGain": {
+          "mean": 0.0032207283191382887,
+          "std": 0.00033888194445338493
+        },
+        "actionMomentumGain": {
+          "mean": 0.26179943680763246,
+          "std": 0.00473479644763173
+        },
+        "withinDomainFraction": 1.0,
+        "stability": {
+          "energyGrowthFraction": {
+            "mean": 0.0,
+            "std": 0.0
+          },
+          "finalToInitialEnergy": {
+            "mean": 0.13314852714538575,
+            "std": 0.012884065957627198
+          }
+        }
+      },
+      "actionInterventions": {
+        "momentumCosine": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "puckCrossTalkRmse": {
+          "mean": 0.0,
+          "std": 0.0
+        }
+      },
+      "regimes": {
+        "free": {
+          "samples": {
+            "mean": 13345.4,
+            "std": 59.57180541162069
+          },
+          "deltaNrmse": {
+            "mean": 0.883264172077179,
+            "std": 0.005434116248397985
+          },
+          "meanJumpNorm": {
+            "mean": 0.047713156789541245,
+            "std": 0.007576977285265244
+          }
+        },
+        "disc_impact": {
+          "samples": {
+            "mean": 592.4,
+            "std": 25.812787528664934
+          },
+          "deltaNrmse": {
+            "mean": 0.9939059376716614,
+            "std": 0.004706098933835923
+          },
+          "meanJumpNorm": {
+            "mean": 0.1297752797603607,
+            "std": 0.06771540239187261
+          }
+        },
+        "wall": {
+          "samples": {
+            "mean": 1427.2,
+            "std": 41.06945336865345
+          },
+          "deltaNrmse": {
+            "mean": 0.8962695956230163,
+            "std": 0.00420454864837854
+          },
+          "meanJumpNorm": {
+            "mean": 0.37514772415161135,
+            "std": 0.015106013556400507
+          }
+        },
+        "goal_entry": {
+          "samples": {
+            "mean": 117.6,
+            "std": 11.260550608207398
+          },
+          "deltaNrmse": {
+            "mean": 1.0533774137496947,
+            "std": 0.03207758429855118
+          },
+          "meanJumpNorm": {
+            "mean": 0.275968199968338,
+            "std": 0.009052840208860142
+          }
+        },
+        "goal_pause": {
+          "samples": {
+            "mean": 771.0,
+            "std": 62.6418390534633
+          },
+          "deltaNrmse": {
+            "mean": 0.9916723489761352,
+            "std": 0.008308506570673035
+          },
+          "meanJumpNorm": {
+            "mean": 0.19484568238258362,
+            "std": 0.011465406401250959
+          }
+        },
+        "kickoff": {
+          "samples": {
+            "mean": 130.4,
+            "std": 10.526157893552615
+          },
+          "deltaNrmse": {
+            "mean": 0.6784042000770569,
+            "std": 0.029111421123576325
+          },
+          "meanJumpNorm": {
+            "mean": 0.4142982721328735,
+            "std": 0.05755629784605774
+          }
+        }
+      }
+    }
+  },
+  "paired": {
+    "h8DeltaNrmsePhMinusControl": {
+      "mean": -3.5881996154785156e-05,
+      "std": 0.0003477007921961191
+    },
+    "h8PlayerIouPhMinusControl": {
+      "mean": 0.00020099063403904437,
+      "std": 0.0002780481163051829
+    },
+    "h8PuckIouPhMinusControl": {
+      "mean": 9.771669283509254e-07,
+      "std": 7.85446299641227e-05
+    }
+  },
+  "decisions": {
+    "accuracyParity": true,
+    "readoutGate": true,
+    "passiveDomain": true,
+    "zeroActionEnergyGrowth": true,
+    "actionCausalSignal": true,
+    "directionalPort": true,
+    "rendererCeilingAdequate": true
+  }
+}

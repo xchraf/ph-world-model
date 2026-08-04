@@ -45,5 +45,9 @@
   ],
   "submissionTime": "2026-08-04T17:47:12+02:00",
   "estimatedCompletionAfterSubmissionMinutes": [45, 60],
+  "actualCompletionTime": "2026-08-04T18:21:59+02:00",
+  "actualFullRunWallSeconds": 2087,
+  "fullRunSlurmElapsedSeconds": [407, 410, 400, 404, 407],
+  "meanInternalSecondsPerRun": 391.0218181517906,
   "schedulerConstraint": "QOSMaxGRESPerUser: one A100 job at a time"
 }
