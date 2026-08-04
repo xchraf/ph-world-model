@@ -46,3 +46,10 @@ complete state-dependent functions `H(x)`, `J(x)`, `R(x)`, and `B(x)` from
 pixels and actions only. Physical states are forbidden from training and used
 only after freezing for discovery, counterfactual, and real-simulator control
 audits. See `docs/pixel-only-port-hamiltonian-world-model.md`.
+
+`passive-jacobian-ph-control.sbatch` runs the locked two-system Experiment E.
+It keeps both video transformers frozen, fits passive latent dynamics without
+actions, derives ports from activation Jacobians, permits only paired one-step
+analytic actuator calibration, and evaluates real closed-loop control plus a
+previously unseen interface. See
+`docs/passive-jacobian-ph-control-experiment.md`.

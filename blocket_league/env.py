@@ -133,6 +133,31 @@ class BlocketLeagueEnv:
         if not 0 <= action < len(ACTION_VECTORS):
             raise ValueError(f"Action must be in [0, 8], got {action}")
 
+        direction = ACTION_VECTORS[action].copy()
+        norm = float(np.linalg.norm(direction))
+        if norm > 0:
+            direction /= norm
+        return self._step_direction(direction)
+
+    def step_vector(self, direction: np.ndarray) -> WorldState:
+        """Advance under a bounded continuous thrust vector.
+
+        The original categorical action API remains unchanged.  This separate
+        deployment-only interface lets experiments hide a new linear actuator
+        coordinate system without changing the autonomous passive-video data.
+        """
+
+        direction = np.asarray(direction, dtype=np.float32)
+        if direction.shape != (2,) or not bool(np.isfinite(direction).all()):
+            raise ValueError("direction must be a finite two-dimensional vector")
+        norm = float(np.linalg.norm(direction))
+        if norm > 1.0:
+            direction = direction / norm
+        return self._step_direction(direction)
+
+    def _step_direction(self, direction: np.ndarray) -> WorldState:
+        direction = np.asarray(direction, dtype=np.float32)
+
         state = self.state
         state.tick += 1
         state.last_event = "coast"
@@ -143,10 +168,8 @@ class BlocketLeagueEnv:
                 self.reset(full=False)
             return self.state
 
-        direction = ACTION_VECTORS[action].copy()
         norm = float(np.linalg.norm(direction))
         if norm > 0:
-            direction /= norm
             state.last_event = "thrust"
 
         h = self.config.dt / self.config.substeps

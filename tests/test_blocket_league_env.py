@@ -9,6 +9,13 @@ from blocket_league.env import BlocketLeagueEnv
 
 
 class BlocketLeagueEnvironmentTests(unittest.TestCase):
+
+    def test_continuous_vector_step_matches_cardinal_action(self) -> None:
+        first = BlocketLeagueEnv(seed=91)
+        second = BlocketLeagueEnv(seed=91)
+        first.step(3)
+        second.step_vector(np.asarray((1.0, 0.0), dtype=np.float32))
+        np.testing.assert_allclose(first.state.vector(), second.state.vector(), atol=1e-7)
     def test_seeded_trajectories_are_exactly_reproducible(self) -> None:
         left = BlocketLeagueEnv(seed=23)
         right = BlocketLeagueEnv(seed=23)

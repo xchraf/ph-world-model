@@ -12,6 +12,23 @@ from blocket_league.neural_port_hamiltonian import (
 
 
 class NeuralPortHamiltonianTests(unittest.TestCase):
+
+    def test_passivity_integrator_does_not_increase_zero_input_energy(self) -> None:
+        model = NeuralPortHamiltonian(
+            NeuralPortHamiltonianConfig(
+                state_size=4,
+                input_size=2,
+                hidden_size=16,
+                hidden_layers=1,
+                dt=0.05,
+                integration_method="passivity",
+            )
+        )
+        state = torch.randn(32, 4)
+        zero = torch.zeros(32, 2)
+        before = model.hamiltonian(state)
+        after = model.hamiltonian(model(state, zero))
+        self.assertLessEqual(float((after - before).max()), 1e-6)
     def setUp(self) -> None:
         torch.manual_seed(4_219)
         self.config = NeuralPortHamiltonianConfig(

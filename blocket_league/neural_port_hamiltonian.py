@@ -8,7 +8,7 @@ import torch.nn.functional as F
 from torch import nn
 
 
-IntegrationMethod = Literal["euler", "midpoint", "rk4"]
+IntegrationMethod = Literal["euler", "midpoint", "rk4", "passivity"]
 
 
 @dataclass(frozen=True)
@@ -287,6 +287,46 @@ class NeuralPortHamiltonian(nn.Module):
                 current = current + step_size * (
                     first + 2.0 * second + 2.0 * third + fourth
                 ) / 6.0
+            elif method == "passivity":
+                first = self.vector_field(current, control)
+                midpoint = current + 0.5 * step_size * first
+                candidate = current + step_size * self.vector_field(midpoint, control)
+                # The continuous pH identity is exact by construction, while a
+                # generic explicit/midpoint discretization can still inject a
+                # small amount of numerical energy.  For autonomous steps we
+                # use a differentiable energy-level projection.  It changes no
+                # continuous vector field and is inactive whenever the proposed
+                # step is already passive.
+                if bool(control.detach().abs().max() <= 1e-12):
+                    # Find the largest accepted point on the proposed segment.
+                    # `low` is feasible by invariant (it starts at the current
+                    # state), so the returned forward value cannot exceed the
+                    # initial energy up to the bisection precision.  A
+                    # straight-through derivative keeps passive fitting
+                    # tractable without changing this forward guarantee.
+                    with torch.no_grad():
+                        detached_current = current.detach()
+                        detached_candidate = candidate.detach()
+                        initial_energy = self.hamiltonian(detached_current)
+                        candidate_energy = self.hamiltonian(detached_candidate)
+                        low = torch.zeros_like(initial_energy)
+                        high = torch.ones_like(initial_energy)
+                        direction = detached_candidate - detached_current
+                        for _ in range(18):
+                            middle_fraction = 0.5 * (low + high)
+                            middle_state = detached_current + middle_fraction[..., None] * direction
+                            feasible = self.hamiltonian(middle_state) <= initial_energy
+                            low = torch.where(feasible, middle_fraction, low)
+                            high = torch.where(feasible, high, middle_fraction)
+                        fraction = torch.where(
+                            candidate_energy <= initial_energy,
+                            torch.ones_like(low),
+                            low,
+                        )
+                        projected = detached_current + fraction[..., None] * direction
+                    current = candidate + (projected - candidate).detach()
+                else:
+                    current = candidate
             else:
                 raise ValueError(f"unknown integration method {method!r}")
         return current
