@@ -325,7 +325,10 @@ class EndToEndDynamicsBranch(nn.Module):
         return self.encoder(contexts)
 
     def step(self, state: torch.Tensor, action: torch.Tensor) -> torch.Tensor:
-        return self.core(state, action)
+        # H gradients and the exact J/R matrix constructions remain in fp32;
+        # the much larger visual transformer still runs under bf16 autocast.
+        with torch.autocast(device_type=state.device.type, enabled=False):
+            return self.core(state.float(), action.float())
 
 
 class _VisualBottleneck(nn.Module):
@@ -398,11 +401,11 @@ def end_to_end_branch_loss(
         config.action_contrast_margin + correct_final_ce - wrong_final_ce
     )
     whitening = _whitening_loss(torch.cat((initial, anchored), dim=0))
-    energy_gauge = (
-        _energy_gauge(branch.core, initial)
-        if isinstance(branch.core, NeuralPortHamiltonian)
-        else initial.square().mean() * 0.0
-    )
+    if isinstance(branch.core, NeuralPortHamiltonian):
+        with torch.autocast(device_type=initial.device.type, enabled=False):
+            energy_gauge = _energy_gauge(branch.core, initial.float())
+    else:
+        energy_gauge = initial.square().mean() * 0.0
     total = (
         config.reconstruction_weight * reconstruction
         + config.teacher_latent_weight * teacher_latent
