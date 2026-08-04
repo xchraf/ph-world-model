@@ -79,11 +79,16 @@ def regime_labels(
     states_tp1: torch.Tensor,
     events_tp1: torch.Tensor,
 ) -> torch.Tensor:
-    masks = transition_regimes(states_t, states_tp1, events_tp1)
-    labels = torch.zeros_like(events_tp1, dtype=torch.long)
+    leading_shape = events_tp1.shape
+    masks = transition_regimes(
+        states_t.reshape(-1, states_t.shape[-1]),
+        states_tp1.reshape(-1, states_tp1.shape[-1]),
+        events_tp1.reshape(-1),
+    )
+    labels = torch.zeros(events_tp1.numel(), dtype=torch.long, device=events_tp1.device)
     for index, name in enumerate(REGIMES):
         labels[masks[name]] = index
-    return labels
+    return labels.reshape(leading_shape)
 
 
 @torch.no_grad()

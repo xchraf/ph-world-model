@@ -35,6 +35,17 @@ class PortHamiltonianBottleneckTests(unittest.TestCase):
         states_tp1[4, 9] = 2
         self.assertEqual(regime_labels(states_t, states_tp1, events).tolist(), list(range(6)))
 
+    def test_regime_labels_preserve_trajectory_and_time_axes(self) -> None:
+        states_t = torch.zeros(2, 3, 10)
+        states_tp1 = torch.zeros(2, 3, 10)
+        events = torch.tensor([[0, 2, 3], [4, 4, 5]])
+        states_tp1[1, 0, 8] = 1
+        states_t[1, 1, 9] = 3
+        states_tp1[1, 1, 9] = 2
+        labels = regime_labels(states_t, states_tp1, events)
+        self.assertEqual(labels.shape, events.shape)
+        self.assertEqual(labels.tolist(), [[0, 1, 2], [3, 4, 5]])
+
     def test_passive_core_cannot_increase_unforced_momentum_energy(self) -> None:
         core = PortHamiltonianFreeCore()
         state = torch.randn(128, 8, generator=torch.Generator().manual_seed(71))
