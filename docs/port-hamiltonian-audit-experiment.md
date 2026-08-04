@@ -35,6 +35,8 @@ identifiable from pixels without this alignment.
   physical transitions.
 - Complete trajectories, rather than individual windows, are assigned to the
   fit or test split.
+- The full audit is repeated over five independent simulator seeds. Reported
+  conclusions must be stable across seeds rather than selected from one run.
 - Ridge state decoders are fit jointly on the `t` and `t+1` endpoints from fit
   trajectories only. A second, still-linear decoder adds normalized endpoint
   differences to test whether high state R² can be made temporally coherent at

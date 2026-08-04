@@ -20,17 +20,21 @@ export PYTHONPATH=/workspace
 
 mkdir -p "$WORK/outputs/port-hamiltonian-audit"
 
+AUDIT_SEED="${AUDIT_SEED:-81240731}"
+AUDIT_OUTPUT="${AUDIT_OUTPUT:-audit.json}"
+
 "$APPTAINER" exec --nv \
   --bind "$REPO:/workspace,$WORK:/work" \
   "$IMAGE" \
   python -m blocket_league.port_hamiltonian_audit \
     /work/outputs/main-recovery-12000/checkpoint.pt \
-    /work/outputs/port-hamiltonian-audit/audit.json \
+    "/work/outputs/port-hamiltonian-audit/$AUDIT_OUTPUT" \
     --trajectories 1024 \
     --transitions-per-trajectory 8 \
     --horizons 1,2,4,8 \
     --fit-fraction 0.75 \
     --goal-centered-fraction 0.20 \
     --batch-size 32 \
+    --seed "$AUDIT_SEED" \
     --mlp-steps 300 \
     --device cuda
