@@ -1,0 +1,23 @@
+{
+  "preset": "tiny",
+  "steps": 12000,
+  "batch_size": 16,
+  "learning_rate": 0.0001,
+  "seed": 59,
+  "workers": 6,
+  "log_every": 100,
+  "eval_samples": 128,
+  "history_frames": 8,
+  "cache_frames": 24,
+  "rollout_frames": 64,
+  "cache_samples": 16384,
+  "goal_centered_fraction": 0.35,
+  "corruption_rate": 0.06,
+  "entity_corruption_fraction": 0.20,
+  "model_rollin_fraction": 0.35,
+  "model_rollin_start_step": 0,
+  "model_rollin_ramp_steps": 2000,
+  "late_frame_weight": 1.75,
+  "ema_decay": 0.9995,
+  "warmup_steps": 300
+}
