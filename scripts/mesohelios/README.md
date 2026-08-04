@@ -14,3 +14,10 @@ submit the recovery job with `--dependency=afterok:<base-job-id>`.
 Submit `core-analyses.sbatch` with an `afterok` dependency on the recovery job.
 It runs the frozen-checkpoint position, direction-ring, Jacobian-lens, causal
 write, collision-anticipation, and random-weight-control analyses.
+
+`port-hamiltonian-audit.sbatch` runs the separate Experiment A audit against the
+same frozen recovery checkpoint. It extracts the embedding and every block at
+consecutive physical times, fits canonical `q,p` readouts, and compares a
+four-parameter dissipative port-Hamiltonian free-flow map with Hamiltonian,
+affine, and MLP controls. Its output is written to
+`$WORK/world-model/outputs/port-hamiltonian-audit/audit.json`.
