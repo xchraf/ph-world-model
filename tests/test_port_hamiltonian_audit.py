@@ -8,6 +8,7 @@ from blocket_league.port_hamiltonian_audit import (
     _conformal_symplectic_defect,
     _energy_metrics,
     _fit_temporally_aligned_ridge,
+    _free_horizon_analysis,
     _horizon_endpoints,
     _horizon_masks,
     _ridge_predict,
@@ -135,6 +136,34 @@ class PortHamiltonianAuditTests(unittest.TestCase):
         )
         self.assertEqual(fit.tolist(), [True, False, False, False])
         self.assertEqual(test.tolist(), [False, False, False, False])
+
+    def test_negative_controls_distinguish_paired_forward_dissipation(self) -> None:
+        generator = torch.Generator().manual_seed(41)
+        z_t = torch.randn(256, 8, generator=generator)
+        parameters = {
+            "positionGain": [0.027, 0.049],
+            "momentumDecay": [0.97, 0.98],
+        }
+        z_tp1 = predict_structured_free_map(z_t, parameters)
+        fit = torch.arange(256) < 192
+        test = ~fit
+        result = _free_horizon_analysis(
+            z_t,
+            z_tp1,
+            fit,
+            test,
+            dt=0.05,
+            ridge=1e-5,
+            device=torch.device("cpu"),
+            control_seed=43,
+        )
+        self.assertLess(result["models"]["portHamiltonian"]["deltaNrmse"], 1e-5)
+        self.assertGreater(result["pairingControl"]["portHamiltonian"]["deltaNrmse"], 0.9)
+        reverse = result["reverseTimeControl"]["models"]
+        self.assertGreater(
+            reverse["portHamiltonian"]["deltaNrmse"],
+            reverse["affine"]["deltaNrmse"],
+        )
 
 
 if __name__ == "__main__":

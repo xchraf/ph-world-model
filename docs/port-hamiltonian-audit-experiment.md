@@ -94,6 +94,11 @@ fully flexible learned Hamiltonian, interconnection, and dissipation matrix.
 - discrete work-free energy-balance residual;
 - passivity-violation rate;
 - conformal symplectic defect of the fitted affine transition;
+- a shuffled-endpoint control, which must destroy any benefit of the paired
+  physical transition;
+- a reverse-time control: the dissipative pH map cannot inject the energy that
+  would be required to reconstruct the preceding state, whereas the affine
+  control is not subject to that restriction;
 - the same transition errors reported separately for impacts, walls, goal
   entry, pause, and kickoff.
 

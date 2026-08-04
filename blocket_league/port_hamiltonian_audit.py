@@ -629,6 +629,7 @@ def _free_horizon_analysis(
     dt: float,
     ridge: float,
     device: torch.device,
+    control_seed: int,
     mlp: dict[str, Any] | None = None,
 ) -> dict[str, Any]:
     if int(fit_free.sum()) < 32 or int(test_free.sum()) < 16:
@@ -658,6 +659,28 @@ def _free_horizon_analysis(
         predictions["mlp"] = mlp_prediction
     else:
         mlp_parameters = None
+    test_indices = torch.nonzero(test_free, as_tuple=False).flatten()
+    generator = torch.Generator().manual_seed(control_seed)
+    shuffled_indices = test_indices[
+        torch.randperm(len(test_indices), generator=generator)
+    ]
+    pairing_control = {
+        name: _transition_metrics(
+            prediction[test_indices],
+            z_t[test_indices],
+            z_tp1[shuffled_indices],
+        )
+        for name, prediction in predictions.items()
+    }
+    reverse_ph = fit_structured_free_map(
+        z_tp1[fit_free], z_t[fit_free], dissipative=True
+    )
+    reverse_affine = _fit_affine_map(z_tp1[fit_free], z_t[fit_free], ridge)
+    reverse_predictions = {
+        "persistence": z_tp1,
+        "portHamiltonian": predict_structured_free_map(z_tp1, reverse_ph),
+        "affine": _predict_affine(z_tp1, reverse_affine),
+    }
     return {
         "fitSamples": int(fit_free.sum()),
         "testSamples": int(test_free.sum()),
@@ -678,6 +701,21 @@ def _free_horizon_analysis(
             "portHamiltonian": 4,
             "affine": int(affine.numel()),
             **({"mlp": mlp_parameters} if mlp_parameters is not None else {}),
+        },
+        "pairingControl": pairing_control,
+        "reverseTimeControl": {
+            "portHamiltonianParameters": {
+                **reverse_ph,
+                **_effective_physics(reverse_ph, dt),
+            },
+            "models": {
+                name: _transition_metrics(
+                    prediction[test_free],
+                    z_tp1[test_free],
+                    z_t[test_free],
+                )
+                for name, prediction in reverse_predictions.items()
+            },
         },
     }
 
@@ -791,6 +829,7 @@ def run_port_hamiltonian_audit(
                 dt=WorldConfig().dt * horizon,
                 ridge=config.ridge,
                 device=device,
+                control_seed=config.seed + 40_000 + horizon,
                 mlp=(
                     {
                         "hidden": config.mlp_hidden,
@@ -887,6 +926,13 @@ def run_port_hamiltonian_audit(
                         dt=WorldConfig().dt * horizon,
                         ridge=config.ridge,
                         device=device,
+                        control_seed=(
+                            config.seed
+                            + 50_000
+                            + stage_index * 100
+                            + decoder_index * 10
+                            + horizon
+                        ),
                     )
                 decoder_results[decoder_name] = {
                     "stateReadout": _state_metrics(
