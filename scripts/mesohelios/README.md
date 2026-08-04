@@ -11,3 +11,6 @@ The main checkpoint lineage matches `docs/retraining-provenance.md`:
 
 Run `benchmark-a100.sbatch` first. After validation, submit the base job and
 submit the recovery job with `--dependency=afterok:<base-job-id>`.
+Submit `core-analyses.sbatch` with an `afterok` dependency on the recovery job.
+It runs the frozen-checkpoint position, direction-ring, Jacobian-lens, causal
+write, collision-anticipation, and random-weight-control analyses.
