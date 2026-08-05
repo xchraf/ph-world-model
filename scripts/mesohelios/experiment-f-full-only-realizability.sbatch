@@ -27,10 +27,17 @@ done
 [[ -f "$training_system/direct/full/best.pt" ]] || { printf 'Full checkpoint is missing\n' >&2; exit 1; }
 mkdir -p "$result_root" "$dependency_root/cache" "$dependency_root/torch"
 python "$repo_root/blocket_league/source_provenance.py" create "$manifest" --repo-root "$repo_root" >/dev/null
+bootstrap_code='import runpy, sys
+root = sys.argv[1]
+module = sys.argv[2]
+sys.path.insert(0, root)
+sys.argv = [module, *sys.argv[3:]]
+runpy.run_module(module, run_name="__main__")'
 exec "$apptainer" exec --nv --containall --cleanenv --no-mount home,cwd,hostfs \
   --bind "$repo_root:/workspace:ro,$training_system:/training:ro,$result_root:/results:rw,$dependency_root:/deps:rw" \
   "$image" env PYTHONPATH=/workspace PYTHONSAFEPATH=1 PYTHONDONTWRITEBYTECODE=1 \
   XDG_CACHE_HOME=/deps/cache TORCH_HOME=/deps/torch OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-12}" \
-  python -I -m blocket_league.direct_full_only_realizability \
+  python -I -c "$bootstrap_code" /workspace \
+  blocket_league.direct_full_only_realizability \
   /training /results --system blocket --device cuda \
   --evaluator-source-manifest /results/evaluator-source-manifest.json
