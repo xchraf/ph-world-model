@@ -5,7 +5,7 @@ from math import exp, pi
 
 import numpy as np
 
-from .env import PALETTE
+from .pixel_palette import PALETTE
 
 
 @dataclass(frozen=True)
@@ -151,4 +151,3 @@ def pendulum_target_frames(
     env.set_state(PendulumState(angle=float(wrap_angle(angle)), angular_velocity=0.0))
     rendered = env.render()
     return np.repeat(rendered[None], frames, axis=0)
-

@@ -53,3 +53,15 @@ actions, derives ports from activation Jacobians, permits only paired one-step
 analytic actuator calibration, and evaluates real closed-loop control plus a
 previously unseen interface. See
 `docs/passive-jacobian-ph-control-experiment.md`.
+
+`submit-experiment-f.sh` launches the preregistered direct Experiment F DAG.
+It first hashes the full registered tree, then builds an immutable learner
+bundle containing only the reviewed simulator-free import closure. Producer
+jobs use the full tree and private seed; backbone, variant, independent
+baseline, and training-finalizer jobs bind only that learner bundle, their
+system's fit/validation pixel archives, their output, and a disjoint code-free
+cache. After each backbone finishes, all variants and the independent baseline
+become eligible in parallel in the DAG; the baseline has no dependency on the
+trained `full` variant. GPU arrays are explicitly throttled to one concurrent
+task because the normal Mesohelios association grants one GPU. See
+`docs/direct_jacobian_poisson_ph_experiment.md`.

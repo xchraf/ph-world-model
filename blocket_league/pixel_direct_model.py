@@ -6,7 +6,7 @@ from typing import Any
 import torch
 from torch import nn
 
-from .direct_model import DirectFactorizedBlock
+from .factorized_transformer import DirectFactorizedBlock
 
 
 @dataclass(frozen=True)

@@ -1,25 +1,14 @@
 from __future__ import annotations
 
-import hashlib
 from dataclasses import dataclass
 
 import torch
 from torch import nn
 
-from .end_to_end_ph_experiment import LatentPatchTransformerRenderer
+from .latent_patch_renderer import LatentPatchTransformerRenderer
 from .neural_port_hamiltonian import NeuralPortHamiltonian
 from .pixel_direct_model import DirectPixelTransformer
-
-
-def module_tensor_hash(module: nn.Module) -> str:
-    digest = hashlib.sha256()
-    for name, value in sorted(module.state_dict().items()):
-        tensor = value.detach().cpu().contiguous()
-        digest.update(name.encode("utf-8"))
-        digest.update(str(tensor.dtype).encode("ascii"))
-        digest.update(str(tuple(tensor.shape)).encode("ascii"))
-        digest.update(tensor.numpy().tobytes())
-    return digest.hexdigest()
+from .tensor_provenance import module_tensor_hash, parameter_count
 
 
 class FrozenTransformerStateAdapter(nn.Module):
@@ -220,10 +209,6 @@ class PassiveVisualPHModel(nn.Module):
     def step(self, state: torch.Tensor, control: torch.Tensor) -> torch.Tensor:
         with torch.autocast(device_type=state.device.type, enabled=False):
             return self.core(state.float(), control.float())
-
-
-def parameter_count(module: nn.Module) -> int:
-    return sum(parameter.numel() for parameter in module.parameters())
 
 
 def matched_unstructured_hidden_size(

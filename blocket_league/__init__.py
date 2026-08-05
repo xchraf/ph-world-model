@@ -1,5 +1,7 @@
-"""Blocket League: a tiny pixel world for action-conditioned world models."""
+"""Blocket League package with a deliberately inert initializer.
 
-from .env import ACTION_VECTORS, BlocketLeagueEnv, WorldConfig, WorldState
+Environment APIs are imported explicitly from :mod:`blocket_league.env`; a
+plain package import has no simulator or action-table side effect.
+"""
 
-__all__ = ["ACTION_VECTORS", "BlocketLeagueEnv", "WorldConfig", "WorldState"]
+__all__: list[str] = []
