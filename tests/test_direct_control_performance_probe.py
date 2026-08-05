@@ -118,6 +118,7 @@ class ExactCEMPerformanceProbeTests(unittest.TestCase):
             "build_fresh_independent_baseline",
             "unstructured_encoder=independent.model.encoder",
             "unstructured_renderer=independent.model.renderer",
+            "adapt_dynamics_for_evaluation(independent.model.dynamics)",
             "full.probes",
             "make_builtin_control_episodes",
             "evaluate_closed_loop_controllers",
